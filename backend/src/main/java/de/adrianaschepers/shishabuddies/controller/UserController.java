@@ -1,6 +1,7 @@
 package de.adrianaschepers.shishabuddies.controller;
 
 
+import de.adrianaschepers.shishabuddies.api.User;
 import de.adrianaschepers.shishabuddies.model.UserEntity;
 import de.adrianaschepers.shishabuddies.service.UserService;
 import io.swagger.annotations.Api;
@@ -43,11 +44,24 @@ public class UserController {
     @ApiResponses(value = {
             @ApiResponse(code = SC_NOT_FOUND, message = "User not found")
     })
-    public ResponseEntity<UserEntity> find(@PathVariable String name){
+    /*public ResponseEntity<UserEntity> find(@PathVariable String name){
         Optional<UserEntity> userEntityOptional = userService.find(name);
         UserEntity userEntity = userEntityOptional.get();
         return ok(userEntity);
+    }*/
+
+    public ResponseEntity<User> find (@PathVariable String name){
+        Optional<UserEntity> userEntityOptional = userService.find(name);
+        UserEntity userEntity = userEntityOptional.get();
+        User user = map(userEntity);
+        return ok(user);
+
     }
 
+    private User map(UserEntity userEntity) {
+        return User.builder()
+                .name(userEntity.getUserName())
+                .build();
+    }
 
 }
