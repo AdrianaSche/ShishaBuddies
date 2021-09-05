@@ -1,5 +1,7 @@
 package de.adrianaschepers.shishabuddies.config;
 
+import de.adrianaschepers.shishabuddies.service.UserEntityDetailsService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -14,13 +16,16 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     private final String[] SWAGGER_URLS = {"/v2/api-docs/**","/swagger-ui/**", "/swagger-resources/**"};
+    private final UserEntityDetailsService detailsService;
+
+    @Autowired
+    public SecurityConfig(UserEntityDetailsService detailsService) {
+        this.detailsService = detailsService;
+    }
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.inMemoryAuthentication()
-                .withUser("username")
-                .password("password")
-                .roles("user");
+        auth.userDetailsService(detailsService);  //get userdata from postgres
     }
 
     @Bean
