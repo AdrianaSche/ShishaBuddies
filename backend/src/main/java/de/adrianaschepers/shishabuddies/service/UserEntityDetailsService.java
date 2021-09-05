@@ -1,7 +1,9 @@
 package de.adrianaschepers.shishabuddies.service;
 
+import de.adrianaschepers.shishabuddies.model.UserEntity;
 import de.adrianaschepers.shishabuddies.repo.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -19,7 +21,12 @@ public class UserEntityDetailsService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        return userRepository.findByUserName(username)
+        UserEntity user= userRepository.findByUserName(username)
                 .orElseThrow(()->  new UsernameNotFoundException("not found: " +username));
+        return User.builder()
+                .username(user.getUserName())
+                .password(user.getPassword())
+                .authorities(user.getRole())
+                .build();
     }
 }

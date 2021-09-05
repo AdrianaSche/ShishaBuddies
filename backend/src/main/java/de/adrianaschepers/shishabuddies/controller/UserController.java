@@ -38,6 +38,7 @@ public class UserController {
         this.userService = userService;
     }
 
+    //find user by Name to check , if i can get one user from the database
     @GetMapping("/{name}")
     @ApiResponses(value = {
             @ApiResponse(code = SC_NOT_FOUND, message = "User not found")

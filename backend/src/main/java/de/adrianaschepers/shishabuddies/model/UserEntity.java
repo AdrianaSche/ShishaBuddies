@@ -14,7 +14,7 @@ import java.util.List;
 @Table(name = "shishaUser")
 @Getter
 @Setter
-public class UserEntity implements UserDetails {
+public class UserEntity  {
 
     @Id
     @GeneratedValue
@@ -30,35 +30,6 @@ public class UserEntity implements UserDetails {
     @Column(name = "role")
     private String role;
 
-    @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of(new SimpleGrantedAuthority("user"));
-    }
-
-    @Override
-    public String getUsername() {
-        return userName;
-    }
-
-    @Override
-    public boolean isAccountNonExpired() {
-        return true;
-    }
-
-    @Override
-    public boolean isAccountNonLocked() {
-        return true;
-    }
-
-    @Override
-    public boolean isCredentialsNonExpired() {
-        return true;
-    }
-
-    @Override
-    public boolean isEnabled() {
-        return true;
-    }
 
     @Override
     public boolean equals(Object o) {
@@ -71,12 +42,13 @@ public class UserEntity implements UserDetails {
         }
 
         UserEntity that = (UserEntity) o;
-        return this.getUsername() != null && this.getUsername().equals(that.getUsername());
+        return this.getUserName() != null && this.getUserName().equals(that.getUserName());
     }
+
 
     @Override
     public int hashCode() {
-        return getUsername().hashCode();
+        return getUserName().hashCode();
     }
 
 
