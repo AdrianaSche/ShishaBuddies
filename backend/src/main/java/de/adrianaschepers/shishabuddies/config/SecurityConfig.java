@@ -39,7 +39,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.csrf().disable().authorizeRequests()
                 .antMatchers(HttpMethod.GET,SWAGGER_URLS).permitAll()  //swagger urls sind erlaubt
                 .antMatchers("/**").authenticated() //alle Routen sind abgesichert
-                .and().formLogin()
+               // .and().formLogin()
                 .and().httpBasic();
     }
 

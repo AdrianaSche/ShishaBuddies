@@ -1,6 +1,6 @@
 spring:
   application:
-    name: shishaBuddiesDB
+    name: shishaBuddies
   datasource:
     url: jdbc:postgresql://localhost:5432/shishaBuddiesDB
     username: admin
@@ -9,4 +9,8 @@ spring:
   jpa:
     generate-ddl: true
     show-sql: true
+
+  server:
+    servlet:
+      context-path: "/api/${spring.application.name}"
 
