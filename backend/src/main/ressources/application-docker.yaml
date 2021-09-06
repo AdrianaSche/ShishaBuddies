@@ -1,5 +1,7 @@
 profile:
   datasource:
-    url: postgresql://shisha-buddies:5432/shishaBuddiesDB
+    url: postgresql://shishabuddies:5432/shishaBuddiesDB
     user: admin
     pass: 12345
+
+

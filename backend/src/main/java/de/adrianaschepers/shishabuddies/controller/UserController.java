@@ -1,3 +1,4 @@
+/*
 package de.adrianaschepers.shishabuddies.controller;
 
 
@@ -44,11 +45,6 @@ public class UserController {
     @ApiResponses(value = {
             @ApiResponse(code = SC_NOT_FOUND, message = "User not found")
     })
-    /*public ResponseEntity<UserEntity> find(@PathVariable String name){
-        Optional<UserEntity> userEntityOptional = userService.find(name);
-        UserEntity userEntity = userEntityOptional.get();
-        return ok(userEntity);
-    }*/
 
     public ResponseEntity<User> find (@PathVariable String name){
         Optional<UserEntity> userEntityOptional = userService.find(name);
@@ -65,3 +61,4 @@ public class UserController {
     }
 
 }
+*/
