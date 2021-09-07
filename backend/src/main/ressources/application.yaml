@@ -1,0 +1,21 @@
+Application.yaml:
+spring:
+  application:
+    name: shishaBuddies
+  datasource:
+    url: jdbc:postgresql://localhost:5432/shishaBuddiesDB
+    username: admin
+    password: 12345
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    generate-ddl: true
+    show-sql: true
+
+server:
+  servlet:
+    context-path: "/api/${spring.application.name}"
+
+security:
+  jwt:
+    secret: "super-secret"
+    expiresAfterMinutes: 30
