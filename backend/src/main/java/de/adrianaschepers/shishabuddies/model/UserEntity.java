@@ -14,6 +14,7 @@ import java.util.List;
 @Table(name = "shishaUser")
 @Getter
 @Setter
+@Builder
 public class UserEntity  {
 
     @Id

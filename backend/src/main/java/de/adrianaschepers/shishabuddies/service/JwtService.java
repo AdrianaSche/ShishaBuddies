@@ -36,4 +36,12 @@ public class JwtService {
                 .signWith(SignatureAlgorithm.HS256, jwtConfig.getSecret())
                 .compact();
     }
+
+    //decode Username from Token to provide it to the Auth filter
+    public String decodeUsername(String token){
+        return Jwts.parser().setSigningKey(jwtConfig.getSecret())
+                .parseClaimsJws(token)
+                .getBody()
+                .getSubject();
+    }
 }

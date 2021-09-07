@@ -1,5 +1,6 @@
 package de.adrianaschepers.shishabuddies.config;
 
+import de.adrianaschepers.shishabuddies.filter.JwtAuthFilter;
 import de.adrianaschepers.shishabuddies.service.UserEntityDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -12,8 +13,8 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 import static org.hibernate.criterion.Restrictions.and;
 
@@ -22,10 +23,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     private final String[] SWAGGER_URLS = {"/v2/api-docs/**","/swagger-ui/**", "/swagger-resources/**"};
     private final UserEntityDetailsService detailsService;
+    private final JwtAuthFilter jwtAuthFilter;
 
     @Autowired
-    public SecurityConfig(UserEntityDetailsService detailsService) {
+    public SecurityConfig(UserEntityDetailsService detailsService, JwtAuthFilter jwtAuthFilter) {
         this.detailsService = detailsService;
+        this.jwtAuthFilter = jwtAuthFilter;
     }
 
     @Override
@@ -47,14 +50,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable().authorizeRequests()
-                .antMatchers(HttpMethod.GET,SWAGGER_URLS).permitAll()//swagger urls sind erlaubt
-                .antMatchers(HttpMethod.GET,"/{name}").permitAll()
-                .antMatchers(HttpMethod.POST,"/auth/login").permitAll()
-                .antMatchers("/**").authenticated() //alle Routen sind abgesichert
-                .and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
-
-
-
+                .antMatchers(HttpMethod.GET,SWAGGER_URLS).permitAll()
+                .antMatchers(HttpMethod.POST,"/auth/access-token").permitAll()
+                .antMatchers("/**").authenticated()
+                .and()
+                .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class)
+                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
     }
 
     @Override
