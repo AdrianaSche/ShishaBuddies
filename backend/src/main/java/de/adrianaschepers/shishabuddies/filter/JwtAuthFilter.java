@@ -53,18 +53,6 @@ public class JwtAuthFilter extends OncePerRequestFilter {
                         )
                 );
 
-               /*if (token != null) {
-                    String username = jwtService.decodeUsername(token);
-                    SecurityContextHolder.getContext().setAuthentication(
-                            new UsernamePasswordAuthenticationToken(
-                                    UserEntity.builder()
-                                            .userName(username)
-                                            .role("user")
-                                            .build(),
-                                    "",
-                                    List.of(new SimpleGrantedAuthority("user"))
-                            )
-                    );*/
                 }
 
 
