@@ -26,6 +26,7 @@ public class AuthController {
 
     private final AuthenticationManager authenticationManager;
     private final JwtService jwtService; //baut Token
+    public static final String ACCESS_TOKEN_URL = "/auth/access-token";
 
     @Autowired
     public AuthController(AuthenticationManager authenticationManager, JwtService jwtService) {
@@ -44,7 +45,7 @@ public class AuthController {
     }
 
     @PostMapping("access-token") //create Token
-    public ResponseEntity<AccessToken> login(@RequestBody Credentials credentials) {  //nimmt credentials vom frontend entgegen
+    public ResponseEntity<AccessToken> getAccessToken(@RequestBody Credentials credentials) {  //nimmt credentials vom frontend entgegen
         UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(
                 credentials.getUsername(),
                 credentials.getPassword()

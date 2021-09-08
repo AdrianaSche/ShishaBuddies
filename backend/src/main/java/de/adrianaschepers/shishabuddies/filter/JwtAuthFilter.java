@@ -2,6 +2,7 @@ package de.adrianaschepers.shishabuddies.filter;
 
 import de.adrianaschepers.shishabuddies.model.UserEntity;
 import de.adrianaschepers.shishabuddies.service.JwtService;
+import io.jsonwebtoken.Claims;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -36,7 +37,23 @@ public class JwtAuthFilter extends OncePerRequestFilter {
             if (authHeader != null) {
                 String token = authHeader.replace("Bearer", "").trim();
 
-                if (token != null) {
+
+                Claims claims = jwtService.getClaims(token);
+                String username = claims.getSubject();
+                String role = claims.get("role", String.class);
+
+
+                SecurityContextHolder.getContext().setAuthentication(
+                        new UsernamePasswordAuthenticationToken(
+                                UserEntity.builder()
+                                        .userName(username)
+                                        .role(role).build(),
+                                "",
+                                List.of(new SimpleGrantedAuthority(role))
+                        )
+                );
+
+               /*if (token != null) {
                     String username = jwtService.decodeUsername(token);
                     SecurityContextHolder.getContext().setAuthentication(
                             new UsernamePasswordAuthenticationToken(
@@ -44,12 +61,12 @@ public class JwtAuthFilter extends OncePerRequestFilter {
                                             .userName(username)
                                             .role("user")
                                             .build(),
-                                    null,
+                                    "",
                                     List.of(new SimpleGrantedAuthority("user"))
                             )
-                    );
+                    );*/
                 }
-            }
+
 
         } catch (Exception e) {
 

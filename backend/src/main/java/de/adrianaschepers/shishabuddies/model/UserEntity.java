@@ -1,20 +1,17 @@
 package de.adrianaschepers.shishabuddies.model;
 
 import lombok.*;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
 
 import javax.persistence.*;
-import java.util.Collection;
-import java.util.List;
+
 
 @Entity
-@Table(name = "shishaUser")
+@Table(name = "shisha_user")
 @Getter
 @Setter
-@Builder
+@Builder(toBuilder = true)
+@NoArgsConstructor
+@AllArgsConstructor
 public class UserEntity  {
 
     @Id
