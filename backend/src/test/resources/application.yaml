@@ -1,0 +1,4 @@
+security:
+  jwt:
+    secret: "super-secret"
+    expiresAfterMinutes: 30
