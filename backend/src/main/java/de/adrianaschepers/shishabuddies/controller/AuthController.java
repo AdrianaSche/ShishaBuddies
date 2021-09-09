@@ -5,6 +5,7 @@ import de.adrianaschepers.shishabuddies.api.Credentials;
 import de.adrianaschepers.shishabuddies.api.User;
 import de.adrianaschepers.shishabuddies.model.UserEntity;
 import de.adrianaschepers.shishabuddies.service.JwtService;
+import de.adrianaschepers.shishabuddies.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,9 +14,6 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.server.ResponseStatusException;
-
-import java.security.Principal;
 
 import static org.springframework.http.ResponseEntity.ok;
 
@@ -26,12 +24,14 @@ public class AuthController {
 
     private final AuthenticationManager authenticationManager;
     private final JwtService jwtService; //baut Token
+    private final UserService userService;
     public static final String ACCESS_TOKEN_URL = "/auth/access-token";
 
     @Autowired
-    public AuthController(AuthenticationManager authenticationManager, JwtService jwtService) {
+    public AuthController(AuthenticationManager authenticationManager, JwtService jwtService, UserService userService) {
         this.authenticationManager = authenticationManager;
         this.jwtService = jwtService;
+        this.userService = userService;
     }
 
     @GetMapping("me")
@@ -45,16 +45,18 @@ public class AuthController {
     }
 
     @PostMapping("access-token") //create Token
-    public ResponseEntity<AccessToken> getAccessToken(@RequestBody Credentials credentials) {  //nimmt credentials vom frontend entgegen
-        UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(
-                credentials.getUsername(),
-                credentials.getPassword()
+    public ResponseEntity<AccessToken> getAccessToken(@RequestBody Credentials credentials) {//nimmt credentials vom frontend entgegen
+        String username = credentials.getUsername();
+        String password = credentials.getPassword();
+        UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(username,password);
 
-        );
         try {
             authenticationManager.authenticate(authToken);  //validiere credentials
-           String token = jwtService.createToken(credentials.getUsername());
-          return ok(new AccessToken(token)) ;
+            UserEntity user = userService.find(username).orElseThrow();
+           String token = jwtService.createToken(user);
+
+           AccessToken accessToken = new AccessToken(token);
+          return ok(accessToken) ;
         } catch (AuthenticationException e) {
             return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
         }

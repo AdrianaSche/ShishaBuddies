@@ -1,6 +1,7 @@
 package de.adrianaschepers.shishabuddies.service;
 
 import de.adrianaschepers.shishabuddies.config.JwtConfig;
+import de.adrianaschepers.shishabuddies.model.UserEntity;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -11,6 +12,7 @@ import java.time.Duration;
 import java.time.Instant;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Map;
 
 @Service
 public class JwtService {
@@ -23,13 +25,15 @@ public class JwtService {
     }
 
 
-    public String createToken(String username) {
+    public String createToken(UserEntity user) {
         Instant now = Instant.now();
         Date iat = Date.from(now);
         Date exp = Date.from(now.plus(Duration.ofMinutes(jwtConfig.getExpiresAfterMinutes())));
+        Map<String,Object> claims = new HashMap<>();
+        claims.put("role", user.getRole());
         return Jwts.builder()
-                .setClaims(new HashMap<>())
-                .setSubject(username)
+                .setClaims(claims)
+                .setSubject(user.getUserName())
                 .setIssuedAt(iat)
                 .setExpiration(exp)
                 .signWith(SignatureAlgorithm.HS256, jwtConfig.getSecret())
