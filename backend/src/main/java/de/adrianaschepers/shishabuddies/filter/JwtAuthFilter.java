@@ -58,7 +58,7 @@ public class JwtAuthFilter extends OncePerRequestFilter {
 
         } catch (Exception e) {
 
-            //user will be rejected if not authorized
+            e.printStackTrace();
         }
 
         filterChain.doFilter(request, response);
