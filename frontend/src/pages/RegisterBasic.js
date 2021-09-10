@@ -3,10 +3,12 @@ import Page from '../component/Page'
 import Header from '../component/Header'
 import Main from '../component/Main'
 import { useState } from 'react'
+import { createUser } from '../service/api-service'
 
 const initialState = {
-  lastname: '',
-  firstname: '',
+  lastName: '',
+  firstName: '',
+  userName: '',
   email: '',
   password: '',
 }
@@ -15,7 +17,7 @@ export default function RegisterBasic() {
 
   function handleSubmit(event) {
     event.preventDefault()
-    //post to backend
+    createUser(userdata).catch(error => console.error(error))
   }
 
   const handleUserdataChange = event =>
@@ -29,14 +31,20 @@ export default function RegisterBasic() {
       <Main as="form" onSubmit={handleSubmit}>
         <TextField
           title="Nachname"
-          name="lastname"
-          value={userdata.lastname}
+          name="lastName"
+          value={userdata.lastName}
           onChange={handleUserdataChange}
         />
         <TextField
           title="Vorname"
-          name="firstname"
-          value={userdata.firstname}
+          name="firstName"
+          value={userdata.firstName}
+          onChange={handleUserdataChange}
+        />
+        <TextField
+          title="Username"
+          name="userName"
+          value={userdata.userName}
           onChange={handleUserdataChange}
         />
         <TextField
@@ -58,3 +66,5 @@ export default function RegisterBasic() {
     </Page>
   )
 }
+//"erweiterte Profileinstellungen" müssen ausgegraut/nicht nutzbar,
+//solange die Basics nicht ausgefüllt sind!
