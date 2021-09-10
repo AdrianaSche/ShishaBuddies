@@ -1,9 +1,9 @@
 import { useState } from 'react'
-import styled from 'styled-components/macro'
+//import styled from 'styled-components/macro'
 import Page from '../component/Page'
 import Header from '../component/Header'
 import Main from '../component/Main'
-import { getToken } from '../service/api-service'
+//import { getToken } from '../service/api-service'
 import TextField from '../component/TextField'
 import { Redirect } from 'react-router-dom'
 import { useAuth } from '../auth/AuthProvider'
@@ -57,6 +57,6 @@ export default function Login() {
   )
 }
 
-const Wrapper = styled.form`
+/*const Wrapper = styled.form`
   display: grid;
-`
+`*/

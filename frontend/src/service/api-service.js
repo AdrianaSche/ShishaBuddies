@@ -6,8 +6,8 @@ export const getToken = credentials =>
     .then(response => response.data)
     .then(dto => dto.token)
 
-const headers = token => ({
+/*const headers = token => ({
   headers: {
     Authorization: `Bearer ${token}`,
   },
-})
+})*/
