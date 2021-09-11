@@ -11,6 +11,10 @@ import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.LinkedList;
+import java.util.List;
+
 import static javax.servlet.http.HttpServletResponse.SC_BAD_REQUEST;
 import static javax.servlet.http.HttpServletResponse.SC_CONFLICT;
 import static org.springframework.http.ResponseEntity.ok;
@@ -45,6 +49,26 @@ public class UserController{
         createdUser.setPassword(user.getPassword());
 
         return ok(createdUser);
+    }
+
+    @GetMapping("all")
+    public ResponseEntity<List<User>> getAllUsers(){
+        List<UserEntity> allEntities = userService.getAll();
+        if(allEntities.isEmpty()){
+            return ResponseEntity.noContent().build();
+        }
+        List<User> allUsers =map(allEntities);
+        return ok(allUsers);
+
+    }
+
+    private List<User> map(List<UserEntity> allEntities) {
+        List<User> users = new LinkedList<>();
+        for (UserEntity userEntity:allEntities) {
+           User user = map(userEntity);
+           users.add(user);
+        }
+        return users;
     }
 
     private User map(UserEntity userEntity) {

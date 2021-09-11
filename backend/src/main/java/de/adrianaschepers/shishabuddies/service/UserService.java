@@ -9,6 +9,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityExistsException;
+import java.util.List;
 import java.util.Optional;
 
 import static org.springframework.util.StringUtils.hasText;
@@ -43,6 +44,8 @@ public class UserService {
         return userRepository.save(userEntity);
     }
 
+
+
     private void checkUsernameExists(String userName) {
         Optional<UserEntity> existingUser = find(userName);
         if(existingUser.isPresent()){
@@ -52,4 +55,7 @@ public class UserService {
     }
 
 
+    public List<UserEntity> getAll() {
+        return userRepository.findAll();
+    }
 }
