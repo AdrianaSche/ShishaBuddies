@@ -56,9 +56,7 @@ public class UserService {
             }
         }
 
-
     }
-
 
     private void checkUsernameExists(String userName) {
         Optional<UserEntity> existingUser = find(userName);

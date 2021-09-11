@@ -27,7 +27,7 @@ export default function RegisterBasic() {
 
   return (
     <Page>
-      <Header title="Registrierung (Basis)" />
+      <Header title="Registrierung" />
       <Main as="form" onSubmit={handleSubmit}>
         <TextField
           title="Nachname"
