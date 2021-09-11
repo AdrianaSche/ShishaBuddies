@@ -19,11 +19,20 @@ public class UserEntity  {
     @Column(name = "id",nullable = false)
     private Long id;
 
+    @Column(name = "lastname")
+    private String lastName;
+
+    @Column(name = "firstname")
+    private String firstName;
+
     @Column(name = "username",nullable = false)
     private String userName;
 
     @Column(name = "password",nullable = false)
     private String password;
+
+    @Column(name = "email")
+    private String email;
 
     @Column(name = "role")
     private String role;

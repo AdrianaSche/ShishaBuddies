@@ -38,7 +38,9 @@ public class AuthController {
     public ResponseEntity<User> getLoggedInUser(@AuthenticationPrincipal UserEntity user) {
         return ok(
                 User.builder()
-                        .name(user.getUserName())
+                       .lastName(user.getLastName())
+                        .firstName(user.getFirstName())
+                        .userName(user.getUserName())
                         .build()
         );
 
@@ -46,7 +48,7 @@ public class AuthController {
 
     @PostMapping("access-token") //create Token
     public ResponseEntity<AccessToken> getAccessToken(@RequestBody Credentials credentials) {//nimmt credentials vom frontend entgegen
-        String username = credentials.getUsername();
+        String username = credentials.getUserName();
         String password = credentials.getPassword();
         UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(username,password);
 
