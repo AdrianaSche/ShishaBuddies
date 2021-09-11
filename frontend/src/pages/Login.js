@@ -9,7 +9,7 @@ import { Redirect } from 'react-router-dom'
 import { useAuth } from '../auth/AuthProvider'
 
 const initialState = {
-  username: '',
+  userName: '',
   password: '',
 }
 
@@ -37,8 +37,8 @@ export default function Login() {
       <Main as="form" onSubmit={handleSubmit}>
         <TextField
           title="Username"
-          name="username"
-          value={credentials.username}
+          name="userName"
+          value={credentials.userName}
           onChange={handleCredentialsChange}
         />
         <TextField

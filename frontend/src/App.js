@@ -11,7 +11,7 @@ export default function App() {
         <Switch>
           <Route exact path="/" component={Profile} />
           <Route path="/login" component={Login} />
-          <Route path="/register/basic" component={RegisterBasic} />
+          <Route path="/register" component={RegisterBasic} />
         </Switch>
       </Router>
     </AuthProvider>
