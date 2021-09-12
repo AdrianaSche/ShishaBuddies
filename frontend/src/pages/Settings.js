@@ -6,7 +6,6 @@ import { useState } from 'react'
 import { Redirect } from 'react-router-dom'
 
 const userSettings = {
-  location: '',
   numberOfHookahs: '',
   numberOfHookahHeads: '',
   numberOfTobaccos: '',
@@ -35,12 +34,6 @@ export default function Settings() {
     <Page>
       <Header title="erweitertes Profil" />
       <Main as="form" onSubmit={handleSubmit}>
-        <TextField
-          title="Ort:"
-          name="location"
-          value={settings.location}
-          onChange={handleSettingsChange}
-        />
         <TextField
           title="Anzahl der Shishas:"
           name="numberOfHookahs"
