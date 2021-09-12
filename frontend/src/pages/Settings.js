@@ -3,7 +3,6 @@ import Header from '../component/Header'
 import Page from '../component/Page'
 import Main from '../component/Main'
 import { useState } from 'react'
-import { Redirect } from 'react-router-dom'
 
 const userSettings = {
   numberOfHookahs: '',
@@ -25,10 +24,6 @@ export default function Settings() {
     setSettings({ ...settings, [event.target.name]: event.target.value })
 
   const handleCancel = () => setSettings(userSettings)
-
-  /* if (settings) {
-    return <Redirect to="/" />
-  }*/
 
   return (
     <Page>
