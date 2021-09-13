@@ -6,10 +6,10 @@ import javax.persistence.*;
 
 
 @Entity
-@Table(name = "shisha_user")
+@Table(name = "shisha_user") //warum geht das nicht, wenn die Table "user" heißt???
 @Getter
 @Setter
-@Builder(toBuilder = true)
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 public class UserEntity  {
@@ -19,9 +19,9 @@ public class UserEntity  {
     @Column(name = "id",nullable = false)
     private Long id;
 
-    /*@OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn (name = "user_settings_id",referencedColumnName = "id")
-    private SettingsEntity settingsEntity;*/
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn (name = "settings_id",referencedColumnName = "id")
+    private SettingsEntity settings;
 
     @Column(name = "lastname")
     private String lastName;
