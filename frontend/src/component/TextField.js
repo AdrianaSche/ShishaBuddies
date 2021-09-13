@@ -18,7 +18,7 @@ export default function TextField(props) {
 const Input = styled.input`
   width: 100%;
   font-size: 1em;
-  padding: var(--size-s);
-  margin-top: var(--size-s);
-  border-radius: var(--size-s);
+  padding: var(--size-xs);
+  margin-top: var(--size-xs);
+  border-radius: var(--size-xs);
 `

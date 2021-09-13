@@ -24,4 +24,4 @@ server:
 security:
   jwt:
     secret: "super-secret"
-    expiresAfterMinutes: 30
+    expiresAfterMinutes: 1000000000

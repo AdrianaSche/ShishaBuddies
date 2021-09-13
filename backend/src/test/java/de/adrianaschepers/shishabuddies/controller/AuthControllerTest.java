@@ -82,7 +82,7 @@ public class AuthControllerTest extends SpringBootTests {
         //(Im AuthController werden auf der login-Route die credentials entgegengenommen)
         Credentials credentials = Credentials.builder()
                 .password(password)
-                .username(username).build();
+                .userName(username).build();
 
         //WHEN
         //do the request: Controller should send back the token
@@ -115,7 +115,7 @@ public class AuthControllerTest extends SpringBootTests {
         //user not in db:
         Credentials credentials = Credentials.builder()
                 .password("12345")
-                .username("adriana")
+                .userName("adriana")
                 .build();
 
         ResponseEntity<AccessToken> response = restTemplate

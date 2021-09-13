@@ -19,11 +19,24 @@ public class UserEntity  {
     @Column(name = "id",nullable = false)
     private Long id;
 
+    /*@OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn (name = "user_settings_id",referencedColumnName = "id")
+    private SettingsEntity settingsEntity;*/
+
+    @Column(name = "lastname")
+    private String lastName;
+
+    @Column(name = "firstname")
+    private String firstName;
+
     @Column(name = "username",nullable = false)
     private String userName;
 
     @Column(name = "password",nullable = false)
     private String password;
+
+    @Column(name = "email")
+    private String email;
 
     @Column(name = "role")
     private String role;

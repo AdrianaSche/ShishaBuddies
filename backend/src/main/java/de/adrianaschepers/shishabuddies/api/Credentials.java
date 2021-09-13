@@ -10,6 +10,6 @@ import lombok.*;
 @Builder
 public class Credentials {
 
-    private String username;
+    private String userName;
     private String password;
 }

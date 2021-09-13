@@ -76,7 +76,7 @@ public class AuthFilterTest {
 
         //then
         assertThat(response.getStatusCode(),is(HttpStatus.OK));
-        assertThat(response.getBody().getName(),is(username));
+        assertThat(response.getBody().getUserName(),is(username));
 
     }
 
