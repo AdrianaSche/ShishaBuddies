@@ -1,9 +1,7 @@
 import { useState } from 'react'
-//import styled from 'styled-components/macro'
 import Page from '../component/Page'
 import Header from '../component/Header'
 import Main from '../component/Main'
-//import { getToken } from '../service/api-service'
 import TextField from '../component/TextField'
 import { Redirect } from 'react-router-dom'
 import { useAuth } from '../auth/AuthProvider'
@@ -23,13 +21,13 @@ export default function Login() {
 
   const handleCancel = () => setCredentials(initialState)
 
-  function handleSubmit(event) {
+  const handleSubmit = event => {
     event.preventDefault()
     login(credentials).catch(error => console.error(error))
   }
 
   if (user) {
-    return <Redirect to="/" />
+    return <Redirect to="settings" />
   }
   return (
     <Page>

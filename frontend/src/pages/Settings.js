@@ -20,7 +20,8 @@ export default function Settings() {
 
   function handleSubmit(event) {
     event.preventDefault()
-    //post to backend
+    console.log(token)
+    console.log(settings)
     createSettings(token, settings).catch(error => console.error(error))
   }
 

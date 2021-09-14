@@ -20,5 +20,6 @@ const headers = token => ({
 
 export const createSettings = (token, settings) =>
   axios
-    .post('api/shishaBuddies/user/settings', { settings }, headers(token))
+    .post('api/shishaBuddies/user/settings', settings, headers(token))
     .then(response => response.data)
+    .then(dto => dto.settings)

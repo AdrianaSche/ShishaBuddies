@@ -26,13 +26,13 @@ public class SettingsEntity {
     private UserEntity user;
 
     @Column(name = "number_of_hookahs")
-    private Long numOfHookahs;
+    private Long numberOfHookahs;
 
     @Column(name = "number_of_hookah_heads")
-    private Long numOfHookahHeads;
+    private Long numberOfHookahHeads;
 
     @Column(name = "number_of_tobaccos")
-    private Long numOfTobaccos;
+    private Long numberOfTobaccos;
 
     @Column(name = "fav_hookah")
     private String favHookah;

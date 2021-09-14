@@ -11,9 +11,9 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class Settings {
 
-   private int numberOfHookahs;
-   private int numberOfHookahHeads;
-   private int numberOfTobaccos;
+   private Long numberOfHookahs;
+   private Long numberOfHookahHeads;
+   private Long numberOfTobaccos;
    private String  favHookah;
    private String favHookahHead;
    private String favTobacco;
