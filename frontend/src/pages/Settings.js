@@ -3,6 +3,8 @@ import Header from '../component/Header'
 import Page from '../component/Page'
 import Main from '../component/Main'
 import { useState } from 'react'
+import { useAuth } from '../auth/AuthProvider'
+import { createSettings } from '../service/api-service'
 
 const userSettings = {
   numberOfHookahs: '',
@@ -14,10 +16,13 @@ const userSettings = {
 }
 export default function Settings() {
   const [settings, setSettings] = useState(userSettings)
+  const { token } = useAuth()
 
   function handleSubmit(event) {
     event.preventDefault()
-    //post to backend
+    console.log(token)
+    console.log(settings)
+    createSettings(token, settings).catch(error => console.error(error))
   }
 
   const handleSettingsChange = event =>

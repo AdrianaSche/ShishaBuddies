@@ -12,8 +12,14 @@ export const createUser = user =>
     .then(response => response.data)
     .then(dto => dto.user)
 
-/*const headers = token => ({
+const headers = token => ({
   headers: {
     Authorization: `Bearer ${token}`,
   },
-})*/
+})
+
+export const createSettings = (token, settings) =>
+  axios
+    .post('api/shishaBuddies/user/settings', settings, headers(token))
+    .then(response => response.data)
+    .then(dto => dto.settings)

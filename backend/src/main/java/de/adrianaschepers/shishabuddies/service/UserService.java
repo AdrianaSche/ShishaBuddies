@@ -1,6 +1,8 @@
 package de.adrianaschepers.shishabuddies.service;
 
+import de.adrianaschepers.shishabuddies.model.SettingsEntity;
 import de.adrianaschepers.shishabuddies.model.UserEntity;
+import de.adrianaschepers.shishabuddies.repo.SettingsRepository;
 import de.adrianaschepers.shishabuddies.repo.UserRepository;
 import lombok.Getter;
 import lombok.Setter;
@@ -9,7 +11,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityExistsException;
-import java.util.LinkedList;
+import javax.persistence.EntityNotFoundException;
 import java.util.List;
 import java.util.Optional;
 
@@ -22,11 +24,13 @@ public class UserService {
 
     private final PasswordEncoder passwordEncoder;
     private final  UserRepository userRepository;
+    private final SettingsRepository settingsRepository;
 
     @Autowired
-    public UserService(PasswordEncoder passwordEncoder, UserRepository userRepository) {
+    public UserService(PasswordEncoder passwordEncoder, UserRepository userRepository, SettingsRepository settingsRepository) {
         this.passwordEncoder = passwordEncoder;
         this.userRepository = userRepository;
+        this.settingsRepository = settingsRepository;
     }
 
     public Optional<UserEntity> find(String name){
@@ -39,12 +43,26 @@ public class UserService {
         if(!hasText(userName)){ //username blank
             throw new IllegalArgumentException("username required!");
         }
-
-        //check, if username already exists in DB:
+        if(!hasText(email)){
+            throw new IllegalArgumentException("email required!");
+        }
         checkUsernameExists(userName);
         checkEmailExists(email);
         userEntity.setPassword(passwordEncoder.encode(userEntity.getPassword()));
         return userRepository.save(userEntity);
+    }
+
+    public SettingsEntity createSettings(SettingsEntity settingsEntity,UserEntity authUser) {
+        Optional<UserEntity> userEntityOptional=userRepository.findByUserName(authUser.getUserName());
+        if(userEntityOptional.isPresent()){
+            settingsEntity.setUser(userEntityOptional.get());
+            userEntityOptional.get().setSettings(settingsEntity);
+             userRepository.saveAndFlush(userEntityOptional.get());
+             return settingsEntity;
+        }
+         throw new EntityNotFoundException("user not in db");
+
+
     }
 
     private void checkEmailExists(String email) {
@@ -70,4 +88,6 @@ public class UserService {
     public List<UserEntity> getAll() {
         return userRepository.findAll();
     }
+
+
 }

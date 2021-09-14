@@ -1,7 +1,9 @@
 
 package de.adrianaschepers.shishabuddies.controller;
 
+import de.adrianaschepers.shishabuddies.api.Settings;
 import de.adrianaschepers.shishabuddies.api.User;
+import de.adrianaschepers.shishabuddies.model.SettingsEntity;
 import de.adrianaschepers.shishabuddies.model.UserEntity;
 import de.adrianaschepers.shishabuddies.service.UserService;
 import io.swagger.annotations.ApiResponse;
@@ -10,6 +12,7 @@ import lombok.Getter;
 import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.LinkedList;
@@ -51,6 +54,15 @@ public class UserController{
         return ok(createdUser);
     }
 
+    @PostMapping("settings")
+   public ResponseEntity<Settings> createUserSettings(@RequestBody Settings settings, @AuthenticationPrincipal UserEntity authUser){
+        SettingsEntity settingsEntity = map(settings);
+        SettingsEntity createdSettingsEntity = userService.createSettings(settingsEntity,authUser);
+        Settings createdSettings = map(createdSettingsEntity);
+        return ok(createdSettings);
+    }
+
+
     @GetMapping("all")
     public ResponseEntity<List<User>> getAllUsers(){
         List<UserEntity> allEntities = userService.getAll();
@@ -86,6 +98,28 @@ public class UserController{
                 .lastName(user.getLastName())
                 .firstName(user.getFirstName())
                 .email(user.getEmail())
+                .build();
+    }
+
+    private SettingsEntity map(Settings settings) {
+        return SettingsEntity.builder()
+                .favHookah(settings.getFavHookah())
+                .favHookahHead(settings.getFavHookahHead())
+                .favTobacco(settings.getFavTobacco())
+                .numberOfHookahHeads(settings.getNumberOfHookahHeads())
+                .numberOfHookahs(settings.getNumberOfHookahs())
+                .numberOfTobaccos(settings.getNumberOfTobaccos())
+                .build();
+    }
+
+    private Settings map(SettingsEntity createdSettingsEntity) {
+        return Settings.builder()
+                .numberOfHookahs(createdSettingsEntity.getNumberOfHookahs())
+                .numberOfTobaccos(createdSettingsEntity.getNumberOfTobaccos())
+                .numberOfHookahHeads(createdSettingsEntity.getNumberOfHookahHeads())
+                .favHookah(createdSettingsEntity.getFavHookah())
+                .favHookahHead(createdSettingsEntity.getFavHookahHead())
+                .favTobacco(createdSettingsEntity.getFavTobacco())
                 .build();
     }
 
