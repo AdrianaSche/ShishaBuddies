@@ -15,6 +15,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
+import javax.persistence.EntityNotFoundException;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -61,6 +62,18 @@ public class UserController{
         Settings createdSettings = map(createdSettingsEntity);
         return ok(createdSettings);
     }
+
+   @GetMapping("user-settings")
+    public ResponseEntity<Settings> getUserSettings(@AuthenticationPrincipal UserEntity authUser){
+
+            SettingsEntity settingsEntity = userService.getUserSettings(authUser);
+            //settingsEntity.setUser(authUser);
+            //authUser.setSettings(settingsEntity);
+            Settings settings = map(settingsEntity);
+            return ok(settings);
+
+    }
+
 
 
     @GetMapping("all")

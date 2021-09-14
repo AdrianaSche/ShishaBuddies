@@ -19,7 +19,7 @@ public class UserEntity  {
     @Column(name = "id",nullable = false)
     private Long id;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.ALL,orphanRemoval = true)
     @JoinColumn (name = "settings_id",referencedColumnName = "id")
     private SettingsEntity settings;
 
