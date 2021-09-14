@@ -57,8 +57,7 @@ public class UserController{
     @PostMapping("settings")
    public ResponseEntity<Settings> createUserSettings(@RequestBody Settings settings, @AuthenticationPrincipal UserEntity authUser){
         SettingsEntity settingsEntity = map(settings);
-        //settingsEntity.setUser(authUser);
-        SettingsEntity createdSettingsEntity = userService.createSettings(settingsEntity);
+        SettingsEntity createdSettingsEntity = userService.createSettings(settingsEntity,authUser);
         Settings createdSettings = map(createdSettingsEntity);
         return ok(createdSettings);
     }

@@ -11,6 +11,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityExistsException;
+import javax.persistence.EntityNotFoundException;
 import java.util.List;
 import java.util.Optional;
 
@@ -51,8 +52,17 @@ public class UserService {
         return userRepository.save(userEntity);
     }
 
-    public SettingsEntity createSettings(SettingsEntity settingsEntity) {
-        return settingsRepository.saveAndFlush(settingsEntity);
+    public SettingsEntity createSettings(SettingsEntity settingsEntity,UserEntity authUser) {
+        Optional<UserEntity> userEntityOptional=userRepository.findByUserName(authUser.getUserName());
+        if(userEntityOptional.isPresent()){
+            settingsEntity.setUser(userEntityOptional.get());
+            userEntityOptional.get().setSettings(settingsEntity);
+             userRepository.saveAndFlush(userEntityOptional.get());
+             return settingsEntity;
+        }
+         throw new EntityNotFoundException("user not in db");
+
+
     }
 
     private void checkEmailExists(String email) {
