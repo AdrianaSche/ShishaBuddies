@@ -21,9 +21,9 @@ public class SettingsEntity {
     @Column(name = "id",nullable = false)
     private Long id;
 
-    //eine Settings-Entity gehört zu einer userEntity
+
     @OneToOne(mappedBy = "settings")
-    private UserEntity user;
+     private UserEntity user;
 
     @Column(name = "number_of_hookahs")
     private Long numberOfHookahs;

@@ -21,7 +21,7 @@ import static org.hibernate.criterion.Restrictions.and;
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-    private final String[] SWAGGER_URLS = {"/v2/api-docs/**","/swagger-ui/**", "/swagger-resources/**"};
+    private final String[] SWAGGER_URLS = {"/v2/api-docs/**","/swagger-ui/**","/webjars", "/swagger-resources/**"};
     private final UserEntityDetailsService detailsService;
     private final JwtAuthFilter jwtAuthFilter;
 

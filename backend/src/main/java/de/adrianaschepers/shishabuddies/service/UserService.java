@@ -2,7 +2,7 @@ package de.adrianaschepers.shishabuddies.service;
 
 import de.adrianaschepers.shishabuddies.model.SettingsEntity;
 import de.adrianaschepers.shishabuddies.model.UserEntity;
-import de.adrianaschepers.shishabuddies.repo.SettingsRepository;
+//import de.adrianaschepers.shishabuddies.repo.SettingsRepository;
 import de.adrianaschepers.shishabuddies.repo.UserRepository;
 import lombok.Getter;
 import lombok.Setter;
@@ -24,13 +24,13 @@ public class UserService {
 
     private final PasswordEncoder passwordEncoder;
     private final  UserRepository userRepository;
-    private final SettingsRepository settingsRepository;
+    //private final SettingsRepository settingsRepository;
 
     @Autowired
-    public UserService(PasswordEncoder passwordEncoder, UserRepository userRepository, SettingsRepository settingsRepository) {
+    public UserService(PasswordEncoder passwordEncoder, UserRepository userRepository /*SettingsRepository settingsRepository*/) {
         this.passwordEncoder = passwordEncoder;
         this.userRepository = userRepository;
-        this.settingsRepository = settingsRepository;
+        //this.settingsRepository = settingsRepository;
     }
 
     public Optional<UserEntity> find(String name){
@@ -61,9 +61,21 @@ public class UserService {
              return settingsEntity;
         }
          throw new EntityNotFoundException("user not in db");
-
-
     }
+
+    public SettingsEntity getUserSettings(UserEntity authUser) {
+        Optional<UserEntity> userOpt = userRepository.findByUserName(authUser.getUserName());
+        if(userOpt.isPresent()) {
+           return userOpt.get().getSettings();
+
+        }
+        throw new EntityNotFoundException("no settings available!");
+    }
+
+    public List<UserEntity> getAll() {
+        return userRepository.findAll();
+    }
+
 
     private void checkEmailExists(String email) {
         List<UserEntity> allEntities = userRepository.findAll();
@@ -84,10 +96,6 @@ public class UserService {
         }
     }
 
-
-    public List<UserEntity> getAll() {
-        return userRepository.findAll();
-    }
 
 
 }
