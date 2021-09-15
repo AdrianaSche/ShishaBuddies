@@ -7,6 +7,7 @@ import Navbar from '../component/Navbar'
 import { useEffect, useState } from 'react'
 import { getSettings } from '../service/api-service'
 import SettingsBox from '../component/SettingsBox'
+import Button from '../component/Button'
 
 export default function Profile() {
   const { user, logout, token } = useAuth()
@@ -29,6 +30,7 @@ export default function Profile() {
       <Main>
         <img src="https://thispersondoesnotexist.com/image" alt="bild" />
         <SettingsBox settings={settings} />
+        <Button onClick={logout}>Log out</Button>
       </Main>
       <Navbar user={user} />
     </Page>

@@ -8,7 +8,6 @@ export default function Navbar({ user, ...props }) {
         Profile
       </NavLink>
       {user && <NavLink to="/settings">Profil verwalten</NavLink>}
-      {user && <NavLink to="/logout">Logout</NavLink>}
       {user && <NavLink to="/setup">Setup</NavLink>}
       {!user && <NavLink to="/login">Login</NavLink>}
     </Wrapper>
