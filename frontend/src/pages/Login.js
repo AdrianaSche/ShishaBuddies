@@ -3,15 +3,16 @@ import Page from '../component/Page'
 import Header from '../component/Header'
 import Main from '../component/Main'
 import TextField from '../component/TextField'
-import { Redirect } from 'react-router-dom'
+import { Link, Redirect } from 'react-router-dom'
 import { useAuth } from '../auth/AuthProvider'
+import RegisterBasic from './RegisterBasic'
 
 const initialState = {
   userName: '',
   password: '',
 }
 
-export default function Login() {
+export default function Login(props) {
   const { login, user } = useAuth()
   const [credentials, setCredentials] = useState(initialState)
   console.log(credentials)
@@ -54,7 +55,3 @@ export default function Login() {
     </Page>
   )
 }
-
-/*const Wrapper = styled.form`
-  display: grid;
-`*/
