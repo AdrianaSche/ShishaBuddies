@@ -23,3 +23,8 @@ export const createSettings = (token, settings) =>
     .post('api/shishaBuddies/user/settings', settings, headers(token))
     .then(response => response.data)
     .then(dto => dto.settings)
+
+export const getSettings = token =>
+  axios
+    .get('api/shishaBuddies/user/user-settings', headers(token))
+    .then(response => response.data)

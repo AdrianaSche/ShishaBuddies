@@ -67,8 +67,6 @@ public class UserController{
     public ResponseEntity<Settings> getUserSettings(@AuthenticationPrincipal UserEntity authUser){
 
             SettingsEntity settingsEntity = userService.getUserSettings(authUser);
-            //settingsEntity.setUser(authUser);
-            //authUser.setSettings(settingsEntity);
             Settings settings = map(settingsEntity);
             return ok(settings);
 

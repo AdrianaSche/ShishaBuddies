@@ -27,7 +27,7 @@ export default function Login() {
   }
 
   if (user) {
-    return <Redirect to="settings" />
+    return <Redirect to="/" />
   }
   return (
     <Page>
