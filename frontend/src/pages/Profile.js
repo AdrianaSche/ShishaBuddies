@@ -6,7 +6,6 @@ import { Redirect } from 'react-router-dom'
 import Navbar from '../component/Navbar'
 import { useEffect, useState } from 'react'
 import { getSettings } from '../service/api-service'
-import Label from '../component/Label'
 import styled from 'styled-components/macro'
 
 export default function Profile() {
@@ -18,7 +17,7 @@ export default function Profile() {
     getSettings(token)
       .then(setSettings)
       .catch(error => console.error(error))
-  }, [])
+  }, [token])
 
   if (!user) {
     return <Redirect to="/login" />
@@ -35,7 +34,6 @@ export default function Profile() {
           <li>Lieblingsshisha: {settings.favHookah} </li>
           <li>Lieblingskopf: {settings.favHookahHead} </li>
           <li>Lieblingstabak: {settings.favTobacco}</li>
-          <li></li>
         </Ul>
       </Main>
       <Navbar user={user} />
