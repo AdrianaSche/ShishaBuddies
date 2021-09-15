@@ -3,9 +3,8 @@ import Page from '../component/Page'
 import Header from '../component/Header'
 import Main from '../component/Main'
 import TextField from '../component/TextField'
-import { Link, Redirect } from 'react-router-dom'
+import { Redirect } from 'react-router-dom'
 import { useAuth } from '../auth/AuthProvider'
-import RegisterBasic from './RegisterBasic'
 
 const initialState = {
   userName: '',
