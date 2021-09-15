@@ -11,7 +11,7 @@ const initialState = {
   password: '',
 }
 
-export default function Login() {
+export default function Login(props) {
   const { login, user } = useAuth()
   const [credentials, setCredentials] = useState(initialState)
   console.log(credentials)
@@ -27,7 +27,7 @@ export default function Login() {
   }
 
   if (user) {
-    return <Redirect to="settings" />
+    return <Redirect to="/" />
   }
   return (
     <Page>
@@ -54,7 +54,3 @@ export default function Login() {
     </Page>
   )
 }
-
-/*const Wrapper = styled.form`
-  display: grid;
-`*/
