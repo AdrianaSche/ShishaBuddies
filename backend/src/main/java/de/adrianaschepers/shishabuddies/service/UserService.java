@@ -52,7 +52,7 @@ public class UserService {
         return userRepository.save(userEntity);
     }
 
-    public SettingsEntity createSettings(SettingsEntity settingsEntity,UserEntity authUser) {
+    public SettingsEntity saveSettings(SettingsEntity settingsEntity, UserEntity authUser) {
         Optional<UserEntity> userEntityOptional=userRepository.findByUserName(authUser.getUserName());
         if(userEntityOptional.isPresent()){
             settingsEntity.setUser(userEntityOptional.get());

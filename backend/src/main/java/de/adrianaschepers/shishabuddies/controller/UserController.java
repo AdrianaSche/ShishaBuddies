@@ -15,15 +15,12 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
-import javax.persistence.EntityNotFoundException;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Optional;
 
 import static javax.servlet.http.HttpServletResponse.SC_BAD_REQUEST;
 import static javax.servlet.http.HttpServletResponse.SC_CONFLICT;
 import static org.springframework.http.ResponseEntity.ok;
-import static org.springframework.util.MimeTypeUtils.APPLICATION_JSON_VALUE;
 
 @RestController
 @CrossOrigin
@@ -59,7 +56,7 @@ public class UserController{
     @PostMapping("settings")
    public ResponseEntity<Settings> createUserSettings(@RequestBody Settings settings, @AuthenticationPrincipal UserEntity authUser){
         SettingsEntity settingsEntity = map(settings);
-        SettingsEntity createdSettingsEntity = userService.createSettings(settingsEntity,authUser);
+        SettingsEntity createdSettingsEntity = userService.saveSettings(settingsEntity,authUser);
         Settings createdSettings = map(createdSettingsEntity);
         return ok(createdSettings);
     }
@@ -87,7 +84,7 @@ public class UserController{
        if(updateSettingsEntity.getNumberOfTobaccos()!= newSettingsEntity.getNumberOfTobaccos()){
            updateSettingsEntity.setNumberOfTobaccos(newSettingsEntity.getNumberOfTobaccos());
        }
-       SettingsEntity updatedSettingsEnt= userService.createSettings(updateSettingsEntity,authUser);
+       SettingsEntity updatedSettingsEnt= userService.saveSettings(updateSettingsEntity,authUser);
        Settings updatedSettings = map(updatedSettingsEnt);
 
        return ok(updatedSettings);
