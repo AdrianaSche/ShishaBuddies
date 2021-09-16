@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.persistence.EntityNotFoundException;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Optional;
 
 import static javax.servlet.http.HttpServletResponse.SC_BAD_REQUEST;
 import static javax.servlet.http.HttpServletResponse.SC_CONFLICT;
@@ -63,16 +64,42 @@ public class UserController{
         return ok(createdSettings);
     }
 
+    @PutMapping("update-settings")
+    public ResponseEntity<Settings> updateSettings(@RequestBody Settings newSettings, @AuthenticationPrincipal UserEntity authUser){
+        SettingsEntity newSettingsEntity = map(newSettings); //new settigns
+        SettingsEntity updateSettingsEntity = userService.getUserSettings(authUser); //get old settings of user
+
+       if(!updateSettingsEntity.getFavHookah().equals(newSettingsEntity.getFavHookah())){
+           updateSettingsEntity.setFavHookah(newSettingsEntity.getFavHookah());
+       }
+       if(!updateSettingsEntity.getFavHookahHead().equals(newSettingsEntity.getFavHookahHead())){
+           updateSettingsEntity.setFavHookahHead(newSettingsEntity.getFavHookahHead());
+       }
+       if(!updateSettingsEntity.getFavTobacco().equals(newSettingsEntity.getFavTobacco())){
+           updateSettingsEntity.setFavTobacco(newSettingsEntity.getFavTobacco());
+       }
+       if(updateSettingsEntity.getNumberOfHookahs()!= newSettingsEntity.getNumberOfHookahs()){
+           updateSettingsEntity.setNumberOfHookahs(newSettingsEntity.getNumberOfHookahs());
+       }
+       if(updateSettingsEntity.getNumberOfHookahHeads()!= newSettingsEntity.getNumberOfHookahHeads()){
+           updateSettingsEntity.setNumberOfHookahHeads(newSettingsEntity.getNumberOfHookahHeads());
+       }
+       if(updateSettingsEntity.getNumberOfTobaccos()!= newSettingsEntity.getNumberOfTobaccos()){
+           updateSettingsEntity.setNumberOfTobaccos(newSettingsEntity.getNumberOfTobaccos());
+       }
+       SettingsEntity updatedSettingsEnt= userService.createSettings(updateSettingsEntity,authUser);
+       Settings updatedSettings = map(updatedSettingsEnt);
+
+       return ok(updatedSettings);
+    }
+
    @GetMapping("user-settings")
     public ResponseEntity<Settings> getUserSettings(@AuthenticationPrincipal UserEntity authUser){
 
             SettingsEntity settingsEntity = userService.getUserSettings(authUser);
             Settings settings = map(settingsEntity);
             return ok(settings);
-
     }
-
-
 
     @GetMapping("all")
     public ResponseEntity<List<User>> getAllUsers(){

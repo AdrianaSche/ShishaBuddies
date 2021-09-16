@@ -5,6 +5,7 @@ import Main from '../component/Main'
 import TextField from '../component/TextField'
 import { Redirect } from 'react-router-dom'
 import { useAuth } from '../auth/AuthProvider'
+import Button from '../component/Button'
 
 const initialState = {
   userName: '',
@@ -46,10 +47,10 @@ export default function Login(props) {
           onChange={handleCredentialsChange}
         />
 
-        <button>log' mich ein!</button>
-        <button type="button" onClick={handleCancel}>
+        <Button> log' mich ein!</Button>
+        <Button type="button" onClick={handleCancel}>
           cancel
-        </button>
+        </Button>
       </Main>
     </Page>
   )

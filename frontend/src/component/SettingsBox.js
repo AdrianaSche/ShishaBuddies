@@ -14,14 +14,16 @@ export default function SettingsBox({ settings }) {
       <p>{settings.favHookahHead}</p>
       <p>Lieblingstabak: </p>
       <p>{settings.favTobacco}</p>
+      <p>Rauchdauer gesamt:</p>
     </Wrapper>
   )
 }
 
 const Wrapper = styled.div`
+  color: lightgreen;
   display: grid;
-  grid-template-columns: 17% 17%;
-  grid-auto-rows: 7%;
+  grid-template-columns: 25% 17%;
+  grid-auto-rows: 10%;
   grid-auto-columns: initial;
   grid-gap: var(--size-l);
   padding: var(--size-xl);

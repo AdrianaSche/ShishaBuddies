@@ -67,7 +67,6 @@ public class UserService {
         Optional<UserEntity> userOpt = userRepository.findByUserName(authUser.getUserName());
         if(userOpt.isPresent()) {
            return userOpt.get().getSettings();
-
         }
         throw new EntityNotFoundException("no settings available!");
     }
