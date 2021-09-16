@@ -5,6 +5,7 @@ import Main from '../component/Main'
 import { useState } from 'react'
 import { useAuth } from '../auth/AuthProvider'
 import { createSettings } from '../service/api-service'
+import Button from '../component/Button'
 
 const userSettings = {
   numberOfHookahs: '',
@@ -20,8 +21,6 @@ export default function Settings() {
 
   function handleSubmit(event) {
     event.preventDefault()
-    console.log(token)
-    console.log(settings)
     createSettings(token, settings).catch(error => console.error(error))
   }
 
@@ -70,9 +69,9 @@ export default function Settings() {
           value={settings.favHookahHead}
           onChange={handleSettingsChange}
         />
-        <button>speichern</button>
-        <button type="button">Shisha Galerie anlegen</button>
-        <button onClick={handleCancel}>cancel</button>
+        <Button>speichern</Button>
+        <Button type="button">Shisha Galerie anlegen</Button>
+        <Button onClick={handleCancel}>cancel</Button>
       </Main>
     </Page>
   )

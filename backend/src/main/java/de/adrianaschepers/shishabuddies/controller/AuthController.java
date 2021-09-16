@@ -41,6 +41,7 @@ public class AuthController {
                        .lastName(user.getLastName())
                         .firstName(user.getFirstName())
                         .userName(user.getUserName())
+                        .email(user.getEmail())
                         .build()
         );
 

@@ -52,7 +52,7 @@ public class UserService {
         return userRepository.save(userEntity);
     }
 
-    public SettingsEntity createSettings(SettingsEntity settingsEntity,UserEntity authUser) {
+    public SettingsEntity saveSettings(SettingsEntity settingsEntity, UserEntity authUser) {
         Optional<UserEntity> userEntityOptional=userRepository.findByUserName(authUser.getUserName());
         if(userEntityOptional.isPresent()){
             settingsEntity.setUser(userEntityOptional.get());
@@ -67,7 +67,6 @@ public class UserService {
         Optional<UserEntity> userOpt = userRepository.findByUserName(authUser.getUserName());
         if(userOpt.isPresent()) {
            return userOpt.get().getSettings();
-
         }
         throw new EntityNotFoundException("no settings available!");
     }
