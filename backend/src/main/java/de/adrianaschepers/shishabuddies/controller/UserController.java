@@ -75,13 +75,13 @@ public class UserController{
        if(!updateSettingsEntity.getFavTobacco().equals(newSettingsEntity.getFavTobacco())){
            updateSettingsEntity.setFavTobacco(newSettingsEntity.getFavTobacco());
        }
-       if(updateSettingsEntity.getNumberOfHookahs()!= newSettingsEntity.getNumberOfHookahs()){
+       if(!updateSettingsEntity.getNumberOfHookahs().equals(newSettingsEntity.getNumberOfHookahs())){
            updateSettingsEntity.setNumberOfHookahs(newSettingsEntity.getNumberOfHookahs());
        }
-       if(updateSettingsEntity.getNumberOfHookahHeads()!= newSettingsEntity.getNumberOfHookahHeads()){
+       if(!updateSettingsEntity.getNumberOfHookahHeads().equals(newSettingsEntity.getNumberOfHookahHeads())){
            updateSettingsEntity.setNumberOfHookahHeads(newSettingsEntity.getNumberOfHookahHeads());
        }
-       if(updateSettingsEntity.getNumberOfTobaccos()!= newSettingsEntity.getNumberOfTobaccos()){
+       if(!updateSettingsEntity.getNumberOfTobaccos().equals(newSettingsEntity.getNumberOfTobaccos())){
            updateSettingsEntity.setNumberOfTobaccos(newSettingsEntity.getNumberOfTobaccos());
        }
        SettingsEntity updatedSettingsEnt= userService.saveSettings(updateSettingsEntity,authUser);

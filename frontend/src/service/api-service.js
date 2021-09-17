@@ -28,3 +28,8 @@ export const getSettings = token =>
   axios
     .get('api/shishaBuddies/user/user-settings', headers(token))
     .then(response => response.data)
+
+export const updateSettings = (newSettings, token) =>
+  axios
+    .put('api/shishaBuddies/user/update-settings', newSettings, headers(token))
+    .then(response => response.data)
