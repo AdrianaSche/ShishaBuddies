@@ -3,7 +3,6 @@ package de.adrianaschepers.shishabuddies.service;
 import de.adrianaschepers.shishabuddies.model.SettingsEntity;
 import de.adrianaschepers.shishabuddies.model.UserEntity;
 //import de.adrianaschepers.shishabuddies.repo.SettingsRepository;
-import de.adrianaschepers.shishabuddies.repo.SettingsRepository;
 import de.adrianaschepers.shishabuddies.repo.UserRepository;
 import lombok.Getter;
 import lombok.Setter;
@@ -25,13 +24,12 @@ public class UserService {
 
     private final PasswordEncoder passwordEncoder;
     private final  UserRepository userRepository;
-    private final SettingsRepository settingsRepository;
+
 
     @Autowired
-    public UserService(PasswordEncoder passwordEncoder, UserRepository userRepository, SettingsRepository settingsRepository) {
+    public UserService(PasswordEncoder passwordEncoder, UserRepository userRepository) {
         this.passwordEncoder = passwordEncoder;
         this.userRepository = userRepository;
-        this.settingsRepository = settingsRepository;
     }
 
     public Optional<UserEntity> find(String name){
@@ -41,7 +39,7 @@ public class UserService {
     public UserEntity createUser(UserEntity userEntity) {
         String userName = userEntity.getUserName();
         String email = userEntity.getEmail();
-        if(!hasText(userName)){ //username blank
+        if(!hasText(userName)){
             throw new IllegalArgumentException("username required!");
         }
         if(!hasText(email)){
@@ -53,7 +51,7 @@ public class UserService {
         return userRepository.save(userEntity);
     }
 
-    //FEHLER HIER??
+
     public SettingsEntity getUserSettings(UserEntity authUser) {
         Optional<UserEntity> userOpt = userRepository.findByUserName(authUser.getUserName());
         if(userOpt.isPresent()) {
@@ -63,19 +61,9 @@ public class UserService {
     }
 
 
-  /*  public SettingsEntity getUserSettings(UserEntity authUser){
-        Optional<SettingsEntity> settingsEntityOptional = settingsRepository.findSettingsEntityByUser(authUser);
-        if(settingsEntityOptional.isEmpty()){
-            throw new EntityNotFoundException("no settings available!");
-        }
-        SettingsEntity settingsEntity= settingsEntityOptional.get();
-        return settingsEntity;
-    }*/
-
     public SettingsEntity saveSettings(SettingsEntity settingsEntity, UserEntity authUser) {
         Optional<UserEntity> userEntityOptional=userRepository.findByUserName(authUser.getUserName());
         if(userEntityOptional.isPresent()){
-            //settingsEntity.setId(userEntityOptional.get().getId());
             settingsEntity.setUser(userEntityOptional.get());
             userEntityOptional.get().setSettings(settingsEntity);
              userRepository.saveAndFlush(userEntityOptional.get());

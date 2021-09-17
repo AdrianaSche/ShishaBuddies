@@ -63,8 +63,8 @@ public class UserController{
 
     @PutMapping("update-settings")
     public ResponseEntity<Settings> updateSettings(@RequestBody Settings newSettings, @AuthenticationPrincipal UserEntity authUser){
-        SettingsEntity newSettingsEntity = map(newSettings); //new settigns
-        SettingsEntity updateSettingsEntity = userService.getUserSettings(authUser); //get old settings of user
+        SettingsEntity newSettingsEntity = map(newSettings);
+        SettingsEntity updateSettingsEntity = userService.getUserSettings(authUser);
 
        if(!updateSettingsEntity.getFavHookah().equals(newSettingsEntity.getFavHookah())){
            updateSettingsEntity.setFavHookah(newSettingsEntity.getFavHookah());
