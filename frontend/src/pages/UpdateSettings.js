@@ -1,12 +1,11 @@
-import TextField from '../component/TextField'
+import { useEffect, useState } from 'react'
+import { getSettings, updateSettings } from '../service/api-service'
 import Header from '../component/Header'
+import TextField from '../component/TextField'
+import { useAuth } from '../auth/AuthProvider'
+import Button from '../component/Button'
 import Page from '../component/Page'
 import Main from '../component/Main'
-import { useState } from 'react'
-import { useAuth } from '../auth/AuthProvider'
-import { createSettings } from '../service/api-service'
-import Button from '../component/Button'
-import Navbar from '../component/Navbar'
 
 const userSettings = {
   numberOfHookahs: '',
@@ -16,65 +15,74 @@ const userSettings = {
   favHookahHead: '',
   favTobacco: '',
 }
-export default function Settings() {
-  const [settings, setSettings] = useState(userSettings)
-  const { token, user } = useAuth()
 
-  function handleSubmit(event) {
+export default function UpdateSettings() {
+  const { token } = useAuth()
+  const [newSettings, setNewSettings] = useState(userSettings)
+  const [currentSettings, setCurrentSettings] = useState()
+
+  useEffect(() => {
+    getSettings(token)
+      .then(response => {
+        setCurrentSettings(response)
+        setNewSettings(response)
+      })
+      .catch(error => console.error(error))
+  }, [token])
+
+  const handleSubmit = event => {
     event.preventDefault()
-    createSettings(token, settings).catch(error => console.error(error))
+    updateSettings(newSettings, token).catch(error => console.error(error))
   }
 
   const handleSettingsChange = event =>
-    setSettings({ ...settings, [event.target.name]: event.target.value })
+    setNewSettings({ ...newSettings, [event.target.name]: event.target.value })
 
-  const handleCancel = () => setSettings(userSettings)
+  const handleCancel = () => setNewSettings(currentSettings)
 
   return (
     <Page>
-      <Header title="erweitertes Profil" />
+      <Header title="update Dein Profil" />
       <Main as="form" onSubmit={handleSubmit}>
         <TextField
           title="Anzahl der Shishas:"
           name="numberOfHookahs"
-          value={settings.numberOfHookahs}
+          value={newSettings.numberOfHookahs}
           onChange={handleSettingsChange}
         />
         <TextField
           title="Anzahl der Tabaksorten:"
           name="numberOfTobaccos"
-          value={settings.numberOfTobaccos}
+          value={newSettings.numberOfTobaccos}
           onChange={handleSettingsChange}
         />
         <TextField
           title="Anzahl der Köpfe:"
           name="numberOfHookahHeads"
-          value={settings.numberOfHookahHeads}
+          value={newSettings.numberOfHookahHeads}
           onChange={handleSettingsChange}
         />
         <TextField
           title="Lieblingsshisha:"
           name="favHookah"
-          value={settings.favHookah}
+          value={newSettings.favHookah}
           onChange={handleSettingsChange}
         />
         <TextField
           title="Lieblingstabak:"
           name="favTobacco"
-          value={settings.favTobacco}
+          value={newSettings.favTobacco}
           onChange={handleSettingsChange}
         />
         <TextField
           title="Lieblingskopf:"
           name="favHookahHead"
-          value={settings.favHookahHead}
+          value={newSettings.favHookahHead}
           onChange={handleSettingsChange}
         />
         <Button>speichern</Button>
-        <Button type="button">Shisha Galerie anlegen</Button>
         <Button onClick={handleCancel}>cancel</Button>
       </Main>
-      <Navbar user={user} />
     </Page>
   )
 }

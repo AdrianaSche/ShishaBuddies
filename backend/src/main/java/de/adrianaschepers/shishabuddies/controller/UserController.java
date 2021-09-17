@@ -63,8 +63,8 @@ public class UserController{
 
     @PutMapping("update-settings")
     public ResponseEntity<Settings> updateSettings(@RequestBody Settings newSettings, @AuthenticationPrincipal UserEntity authUser){
-        SettingsEntity newSettingsEntity = map(newSettings); //new settigns
-        SettingsEntity updateSettingsEntity = userService.getUserSettings(authUser); //get old settings of user
+        SettingsEntity newSettingsEntity = map(newSettings);
+        SettingsEntity updateSettingsEntity = userService.getUserSettings(authUser);
 
        if(!updateSettingsEntity.getFavHookah().equals(newSettingsEntity.getFavHookah())){
            updateSettingsEntity.setFavHookah(newSettingsEntity.getFavHookah());
@@ -75,13 +75,13 @@ public class UserController{
        if(!updateSettingsEntity.getFavTobacco().equals(newSettingsEntity.getFavTobacco())){
            updateSettingsEntity.setFavTobacco(newSettingsEntity.getFavTobacco());
        }
-       if(updateSettingsEntity.getNumberOfHookahs()!= newSettingsEntity.getNumberOfHookahs()){
+       if(!updateSettingsEntity.getNumberOfHookahs().equals(newSettingsEntity.getNumberOfHookahs())){
            updateSettingsEntity.setNumberOfHookahs(newSettingsEntity.getNumberOfHookahs());
        }
-       if(updateSettingsEntity.getNumberOfHookahHeads()!= newSettingsEntity.getNumberOfHookahHeads()){
+       if(!updateSettingsEntity.getNumberOfHookahHeads().equals(newSettingsEntity.getNumberOfHookahHeads())){
            updateSettingsEntity.setNumberOfHookahHeads(newSettingsEntity.getNumberOfHookahHeads());
        }
-       if(updateSettingsEntity.getNumberOfTobaccos()!= newSettingsEntity.getNumberOfTobaccos()){
+       if(!updateSettingsEntity.getNumberOfTobaccos().equals(newSettingsEntity.getNumberOfTobaccos())){
            updateSettingsEntity.setNumberOfTobaccos(newSettingsEntity.getNumberOfTobaccos());
        }
        SettingsEntity updatedSettingsEnt= userService.saveSettings(updateSettingsEntity,authUser);

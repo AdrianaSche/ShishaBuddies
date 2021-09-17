@@ -24,13 +24,12 @@ public class UserService {
 
     private final PasswordEncoder passwordEncoder;
     private final  UserRepository userRepository;
-    //private final SettingsRepository settingsRepository;
+
 
     @Autowired
-    public UserService(PasswordEncoder passwordEncoder, UserRepository userRepository /*SettingsRepository settingsRepository*/) {
+    public UserService(PasswordEncoder passwordEncoder, UserRepository userRepository) {
         this.passwordEncoder = passwordEncoder;
         this.userRepository = userRepository;
-        //this.settingsRepository = settingsRepository;
     }
 
     public Optional<UserEntity> find(String name){
@@ -40,7 +39,7 @@ public class UserService {
     public UserEntity createUser(UserEntity userEntity) {
         String userName = userEntity.getUserName();
         String email = userEntity.getEmail();
-        if(!hasText(userName)){ //username blank
+        if(!hasText(userName)){
             throw new IllegalArgumentException("username required!");
         }
         if(!hasText(email)){
@@ -51,6 +50,16 @@ public class UserService {
         userEntity.setPassword(passwordEncoder.encode(userEntity.getPassword()));
         return userRepository.save(userEntity);
     }
+
+
+    public SettingsEntity getUserSettings(UserEntity authUser) {
+        Optional<UserEntity> userOpt = userRepository.findByUserName(authUser.getUserName());
+        if(userOpt.isPresent()) {
+            return userOpt.get().getSettings();
+        }
+        throw new EntityNotFoundException("no settings available!");
+    }
+
 
     public SettingsEntity saveSettings(SettingsEntity settingsEntity, UserEntity authUser) {
         Optional<UserEntity> userEntityOptional=userRepository.findByUserName(authUser.getUserName());
@@ -63,13 +72,7 @@ public class UserService {
          throw new EntityNotFoundException("user not in db");
     }
 
-    public SettingsEntity getUserSettings(UserEntity authUser) {
-        Optional<UserEntity> userOpt = userRepository.findByUserName(authUser.getUserName());
-        if(userOpt.isPresent()) {
-           return userOpt.get().getSettings();
-        }
-        throw new EntityNotFoundException("no settings available!");
-    }
+
 
     public List<UserEntity> getAll() {
         return userRepository.findAll();
