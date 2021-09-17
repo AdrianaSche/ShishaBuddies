@@ -55,7 +55,11 @@ public class UserService {
     public SettingsEntity getUserSettings(UserEntity authUser) {
         Optional<UserEntity> userOpt = userRepository.findByUserName(authUser.getUserName());
         if(userOpt.isPresent()) {
-            return userOpt.get().getSettings();
+            Optional<SettingsEntity> settingsOfAuth = Optional.ofNullable(userOpt.get().getSettings());
+            if(settingsOfAuth.isPresent()){
+               return settingsOfAuth.get();
+            }
+            //return userOpt.get().getSettings();
         }
         throw new EntityNotFoundException("no settings available!");
     }

@@ -6,6 +6,7 @@ import { useAuth } from '../auth/AuthProvider'
 import Button from '../component/Button'
 import Page from '../component/Page'
 import Main from '../component/Main'
+import { Redirect } from 'react-router-dom'
 
 const userSettings = {
   numberOfHookahs: '',
@@ -20,6 +21,7 @@ export default function UpdateSettings() {
   const { token } = useAuth()
   const [newSettings, setNewSettings] = useState(userSettings)
   const [currentSettings, setCurrentSettings] = useState()
+  const [update, setUpdate] = useState(false)
 
   useEffect(() => {
     getSettings(token)
@@ -33,6 +35,7 @@ export default function UpdateSettings() {
   const handleSubmit = event => {
     event.preventDefault()
     updateSettings(newSettings, token).catch(error => console.error(error))
+    setUpdate(true)
   }
 
   const handleSettingsChange = event =>
@@ -40,6 +43,9 @@ export default function UpdateSettings() {
 
   const handleCancel = () => setNewSettings(currentSettings)
 
+  if (update) {
+    return <Redirect to="/" />
+  }
   return (
     <Page>
       <Header title="update Dein Profil" />

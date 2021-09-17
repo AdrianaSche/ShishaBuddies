@@ -7,7 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.Table;
 
 //was rauchst du gerade?
-//one-to-many:
+
 //ein User kann meherer setups haben
 @Entity
 @Table(name = "setup")
@@ -19,7 +19,9 @@ import javax.persistence.Table;
 public class SetupEntity {
     private String hookah;
     private String hookahHead;
-    private String
+    private String tobacco;
+    private String avatarUrl;
+    private Long
 
 
 }
