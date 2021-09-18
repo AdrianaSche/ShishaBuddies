@@ -15,14 +15,14 @@ import java.util.Objects;
 @AllArgsConstructor
 public class SettingsEntity {
 
-//erweiterte Profileintellungen
+
     @GeneratedValue
     @Id
     @Column(name = "id",nullable = false)
     private Long id;
 
 
-    @OneToOne(mappedBy = "settings")
+     @OneToOne(mappedBy = "shisha_user")
      private UserEntity user;
 
     @Column(name = "number_of_hookahs")
