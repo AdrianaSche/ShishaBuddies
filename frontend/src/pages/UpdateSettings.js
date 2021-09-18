@@ -21,7 +21,7 @@ export default function UpdateSettings() {
   const { token } = useAuth()
   const [newSettings, setNewSettings] = useState(userSettings)
   const [currentSettings, setCurrentSettings] = useState()
-  const [update, setUpdate] = useState(false)
+  const [redirectToHome, setRedirectToHome] = useState(false)
 
   useEffect(() => {
     getSettings(token)
@@ -34,8 +34,9 @@ export default function UpdateSettings() {
 
   const handleSubmit = event => {
     event.preventDefault()
-    updateSettings(newSettings, token).catch(error => console.error(error))
-    setUpdate(true)
+    updateSettings(newSettings, token)
+      .then(setRedirectToHome(true))
+      .catch(error => console.error(error))
   }
 
   const handleSettingsChange = event =>
@@ -43,7 +44,7 @@ export default function UpdateSettings() {
 
   const handleCancel = () => setNewSettings(currentSettings)
 
-  if (update) {
+  if (redirectToHome) {
     return <Redirect to="/" />
   }
   return (
