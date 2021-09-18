@@ -4,6 +4,7 @@ package de.adrianaschepers.shishabuddies.model;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.Date;
 
 
 @Entity
@@ -20,9 +21,18 @@ public class SetupEntity {
     @Column(name= "id", nullable = false)
     private Long id;
 
+    // 1:1 zu analyzeSetup
+    @OneToOne(cascade = CascadeType.ALL,orphanRemoval = true)
+    @JoinColumn (name = "analyzer_id",referencedColumnName = "id")
+    private AnalyzeSetupEntity analyzeSetupEntity;
+
    /* @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name="user_id",nullable = false)
     private UserEntity userEntity;*/
+
+
+    @Column(name="date")
+    private Date date;
 
     @Column(name = "hookah")
     private String hookah;
@@ -42,8 +52,8 @@ public class SetupEntity {
     @Column(name= "accessoires")
     private String accessories;
 
-    @Column(name= "comment")
-    private String comment;
+    @Column (name= "picture_of_setup")
+    private String avatar;
 
 }
 

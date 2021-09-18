@@ -20,14 +20,17 @@ public class UserEntity  {
     @Column(name = "id",nullable = false)
     private Long id;
 
+    //user-setting: 1:1, funktioniert nicht mehr.
     @OneToOne(cascade = CascadeType.ALL,orphanRemoval = true)
     @JoinColumn (name = "settings_id",referencedColumnName = "id")
     private SettingsEntity settings;
 
-    /*@OneToMany(mappedBy = "shisha_user", cascade = CascadeType.ALL,fetch = FetchType.EAGER)
+
+    /* user-setup: 1:n Versuche
+    @OneToMany(mappedBy = "shisha_user", cascade = CascadeType.ALL,fetch = FetchType.EAGER)
     private Set<SetupEntity> setups;
-*/
-    /*@OneToMany(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
+
+    @OneToMany(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
     @JoinColumn(name="user_id")
     private Set<SetupEntity> setups;*/
 
