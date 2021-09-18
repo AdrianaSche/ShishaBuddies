@@ -48,6 +48,7 @@ export default function Login(props) {
         />
 
         <Button> log' mich ein!</Button>
+        <Button> registrieren</Button>
         <Button type="button" onClick={handleCancel}>
           cancel
         </Button>

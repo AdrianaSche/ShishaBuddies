@@ -8,7 +8,7 @@ import { createSettings } from '../service/api-service'
 import Button from '../component/Button'
 import Navbar from '../component/Navbar'
 
-const userSettings = {
+const initialSettings = {
   numberOfHookahs: '',
   numberOfHookahHeads: '',
   numberOfTobaccos: '',
@@ -17,7 +17,7 @@ const userSettings = {
   favTobacco: '',
 }
 export default function Settings() {
-  const [settings, setSettings] = useState(userSettings)
+  const [settings, setSettings] = useState(initialSettings)
   const { token, user } = useAuth()
 
   function handleSubmit(event) {
@@ -28,7 +28,7 @@ export default function Settings() {
   const handleSettingsChange = event =>
     setSettings({ ...settings, [event.target.name]: event.target.value })
 
-  const handleCancel = () => setSettings(userSettings)
+  const handleCancel = () => setSettings(initialSettings)
 
   return (
     <Page>
