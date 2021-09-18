@@ -52,7 +52,7 @@ public class UserService {
     }
 
 
-    public SettingsEntity getUserSettings(UserEntity authUser) {
+   /* public SettingsEntity getUserSettings(UserEntity authUser) {
         Optional<UserEntity> userOpt = userRepository.findByUserName(authUser.getUserName());
         if(userOpt.isPresent()) {
             Optional<SettingsEntity> settingsOfAuth = Optional.ofNullable(userOpt.get().getSettings());
@@ -60,6 +60,17 @@ public class UserService {
                return settingsOfAuth.get();
             }
             //return userOpt.get().getSettings();
+        }
+        throw new EntityNotFoundException("no settings available!");
+    }*/
+
+    public SettingsEntity getUserSettings(UserEntity authUser){
+        Optional<UserEntity> authUserOpt= userRepository.findByUserName(authUser.getUserName());
+        if(authUserOpt.isPresent()){
+            SettingsEntity settingsEntity = authUserOpt.get().getSettings();
+            if(settingsEntity!= null){
+                return settingsEntity;
+            }
         }
         throw new EntityNotFoundException("no settings available!");
     }
