@@ -24,6 +24,6 @@ public class AnalyzeSetupEntity {
     @Column(name="number_of_heads")
     private Long numOfSmokedHeads;
 
-    @Column(name="comment")
+    @Column(name="comment",columnDefinition="TEXT")
     private String comment;
 }

@@ -26,13 +26,8 @@ public class UserEntity  {
     private SettingsEntity settings;
 
 
-    /* user-setup: 1:n Versuche
-    @OneToMany(mappedBy = "shisha_user", cascade = CascadeType.ALL,fetch = FetchType.EAGER)
+    @OneToMany(cascade = CascadeType.ALL,orphanRemoval = true,mappedBy = "userEntity",fetch = FetchType.EAGER)
     private Set<SetupEntity> setups;
-
-    @OneToMany(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
-    @JoinColumn(name="user_id")
-    private Set<SetupEntity> setups;*/
 
     @Column(name = "lastname")
     private String lastName;

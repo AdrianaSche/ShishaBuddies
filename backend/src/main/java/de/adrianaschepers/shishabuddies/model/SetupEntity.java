@@ -26,9 +26,9 @@ public class SetupEntity {
     @JoinColumn (name = "analyzer_id",referencedColumnName = "id")
     private AnalyzeSetupEntity analyzeSetupEntity;
 
-   /* @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name="user_id",nullable = false)
-    private UserEntity userEntity;*/
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name="userEntity")
+    private UserEntity userEntity;
 
 
     @Column(name="date")
