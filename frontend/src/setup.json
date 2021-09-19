@@ -1,0 +1,37 @@
+{
+  "results" : [
+    {
+      "id": 1,
+      "name": "Max",
+      "hookah": "Argument",
+      "carbon" : "max favCarbon1",
+      "carbonTop": "max carbonTop1",
+      "tobacco": "max tobacco1"
+
+    },
+    {
+      "id": 2,
+      "name": "Max",
+      "hookah": "Maklaud",
+      "carbon" : "max favCarbon2",
+      "carbonTop": "max carbonTop2",
+      "tobacco": "max tobacco2"
+    },
+    {
+      "id": 3,
+      "name": "Moritz",
+      "hookah": "Hookain3",
+      "carbon" : "moritz favCarbon3",
+      "carbonTop": "moritz carbonTop3",
+      "tobacco": "moritz tobacco3"
+    },
+    {
+      "id": 4,
+      "name": "Moritz",
+      "hookah": "Hookain4",
+      "carbon" : "moritz favCarbon4",
+      "carbonTop": "moritz carbonTop3",
+      "tobacco": "moritz tobacco3"
+    }
+  ]
+}
