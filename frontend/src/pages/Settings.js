@@ -7,6 +7,7 @@ import { useAuth } from '../auth/AuthProvider'
 import { createSettings } from '../service/api-service'
 import Button from '../component/Button'
 import Navbar from '../component/Navbar'
+import { useHistory } from 'react-router-dom'
 
 const initialSettings = {
   numberOfHookahs: '',
@@ -19,10 +20,13 @@ const initialSettings = {
 export default function Settings() {
   const [settings, setSettings] = useState(initialSettings)
   const { token, user } = useAuth()
+  const history = useHistory()
 
   function handleSubmit(event) {
     event.preventDefault()
-    createSettings(token, settings).catch(error => console.error(error))
+    createSettings(token, settings)
+      .catch(error => console.error(error))
+      .finally(() => history.push('/'))
   }
 
   const handleSettingsChange = event =>

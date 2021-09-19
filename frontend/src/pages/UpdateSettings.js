@@ -6,7 +6,7 @@ import { useAuth } from '../auth/AuthProvider'
 import Button from '../component/Button'
 import Page from '../component/Page'
 import Main from '../component/Main'
-import { Redirect } from 'react-router-dom'
+import { Redirect, useHistory } from 'react-router-dom'
 
 const userSettings = {
   numberOfHookahs: '',
@@ -35,8 +35,8 @@ export default function UpdateSettings() {
   const handleSubmit = event => {
     event.preventDefault()
     updateSettings(newSettings, token)
-      .then(setRedirectToHome(true))
       .catch(error => console.error(error))
+      .then(setRedirectToHome(true))
   }
 
   const handleSettingsChange = event =>

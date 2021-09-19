@@ -6,7 +6,7 @@ import RegisterBasic from './pages/RegisterBasic'
 import Settings from './pages/Settings'
 import UpdateSettings from './pages/UpdateSettings'
 import CreateSetup from './pages/CreateSetup'
-import SetupCard from './pages/SetupCard'
+import SetupDetails from './pages/SetupDetails'
 
 export default function App() {
   return (
@@ -19,7 +19,7 @@ export default function App() {
           <Route path="/settings" component={Settings} />
           <Route path="/setup" component={CreateSetup} />
           <Route path="/update-settings" component={UpdateSettings} />
-          <Route path="/setup_details" component={SetupCard} />
+          <Route path="/setup_details" component={SetupDetails} />
         </Switch>
       </Router>
     </AuthProvider>

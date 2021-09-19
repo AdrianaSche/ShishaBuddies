@@ -23,7 +23,7 @@ const initialSetup = {
 export default function CreateSetup() {
   const { token, user } = useAuth()
   const [setup, setSetup] = useState(initialSetup)
-  const [reDirectToYourSetup, setReDirectToYourSetup] = useState(false)
+  const [redirectToSetupDetails, setRedirectToSetupDetails] = useState(false)
 
   const handleSetupChange = event =>
     setSetup({ ...setup, [event.target.name]: event.target.value })
@@ -31,12 +31,13 @@ export default function CreateSetup() {
 
   function handleSubmit(event) {
     event.preventDefault()
+    setRedirectToSetupDetails(true)
     //post to backend:
     //createSetup(token,setup).then(setReDirectToYourSetup(true)).catch(error => console.error(error))
     console.log(setup)
   }
 
-  if (reDirectToYourSetup) {
+  if (redirectToSetupDetails) {
     return <Redirect to="/setup_details" />
   }
 

@@ -4,6 +4,7 @@ import Header from '../component/Header'
 import Main from '../component/Main'
 import { useState } from 'react'
 import { createUser } from '../service/api-service'
+import { useParams, useHistory } from 'react-router-dom'
 
 const initialState = {
   lastName: '',
@@ -14,10 +15,12 @@ const initialState = {
 }
 export default function RegisterBasic() {
   const [userdata, setUserdata] = useState(initialState)
+  const history = useHistory()
 
   function handleSubmit(event) {
     event.preventDefault()
     createUser(userdata).catch(error => console.error(error))
+    history.push('/')
   }
 
   const handleUserdataChange = event =>
