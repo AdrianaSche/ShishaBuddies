@@ -5,13 +5,14 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.Objects;
 
 
 @Entity
 @Table(name = "setup")
 @Getter
 @Setter
-@Builder
+@Builder(toBuilder = true)
 @NoArgsConstructor
 @AllArgsConstructor
 public class SetupEntity {
@@ -21,18 +22,17 @@ public class SetupEntity {
     @Column(name= "id", nullable = false)
     private Long id;
 
-    // 1:1 zu analyzeSetup
-    @OneToOne(cascade = CascadeType.ALL,orphanRemoval = true)
+
+   /* @OneToOne(cascade = CascadeType.ALL,orphanRemoval = true)
     @JoinColumn (name = "analyzer_id",referencedColumnName = "id")
-    private AnalyzeSetupEntity analyzeSetupEntity;
+    private AnalyzeSetupEntity analyzeSetupEntity;*/
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name="userEntity")
     private UserEntity userEntity;
 
-
-    @Column(name="date")
-    private Date date;
+    @Column(name = "title")
+    private String title;
 
     @Column(name = "hookah")
     private String hookah;
@@ -52,8 +52,36 @@ public class SetupEntity {
     @Column(name= "accessoires")
     private String accessories;
 
+
+    @Column(name="smoking_duration")
+    private String smokingDuration;
+
+    @Column(name="number_of_heads")
+    private Long numOfSmokedHeads;
+
+    @Column(name="comment",columnDefinition="TEXT")
+    private String comment;
+
+    @Column(name = "setup_count")
+    private Long setupCount;
+
+
+
+
     @Column (name= "picture_of_setup")
     private String avatar;
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        SetupEntity that = (SetupEntity) o;
+        return Objects.equals(id, that.id) && Objects.equals(title, that.title);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, title);
+    }
 }
 

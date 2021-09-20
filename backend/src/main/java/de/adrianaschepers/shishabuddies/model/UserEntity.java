@@ -3,6 +3,8 @@ package de.adrianaschepers.shishabuddies.model;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 
@@ -27,7 +29,8 @@ public class UserEntity  {
 
 
     @OneToMany(cascade = CascadeType.ALL,orphanRemoval = true,mappedBy = "userEntity",fetch = FetchType.EAGER)
-    private Set<SetupEntity> setups;
+    //private Set<SetupEntity> setups = new HashSet<>();
+    private List<SetupEntity> setups;
 
     @Column(name = "lastname")
     private String lastName;
@@ -47,6 +50,9 @@ public class UserEntity  {
     @Column(name = "role")
     private String role;
 
+    public void addSetup(SetupEntity setupEntity){
+        setups.add(setupEntity);
+    }
 
     @Override
     public boolean equals(Object o) {
