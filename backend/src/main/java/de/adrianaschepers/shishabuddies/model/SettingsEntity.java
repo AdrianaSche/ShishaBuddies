@@ -22,7 +22,7 @@ public class SettingsEntity {
     private Long id;
 
 
-     @OneToOne(mappedBy = "shisha_user")
+     @OneToOne(mappedBy = "settings")
      private UserEntity user;
 
     @Column(name = "number_of_hookahs")

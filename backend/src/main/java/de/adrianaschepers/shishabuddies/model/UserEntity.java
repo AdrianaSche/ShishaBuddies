@@ -22,7 +22,7 @@ public class UserEntity  {
 
     //user-setting: 1:1, funktioniert nicht mehr.
     @OneToOne(cascade = CascadeType.ALL,orphanRemoval = true)
-    @JoinColumn (name = "settings_id",referencedColumnName = "id")
+    @JoinColumn (name = "settings_id")
     private SettingsEntity settings;
 
 
