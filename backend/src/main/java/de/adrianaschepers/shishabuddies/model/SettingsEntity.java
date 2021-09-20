@@ -15,14 +15,14 @@ import java.util.Objects;
 @AllArgsConstructor
 public class SettingsEntity {
 
-//erweiterte Profileintellungen
+
     @GeneratedValue
     @Id
     @Column(name = "id",nullable = false)
     private Long id;
 
 
-    @OneToOne(mappedBy = "settings")
+     @OneToOne(mappedBy = "settings")
      private UserEntity user;
 
     @Column(name = "number_of_hookahs")
@@ -43,17 +43,17 @@ public class SettingsEntity {
     @Column(name = "fav_tobacco")
     private String favTobacco;
 
-    /*@Override
+    @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         SettingsEntity that = (SettingsEntity) o;
-        return Objects.equals(id, that.id) && Objects.equals(userEntity, that.userEntity);
+        return Objects.equals(id, that.id) && Objects.equals(user, that.user);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, userEntity);
-    }*/
+        return Objects.hash(id, user);
+    }
 }
 
