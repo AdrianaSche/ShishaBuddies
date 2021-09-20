@@ -1,6 +1,8 @@
 package de.adrianaschepers.shishabuddies.service;
 
+import de.adrianaschepers.shishabuddies.api.Setup;
 import de.adrianaschepers.shishabuddies.model.SettingsEntity;
+import de.adrianaschepers.shishabuddies.model.SetupEntity;
 import de.adrianaschepers.shishabuddies.model.UserEntity;
 //import de.adrianaschepers.shishabuddies.repo.SettingsRepository;
 import de.adrianaschepers.shishabuddies.repo.UserRepository;
@@ -52,17 +54,6 @@ public class UserService {
     }
 
 
-   /* public SettingsEntity getUserSettings(UserEntity authUser) {
-        Optional<UserEntity> userOpt = userRepository.findByUserName(authUser.getUserName());
-        if(userOpt.isPresent()) {
-            Optional<SettingsEntity> settingsOfAuth = Optional.ofNullable(userOpt.get().getSettings());
-            if(settingsOfAuth.isPresent()){
-               return settingsOfAuth.get();
-            }
-            //return userOpt.get().getSettings();
-        }
-        throw new EntityNotFoundException("no settings available!");
-    }*/
 
     public SettingsEntity getUserSettings(UserEntity authUser){
         Optional<UserEntity> authUserOpt= userRepository.findByUserName(authUser.getUserName());
@@ -76,6 +67,7 @@ public class UserService {
     }
 
 
+
     public SettingsEntity saveSettings(SettingsEntity settingsEntity, UserEntity authUser) {
         Optional<UserEntity> userEntityOptional=userRepository.findByUserName(authUser.getUserName());
         if(userEntityOptional.isPresent()){
@@ -84,7 +76,20 @@ public class UserService {
              userRepository.saveAndFlush(userEntityOptional.get());
              return settingsEntity;
         }
-         throw new EntityNotFoundException("user not in db");
+        throw new EntityNotFoundException("user not in db");
+    }
+
+    public SetupEntity saveSetup(SetupEntity setupEntity, UserEntity authUser) {
+        Optional<UserEntity> authUserOptional = userRepository.findByUserName(authUser.getUserName());
+        if(authUserOptional.isPresent()){
+           UserEntity user= authUserOptional.get();
+            setupEntity.setUserEntity(user);
+            checkIfTitleExists(setupEntity,user.getSetups());
+            user.getSetups().add(setupEntity);
+            userRepository.saveAndFlush(user);
+            return setupEntity;
+        }
+        throw new EntityNotFoundException("user not in db");
     }
 
 
@@ -114,5 +119,28 @@ public class UserService {
     }
 
 
+    public List<SetupEntity> getAllSetups(UserEntity authUser) {
+       UserEntity user= userRepository.findByUserName(authUser.getUserName()).get();
+       return user.getSetups();
+    }
 
+    private void checkIfTitleExists(SetupEntity setupEntity,List<SetupEntity> setupEntities){
+        for (SetupEntity setupEnt:setupEntities) {
+            if(setupEntity.getTitle().equals(setupEnt.getTitle())){
+                throw new EntityExistsException(String.format("title=%s already taken!",setupEntity.getTitle()));
+            }
+        }
+
+    }
+
+    public SetupEntity getSetup(UserEntity authUser, String title) {
+        UserEntity userEntity = userRepository.findByUserName(authUser.getUserName()).get();
+        List<SetupEntity> setupEntities=userEntity.getSetups();
+        for (SetupEntity setupEntity:setupEntities) {
+            if(setupEntity.getTitle().equals(title)){
+                return setupEntity;
+            }
+        }
+        throw new EntityNotFoundException(String.format("not setup with title=%s !",title ));
+    }
 }
