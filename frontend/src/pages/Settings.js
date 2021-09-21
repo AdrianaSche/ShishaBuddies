@@ -75,7 +75,6 @@ export default function Settings() {
           onChange={handleSettingsChange}
         />
         <Button>speichern</Button>
-        <Button type="button">Shisha Galerie anlegen</Button>
         <Button onClick={handleCancel}>cancel</Button>
       </Main>
       <Navbar user={user} />

@@ -7,7 +7,7 @@ import Button from '../component/Button'
 import Navbar from '../component/Navbar'
 import { useState } from 'react'
 import Avatar from '../component/Avatar'
-import { Redirect, useHistory } from 'react-router-dom'
+import { useHistory } from 'react-router-dom'
 import { createSetup } from '../service/api-service'
 
 const initialSetup = {

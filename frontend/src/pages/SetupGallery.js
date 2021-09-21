@@ -17,7 +17,7 @@ export default function SetupGallery() {
       .then(setSetups)
       .catch(error => console.error(error))
       .finally(() => console.log(setups))
-  }, [])
+  }, [token])
 
   if (!user) {
     return <Redirect to="/login" />
