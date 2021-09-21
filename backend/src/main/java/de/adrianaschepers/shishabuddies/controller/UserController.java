@@ -2,8 +2,10 @@
 package de.adrianaschepers.shishabuddies.controller;
 
 import de.adrianaschepers.shishabuddies.api.Settings;
+import de.adrianaschepers.shishabuddies.api.Setup;
 import de.adrianaschepers.shishabuddies.api.User;
 import de.adrianaschepers.shishabuddies.model.SettingsEntity;
+import de.adrianaschepers.shishabuddies.model.SetupEntity;
 import de.adrianaschepers.shishabuddies.model.UserEntity;
 import de.adrianaschepers.shishabuddies.service.UserService;
 import io.swagger.annotations.ApiResponse;
@@ -17,9 +19,12 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Optional;
+import java.util.Set;
 
 import static javax.servlet.http.HttpServletResponse.SC_BAD_REQUEST;
 import static javax.servlet.http.HttpServletResponse.SC_CONFLICT;
+import static org.springframework.http.ResponseEntity.notFound;
 import static org.springframework.http.ResponseEntity.ok;
 
 @RestController
@@ -59,6 +64,72 @@ public class UserController{
         SettingsEntity createdSettingsEntity = userService.saveSettings(settingsEntity,authUser);
         Settings createdSettings = map(createdSettingsEntity);
         return ok(createdSettings);
+    }
+
+    @PostMapping("create-setup")
+    public ResponseEntity<Setup> createSetup(@RequestBody Setup setup, @AuthenticationPrincipal UserEntity authUser){
+        SetupEntity setupEntity = map(setup);
+        SetupEntity createdSetupEntity = userService.saveSetup(setupEntity,authUser);
+        Setup createdSetup = map(createdSetupEntity);
+        return ok(createdSetup);
+    }
+
+    @GetMapping("all-setups")
+    public ResponseEntity<List<Setup>> getAllSetups(@AuthenticationPrincipal UserEntity authUser){
+        List<SetupEntity> setups = userService.getAllSetups(authUser);
+        if(setups==null){
+            return notFound().build();
+        }
+        return ok(mapSetup(setups));
+    }
+
+    @GetMapping("{title}/setup")
+    public ResponseEntity<Setup> getSetupByTitle(@PathVariable String title,@AuthenticationPrincipal UserEntity authUser){
+        SetupEntity setupEntity = userService.getSetup(authUser,title);
+        Setup searchedSetup = map(setupEntity);
+        return ok(searchedSetup);
+
+    }
+
+    private List<Setup> mapSetup(List<SetupEntity> setupEntities){
+        List<Setup> setups = new LinkedList<>();
+        for (SetupEntity setupEntity: setupEntities) {
+            setups.add(map(setupEntity));
+        }
+        return setups;
+
+    }
+
+    private Setup map(SetupEntity createdSetupEntity) {
+        return Setup.builder()
+                .accessories(createdSetupEntity.getAccessories())
+                .carbon(createdSetupEntity.getCarbon())
+                .setupCount(createdSetupEntity.getSetupCount())
+                .carbonTop(createdSetupEntity.getCarbonTop())
+                .comment(createdSetupEntity.getComment())
+                .head(createdSetupEntity.getHookahHead())
+                .hookah(createdSetupEntity.getHookah())
+                .numOfHeads(createdSetupEntity.getNumOfSmokedHeads())
+                .smokingDuration(createdSetupEntity.getSmokingDuration())
+                .title(createdSetupEntity.getTitle())
+                .tobacco(createdSetupEntity.getTobacco())
+                .build();
+    }
+
+    private SetupEntity map(Setup setup) {
+       return SetupEntity.builder()
+                .accessories(setup.getAccessories())
+                .carbon(setup.getCarbon())
+                .numOfSmokedHeads(setup.getNumOfHeads())
+                .carbonTop(setup.getCarbonTop())
+                .setupCount(setup.getSetupCount())
+                .smokingDuration(setup.getSmokingDuration())
+                .comment(setup.getComment())
+                .hookah(setup.getHookah())
+                .hookahHead(setup.getHead())
+                .title(setup.getTitle())
+                .tobacco(setup.getTobacco())
+                .build();
     }
 
     @PutMapping("update-settings")
@@ -108,6 +179,8 @@ public class UserController{
         return ok(allUsers);
 
     }
+
+
 
     private List<User> map(List<UserEntity> allEntities) {
         List<User> users = new LinkedList<>();

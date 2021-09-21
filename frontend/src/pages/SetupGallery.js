@@ -4,9 +4,22 @@ import Page from '../component/Page'
 import Header from '../component/Header'
 import SetupDetails from './SetupDetails'
 import SetupBox from '../component/SetupBox'
+import { useEffect, useState } from 'react'
+import { useAuth } from '../auth/AuthProvider'
+import { getSettings } from '../service/api-service'
 
 export default function SetupGallery() {
-  // const setup = setups.results
+  /*
+    const {user, token} = useAuth()
+    const [setup,setSetup] =useState([])
+    const [search, setSearch] = useState('')
+
+    useEffect(() => {
+      getSetup(token)
+        .then(setSetup)
+        .catch(error => console.error(error))
+    }, [token])
+    */
 
   //state token
   //lade all seine Setups

@@ -3,10 +3,13 @@ package de.adrianaschepers.shishabuddies.model;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 
 @Entity
-@Table(name = "shisha_user") //warum geht das nicht, wenn die Table "user" heißt???
+@Table(name = "shisha_user")
 @Getter
 @Setter
 @Builder
@@ -19,9 +22,15 @@ public class UserEntity  {
     @Column(name = "id",nullable = false)
     private Long id;
 
+    //user-setting: 1:1, funktioniert nicht mehr.
     @OneToOne(cascade = CascadeType.ALL,orphanRemoval = true)
-    @JoinColumn (name = "settings_id",referencedColumnName = "id")
+    @JoinColumn (name = "settings_id")
     private SettingsEntity settings;
+
+
+    @OneToMany(cascade = CascadeType.ALL,orphanRemoval = true,mappedBy = "userEntity",fetch = FetchType.EAGER)
+    //private Set<SetupEntity> setups = new HashSet<>();
+    private List<SetupEntity> setups;
 
     @Column(name = "lastname")
     private String lastName;
@@ -41,6 +50,9 @@ public class UserEntity  {
     @Column(name = "role")
     private String role;
 
+    public void addSetup(SetupEntity setupEntity){
+        setups.add(setupEntity);
+    }
 
     @Override
     public boolean equals(Object o) {

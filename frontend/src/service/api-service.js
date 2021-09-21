@@ -34,16 +34,15 @@ export const updateSettings = (newSettings, token) =>
     .put('api/shishaBuddies/user/update-settings', newSettings, headers(token))
     .then(response => response.data)
 
-/*
-Wenn Backend DB gefixt ist:
-export const createSetup= (setup,token) =>
+export const createSetup = (setup, token) =>
   axios
-    .post('api/shishaBuddies/setup/create',setup,headers(token))
+    .post('api/shishaBuddies/setup/create', setup, headers(token))
     .then(response => response.data)
 
-    //setup rendern in der SetupCard:Daten vom Backend holen!
- export const getSetup = token =>
- axios
- .get('api/shishaBuddies/setup',headers(token))
- .then(response => response.data)
-    */
+/*export const getSetups= (token) =>
+  axios.get()*/
+
+export const getSetup = token =>
+  axios
+    .get('api/shishaBuddies/setup', headers(token))
+    .then(response => response.data)
