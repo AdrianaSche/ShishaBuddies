@@ -34,15 +34,13 @@ export const updateSettings = (newSettings, token) =>
     .put('api/shishaBuddies/user/update-settings', newSettings, headers(token))
     .then(response => response.data)
 
-export const createSetup = (setup, token) =>
+export const createSetup = (token, setup) =>
   axios
-    .post('api/shishaBuddies/setup/create', setup, headers(token))
+    .post('api/shishaBuddies/user/create-setup', setup, headers(token))
     .then(response => response.data)
+    .then(dto => dto.setup)
 
-/*export const getSetups= (token) =>
-  axios.get()*/
-
-export const getSetup = token =>
+export const getAllSetup = token =>
   axios
-    .get('api/shishaBuddies/setup', headers(token))
+    .get('api/shishaBuddies/user/all-setups', headers(token))
     .then(response => response.data)

@@ -107,7 +107,7 @@ public class UserController{
                 .setupCount(createdSetupEntity.getSetupCount())
                 .carbonTop(createdSetupEntity.getCarbonTop())
                 .comment(createdSetupEntity.getComment())
-                .head(createdSetupEntity.getHookahHead())
+                .hookahHead(createdSetupEntity.getHookahHead())
                 .hookah(createdSetupEntity.getHookah())
                 .numOfHeads(createdSetupEntity.getNumOfSmokedHeads())
                 .smokingDuration(createdSetupEntity.getSmokingDuration())
@@ -126,7 +126,7 @@ public class UserController{
                 .smokingDuration(setup.getSmokingDuration())
                 .comment(setup.getComment())
                 .hookah(setup.getHookah())
-                .hookahHead(setup.getHead())
+                .hookahHead(setup.getHookahHead())
                 .title(setup.getTitle())
                 .tobacco(setup.getTobacco())
                 .build();

@@ -2,9 +2,7 @@
 package de.adrianaschepers.shishabuddies.model;
 
 import lombok.*;
-
 import javax.persistence.*;
-import java.util.Date;
 import java.util.Objects;
 
 
@@ -54,7 +52,8 @@ public class SetupEntity {
 
 
     @Column(name="smoking_duration")
-    private String smokingDuration;
+    private Long smokingDuration;
+    //private Duration smokingDuration;
 
     @Column(name="number_of_heads")
     private Long numOfSmokedHeads;

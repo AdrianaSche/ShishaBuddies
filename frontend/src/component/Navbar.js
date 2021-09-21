@@ -10,7 +10,7 @@ export default function Navbar({ user, ...props }) {
       {user && <NavLink to="/settings">Profil vervollständigen</NavLink>}
       {user && <NavLink to="/update-settings">Profil verwalten</NavLink>}
       {user && <NavLink to="/setup">Was rauchst Du gerade?</NavLink>}
-      {user && <NavLink to="/gallery">Deine Shisha Galerie</NavLink>}
+      {user && <NavLink to="/setup-gallery">Deine Shisha Galerie</NavLink>}
       {!user && <NavLink to="/login">Login</NavLink>}
     </Wrapper>
   )
