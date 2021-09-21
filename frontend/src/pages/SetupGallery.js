@@ -4,7 +4,7 @@ import { getAllSetup } from '../service/api-service'
 import Page from '../component/Page'
 import Header from '../component/Header'
 import Main from '../component/Main'
-import SetupBox from '../component/SetupBox'
+
 import { Redirect } from 'react-router-dom'
 import SetupCard from '../component/SetupCard'
 
@@ -17,7 +17,7 @@ export default function SetupGallery() {
       .then(setSetups)
       .catch(error => console.error(error))
       .finally(() => console.log(setups))
-  }, [token])
+  }, [])
 
   if (!user) {
     return <Redirect to="/login" />

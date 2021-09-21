@@ -28,7 +28,6 @@ const initialSetup = {
 export default function CreateSetup() {
   const { token, user } = useAuth()
   const [setup, setSetup] = useState(initialSetup)
-  const [redirectToSetupDetails, setRedirectToSetupDetails] = useState(false)
 
   function handleSubmit(event) {
     event.preventDefault()
@@ -41,10 +40,6 @@ export default function CreateSetup() {
     setSetup({ ...setup, [event.target.name]: event.target.value })
   const handleCancel = () => setSetup(initialSetup)
   const history = useHistory()
-
-  if (redirectToSetupDetails) {
-    return <Redirect to="/setup-gallery" />
-  }
 
   return (
     <Page>
