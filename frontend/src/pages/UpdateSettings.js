@@ -6,7 +6,7 @@ import { useAuth } from '../auth/AuthProvider'
 import Button from '../component/Button'
 import Page from '../component/Page'
 import Main from '../component/Main'
-import { Redirect, useHistory } from 'react-router-dom'
+import { Redirect } from 'react-router-dom'
 
 const userSettings = {
   numberOfHookahs: '',

@@ -3,8 +3,8 @@ import Page from '../component/Page'
 import Header from '../component/Header'
 import Main from '../component/Main'
 import { useState } from 'react'
-import { createUser, getToken } from '../service/api-service'
-import { useParams, useHistory, Redirect } from 'react-router-dom'
+import { createUser } from '../service/api-service'
+import { Redirect } from 'react-router-dom'
 import { useAuth } from '../auth/AuthProvider'
 
 const initialState = {
@@ -17,7 +17,6 @@ const initialState = {
 export default function RegisterBasic() {
   const [userdata, setUserdata] = useState(initialState)
   const { token, login } = useAuth()
-  const history = useHistory()
   function handleSubmit(event) {
     event.preventDefault()
     createUser(userdata)

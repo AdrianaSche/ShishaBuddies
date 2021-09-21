@@ -19,8 +19,8 @@ const initialSetup = {
   avatar: '',
 }
 
-//was der user eingibt--> funktioniert nur, wenn die DB im Backend gefixt ist
 export default function CreateSetup() {
+  // eslint-disable-next-line
   const { token, user } = useAuth()
   const [setup, setSetup] = useState(initialSetup)
   const [redirectToSetupDetails, setRedirectToSetupDetails] = useState(false)
