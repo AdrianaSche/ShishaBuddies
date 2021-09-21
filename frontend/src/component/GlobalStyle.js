@@ -16,6 +16,7 @@ export default createGlobalStyle`
     --size-l: 16px;
     --size-xl: 24px;
     --size-xxl: 32px;
+    --size-xxxl: 48px;
   }
 
   * {

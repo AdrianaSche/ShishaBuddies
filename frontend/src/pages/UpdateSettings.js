@@ -35,8 +35,8 @@ export default function UpdateSettings() {
   const handleSubmit = event => {
     event.preventDefault()
     updateSettings(newSettings, token)
-      .then(setRedirectToHome(true))
       .catch(error => console.error(error))
+      .then(setRedirectToHome(true))
   }
 
   const handleSettingsChange = event =>

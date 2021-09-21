@@ -32,6 +32,7 @@ export default function Profile() {
         <Avatar src="https://thispersondoesnotexist.com/image" alt="bild" />
         <SettingsBox settings={settings} />
         <Button onClick={logout}>Log out</Button>
+        <Button>Deine Shisha Galerie</Button>
       </Main>
       <Navbar user={user} />
     </Page>

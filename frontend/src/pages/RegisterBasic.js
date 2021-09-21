@@ -4,6 +4,8 @@ import Header from '../component/Header'
 import Main from '../component/Main'
 import { useState } from 'react'
 import { createUser } from '../service/api-service'
+import { Redirect } from 'react-router-dom'
+import { useAuth } from '../auth/AuthProvider'
 
 const initialState = {
   lastName: '',
@@ -14,12 +16,17 @@ const initialState = {
 }
 export default function RegisterBasic() {
   const [userdata, setUserdata] = useState(initialState)
-
+  const { token, login } = useAuth()
   function handleSubmit(event) {
     event.preventDefault()
-    createUser(userdata).catch(error => console.error(error))
+    createUser(userdata)
+      .catch(error => console.error(error))
+      .finally(() => login(userdata).catch(error => console.error(error)))
   }
 
+  if (token) {
+    return <Redirect to="/" />
+  }
   const handleUserdataChange = event =>
     setUserdata({ ...userdata, [event.target.name]: event.target.value })
 

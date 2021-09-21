@@ -33,3 +33,16 @@ export const updateSettings = (newSettings, token) =>
   axios
     .put('api/shishaBuddies/user/update-settings', newSettings, headers(token))
     .then(response => response.data)
+
+export const createSetup = (setup, token) =>
+  axios
+    .post('api/shishaBuddies/setup/create', setup, headers(token))
+    .then(response => response.data)
+
+/*export const getSetups= (token) =>
+  axios.get()*/
+
+export const getSetup = token =>
+  axios
+    .get('api/shishaBuddies/setup', headers(token))
+    .then(response => response.data)
