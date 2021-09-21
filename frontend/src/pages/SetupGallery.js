@@ -16,7 +16,7 @@ export default function SetupGallery() {
     getAllSetup(token)
       .then(setSetups)
       .catch(error => console.error(error))
-      .finally(() => console.log(setups))
+    // .finally(() => console.log(setups))
   }, [token])
 
   if (!user) {
