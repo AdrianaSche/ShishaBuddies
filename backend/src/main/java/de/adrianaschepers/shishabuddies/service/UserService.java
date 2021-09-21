@@ -63,7 +63,8 @@ public class UserService {
                 return settingsEntity;
             }
         }
-        throw new EntityNotFoundException("no settings available!");
+       // throw new EntityNotFoundException("no settings available!");
+        return SettingsEntity.builder().build();
     }
 
 

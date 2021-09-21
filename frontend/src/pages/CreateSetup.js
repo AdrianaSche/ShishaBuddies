@@ -7,38 +7,43 @@ import Button from '../component/Button'
 import Navbar from '../component/Navbar'
 import { useState } from 'react'
 import Avatar from '../component/Avatar'
-import { Redirect } from 'react-router-dom'
+import { Redirect, useHistory } from 'react-router-dom'
+import { createSetup } from '../service/api-service'
 
 const initialSetup = {
+  title: '',
   hookah: '',
+  hookahHead: '',
   tobacco: '',
-  head: '',
   carbon: '',
   carbonTop: '',
   accessories: '',
+  smokingDuration: '',
+  numOfSmokedHeads: '',
+  comment: '',
+  setupCount: '',
   avatar: '',
 }
 
 export default function CreateSetup() {
-  // eslint-disable-next-line
   const { token, user } = useAuth()
   const [setup, setSetup] = useState(initialSetup)
   const [redirectToSetupDetails, setRedirectToSetupDetails] = useState(false)
 
+  function handleSubmit(event) {
+    event.preventDefault()
+    createSetup(token, setup)
+      .catch(error => console.error(error))
+      .finally(() => history.push('/setup-gallery'))
+  }
+
   const handleSetupChange = event =>
     setSetup({ ...setup, [event.target.name]: event.target.value })
   const handleCancel = () => setSetup(initialSetup)
-
-  function handleSubmit(event) {
-    event.preventDefault()
-    setRedirectToSetupDetails(true)
-    //post to backend:
-    //createSetup(token,setup).then(setReDirectToYourSetup(true)).catch(error => console.error(error))
-    console.log(setup)
-  }
+  const history = useHistory()
 
   if (redirectToSetupDetails) {
-    return <Redirect to="/setup_details" />
+    return <Redirect to="/setup-gallery" />
   }
 
   return (
@@ -46,21 +51,27 @@ export default function CreateSetup() {
       <Header title="Was rauchst Du gerade?" />
       <Main as="form" onSubmit={handleSubmit}>
         <TextField
+          title="Titel:"
+          name="title"
+          value={setup.title}
+          onChange={handleSetupChange}
+        />
+        <TextField
           title="Shisha:"
           name="hookah"
           value={setup.hookah}
           onChange={handleSetupChange}
         />
         <TextField
-          title="Tabaksorte:"
-          name="tobacco"
-          value={setup.tobacco}
+          title="Kopf:"
+          name="hookahHead"
+          value={setup.hookahHead}
           onChange={handleSetupChange}
         />
         <TextField
-          title="Kopf:"
-          name="head"
-          value={setup.head}
+          title="Tabaksorte:"
+          name="tobacco"
+          value={setup.tobacco}
           onChange={handleSetupChange}
         />
         <TextField
@@ -81,8 +92,31 @@ export default function CreateSetup() {
           value={setup.accessories}
           onChange={handleSetupChange}
         />
-        <Avatar src="https://thispersondoesnotexist.com/image" alt="bild" />
+        <TextField
+          title="Rauchdauer:"
+          name="smokingDuration"
+          value={setup.smokingDuration}
+          onChange={handleSetupChange}
         />
+        <TextField
+          title="Anzahl der gerauchten Köpfe:"
+          name="numOfSmokedHeads"
+          value={setup.numOfSmokedHeads}
+          onChange={handleSetupChange}
+        />
+        <TextField
+          title="Kommentar:"
+          name="comment"
+          value={setup.comment}
+          onChange={handleSetupChange}
+        />
+        <TextField
+          title="Wie oft verwendet:"
+          name="setupCount"
+          value={setup.setupCount}
+          onChange={handleSetupChange}
+        />
+        <Avatar src="https://thispersondoesnotexist.com/image" alt="bild" />
         <Button>speichern</Button>
         <Button onClick={handleCancel}>cancel</Button>
       </Main>
