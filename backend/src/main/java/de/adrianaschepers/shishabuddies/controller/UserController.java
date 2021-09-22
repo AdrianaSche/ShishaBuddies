@@ -13,9 +13,11 @@ import io.swagger.annotations.ApiResponses;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -91,46 +93,22 @@ public class UserController{
 
     }
 
-    private List<Setup> mapSetup(List<SetupEntity> setupEntities){
-        List<Setup> setups = new LinkedList<>();
-        for (SetupEntity setupEntity: setupEntities) {
-            setups.add(map(setupEntity));
+    @GetMapping("{id}")
+    public ResponseEntity<Setup> getSetupById(@PathVariable("id") String id,@AuthenticationPrincipal UserEntity authUser){
+        Optional <SetupEntity> setupEntityOptional;
+        try{
+            setupEntityOptional = userService.getSetupById(id,authUser);
+        }catch (IllegalArgumentException e){
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST,e.getMessage());
         }
-        return setups;
-
+        if(setupEntityOptional.isEmpty()){
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+        }
+        Setup setup = map(setupEntityOptional.get());
+        return ok(setup);
     }
 
-    private Setup map(SetupEntity createdSetupEntity) {
-        return Setup.builder()
-                .accessories(createdSetupEntity.getAccessories())
-                .carbon(createdSetupEntity.getCarbon())
-                .setupCount(createdSetupEntity.getSetupCount())
-                .carbonTop(createdSetupEntity.getCarbonTop())
-                .comment(createdSetupEntity.getComment())
-                .hookahHead(createdSetupEntity.getHookahHead())
-                .hookah(createdSetupEntity.getHookah())
-                .numOfHeads(createdSetupEntity.getNumOfSmokedHeads())
-                .smokingDuration(createdSetupEntity.getSmokingDuration())
-                .title(createdSetupEntity.getTitle())
-                .tobacco(createdSetupEntity.getTobacco())
-                .build();
-    }
 
-    private SetupEntity map(Setup setup) {
-       return SetupEntity.builder()
-                .accessories(setup.getAccessories())
-                .carbon(setup.getCarbon())
-                .numOfSmokedHeads(setup.getNumOfHeads())
-                .carbonTop(setup.getCarbonTop())
-                .setupCount(setup.getSetupCount())
-                .smokingDuration(setup.getSmokingDuration())
-                .comment(setup.getComment())
-                .hookah(setup.getHookah())
-                .hookahHead(setup.getHookahHead())
-                .title(setup.getTitle())
-                .tobacco(setup.getTobacco())
-                .build();
-    }
 
     @PutMapping("update-settings")
     public ResponseEntity<Settings> updateSettings(@RequestBody Settings newSettings, @AuthenticationPrincipal UserEntity authUser){
@@ -228,6 +206,47 @@ public class UserController{
                 .favHookah(createdSettingsEntity.getFavHookah())
                 .favHookahHead(createdSettingsEntity.getFavHookahHead())
                 .favTobacco(createdSettingsEntity.getFavTobacco())
+                .build();
+    }
+
+    private List<Setup> mapSetup(List<SetupEntity> setupEntities){
+        List<Setup> setups = new LinkedList<>();
+        for (SetupEntity setupEntity: setupEntities) {
+            setups.add(map(setupEntity));
+        }
+        return setups;
+
+    }
+
+    private Setup map(SetupEntity createdSetupEntity) {
+        return Setup.builder()
+                .accessories(createdSetupEntity.getAccessories())
+                .carbon(createdSetupEntity.getCarbon())
+                .setupCount(createdSetupEntity.getSetupCount())
+                .carbonTop(createdSetupEntity.getCarbonTop())
+                .comment(createdSetupEntity.getComment())
+                .hookahHead(createdSetupEntity.getHookahHead())
+                .hookah(createdSetupEntity.getHookah())
+                .numOfHeads(createdSetupEntity.getNumOfSmokedHeads())
+                .smokingDuration(createdSetupEntity.getSmokingDuration())
+                .title(createdSetupEntity.getTitle())
+                .tobacco(createdSetupEntity.getTobacco())
+                .build();
+    }
+
+    private SetupEntity map(Setup setup) {
+        return SetupEntity.builder()
+                .accessories(setup.getAccessories())
+                .carbon(setup.getCarbon())
+                .numOfSmokedHeads(setup.getNumOfHeads())
+                .carbonTop(setup.getCarbonTop())
+                .setupCount(setup.getSetupCount())
+                .smokingDuration(setup.getSmokingDuration())
+                .comment(setup.getComment())
+                .hookah(setup.getHookah())
+                .hookahHead(setup.getHookahHead())
+                .title(setup.getTitle())
+                .tobacco(setup.getTobacco())
                 .build();
     }
 

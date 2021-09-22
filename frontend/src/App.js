@@ -7,6 +7,7 @@ import Settings from './pages/Settings'
 import UpdateSettings from './pages/UpdateSettings'
 import CreateSetup from './pages/CreateSetup'
 import SetupGallery from './pages/SetupGallery'
+import SetupDetails from './component/SetupDetails'
 export default function App() {
   return (
     <AuthProvider>
@@ -17,8 +18,8 @@ export default function App() {
           <Route path="/register" component={RegisterBasic} />
           <Route path="/settings" component={Settings} />
           <Route path="/setup" component={CreateSetup} />
+          <Route path="/setup/details/:id" component={SetupDetails} />
           <Route path="/update-settings" component={UpdateSettings} />
-          {/*<Route path="/setup_details" component={SetupGallery} />*/}
           <Route path="/setup-gallery" component={SetupGallery} />
         </Switch>
       </Router>
