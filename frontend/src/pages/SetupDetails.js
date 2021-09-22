@@ -30,9 +30,9 @@ export default function SetupDetails() {
       .catch(error => console.error(error))
   }, [token, title])
 
-  if (!setup) {
+  /*if (!setup) {
     return <p>loading...</p>
-  }
+  }*/
 
   return (
     <Wrapper>
