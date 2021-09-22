@@ -3,7 +3,6 @@ import { useEffect, useState } from 'react'
 import { getAllSetup } from '../service/api-service'
 import Page from '../component/Page'
 import Header from '../component/Header'
-import Main from '../component/Main'
 
 import { Redirect } from 'react-router-dom'
 import SetupCard from '../component/SetupCard'
@@ -27,7 +26,7 @@ export default function SetupGallery() {
       <Header title="Deine Shisha Galerie" />
       <Wrapper>
         {setups.length > 0 &&
-          setups.map(setup => <SetupCard key={setup.id} setup={setup} />)}
+          setups.map(setup => <SetupCard key={setup.title} setup={setup} />)}
       </Wrapper>
     </Page>
   )
