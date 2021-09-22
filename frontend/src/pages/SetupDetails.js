@@ -5,9 +5,7 @@ import { useEffect, useState } from 'react'
 import { getSetupByTitle } from '../service/api-service'
 import { useAuth } from '../auth/AuthProvider'
 import Header from '../component/Header'
-import Main from '../component/Main'
 import Page from '../component/Page'
-import Button from '../component/Button'
 
 const initalSetup = {
   title: '',
@@ -30,7 +28,7 @@ export default function SetupDetails() {
     getSetupByTitle(token, title)
       .then(fetchedSetup => setSetup(fetchedSetup))
       .catch(error => console.error(error))
-  }, [setup, title])
+  }, [token, title])
 
   if (!setup) {
     return <p>loading...</p>
