@@ -21,10 +21,6 @@ public class SetupEntity {
     private Long id;
 
 
-   /* @OneToOne(cascade = CascadeType.ALL,orphanRemoval = true)
-    @JoinColumn (name = "analyzer_id",referencedColumnName = "id")
-    private AnalyzeSetupEntity analyzeSetupEntity;*/
-
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name="userEntity")
     private UserEntity userEntity;
@@ -50,7 +46,6 @@ public class SetupEntity {
     @Column(name= "accessoires")
     private String accessories;
 
-
     @Column(name="smoking_duration")
     private Long smokingDuration;
     //private Duration smokingDuration;
@@ -63,8 +58,6 @@ public class SetupEntity {
 
     @Column(name = "setup_count")
     private Long setupCount;
-
-
 
 
     @Column (name= "picture_of_setup")
