@@ -22,7 +22,6 @@ export const getSetupByTitle = (token, title) =>
   axios
     .get(`/api/shishaBuddies/user/setup/details/${title}`, headers(token))
     .then(response => response.data)
-    .then(dto => dto.setup)
 
 export const createSettings = (token, settings) =>
   axios

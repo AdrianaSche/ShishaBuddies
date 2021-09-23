@@ -136,7 +136,7 @@ public class UserService {
 
     }
 
-    public SetupEntity getSetup(UserEntity authUser, String title) {
+    public SetupEntity getSetupByTitle(UserEntity authUser, String title) {
         UserEntity userEntity = userRepository.findByUserName(authUser.getUserName()).get();
         List<SetupEntity> setupEntities=userEntity.getSetups();
         for (SetupEntity setupEntity:setupEntities) {
