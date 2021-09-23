@@ -1,10 +1,10 @@
 package de.adrianaschepers.shishabuddies.service;
 
-import de.adrianaschepers.shishabuddies.api.Setup;
 import de.adrianaschepers.shishabuddies.model.SettingsEntity;
 import de.adrianaschepers.shishabuddies.model.SetupEntity;
 import de.adrianaschepers.shishabuddies.model.UserEntity;
 //import de.adrianaschepers.shishabuddies.repo.SettingsRepository;
+import de.adrianaschepers.shishabuddies.repo.SetupEntityRepository;
 import de.adrianaschepers.shishabuddies.repo.UserRepository;
 import lombok.Getter;
 import lombok.Setter;
@@ -26,12 +26,14 @@ public class UserService {
 
     private final PasswordEncoder passwordEncoder;
     private final  UserRepository userRepository;
+    private final SetupEntityRepository setupEntityRepository;
 
 
     @Autowired
-    public UserService(PasswordEncoder passwordEncoder, UserRepository userRepository) {
+    public UserService(PasswordEncoder passwordEncoder, UserRepository userRepository, SetupEntityRepository setupEntityRepository) {
         this.passwordEncoder = passwordEncoder;
         this.userRepository = userRepository;
+        this.setupEntityRepository = setupEntityRepository;
     }
 
     public Optional<UserEntity> find(String name){
@@ -85,13 +87,18 @@ public class UserService {
         if(authUserOptional.isPresent()){
            UserEntity user= authUserOptional.get();
             setupEntity.setUserEntity(user);
-            checkIfTitleExists(setupEntity,user.getSetups());
+            //checkIfTitleExists(setupEntity,user.getSetups());
             user.getSetups().add(setupEntity);
             userRepository.saveAndFlush(user);
             return setupEntity;
         }
         throw new EntityNotFoundException("user not in db");
     }
+
+    public SetupEntity updateSetup(SetupEntity setupEntity){
+        return setupEntityRepository.save(setupEntity);
+    }
+
 
 
 
@@ -145,12 +152,12 @@ public class UserService {
         throw new EntityNotFoundException(String.format("no setup with title=%s !",title ));
     }
 
-    public Optional<SetupEntity> getSetupById(String id,UserEntity authUser) {
+    public SetupEntity getSetupById(Long id,UserEntity authUser) {
         UserEntity userEntity = userRepository.findByUserName(authUser.getUserName()).get();
         List<SetupEntity> setupEntities = userEntity.getSetups();
         for (SetupEntity setupEntity:setupEntities) {
             if(setupEntity.getId().equals(id)){
-                return Optional.of(setupEntity);
+                return setupEntity;
             }
         }
         throw new EntityNotFoundException(String.format("no setup with id=%s !",id ));

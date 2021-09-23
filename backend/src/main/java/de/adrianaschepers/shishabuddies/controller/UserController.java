@@ -94,17 +94,13 @@ public class UserController{
     }
 
     @GetMapping("{id}")
-    public ResponseEntity<Setup> getSetupById(@PathVariable("id") String id,@AuthenticationPrincipal UserEntity authUser){
-        Optional <SetupEntity> setupEntityOptional;
-        try{
-            setupEntityOptional = userService.getSetupById(id,authUser);
-        }catch (IllegalArgumentException e){
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST,e.getMessage());
-        }
-        if(setupEntityOptional.isEmpty()){
+    public ResponseEntity<Setup> getSetupById(@PathVariable("id") Long id,@AuthenticationPrincipal UserEntity authUser){
+        SetupEntity setupEntity = userService.getSetupById(id,authUser);
+
+        if(setupEntity==null) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND);
         }
-        Setup setup = map(setupEntityOptional.get());
+        Setup setup = map(setupEntity);
         return ok(setup);
     }
 
@@ -146,6 +142,38 @@ public class UserController{
             Settings settings = map(settingsEntity);
             return ok(settings);
     }
+
+
+
+    @PutMapping("update-setup/{title}")
+    public ResponseEntity<Setup> updateSetup(@RequestBody Setup setup,@PathVariable("title") String title, @AuthenticationPrincipal UserEntity authUser){
+
+        SetupEntity newSetup = map(setup);
+        newSetup.setTitle(title);
+
+        SetupEntity currentSetup = userService.getSetupByTitle(authUser, title);
+        if(!currentSetup.getSetupCount().equals(newSetup.getSetupCount())){
+            currentSetup.setSetupCount(newSetup.getSetupCount());
+        }
+        if(!currentSetup.getComment().equals(newSetup.getComment())){
+            currentSetup.setComment(newSetup.getComment());
+        }
+        if(!currentSetup.getSmokingDuration().equals(newSetup.getSmokingDuration())){
+            currentSetup.setSmokingDuration(newSetup.getSmokingDuration());
+        }
+          /*  if(!currentSetup.getNumOfSmokedHeads().equals(newSetup.getNumOfSmokedHeads())){
+                currentSetup.setNumOfSmokedHeads(newSetup.getNumOfSmokedHeads());
+            }*/
+
+        //SetupEntity updatedSetupEntity = userService.saveSetup(currentSetup,authUser);
+        SetupEntity updatedSetupEntity= userService.updateSetup(currentSetup);
+        Setup updatedSetup = map(updatedSetupEntity);
+        return ok(updatedSetup);
+
+    }
+
+
+
 
     @GetMapping("all")
     public ResponseEntity<List<User>> getAllUsers(){
