@@ -1,56 +1,84 @@
-/*
 import Header from '../component/Header'
 import TextField from '../component/TextField'
 import Page from '../component/Page'
 import Main from '../component/Main'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useAuth } from '../auth/AuthProvider'
+import { getSetupByTitle, updateSetup } from '../service/api-service'
+import Button from '../component/Button'
+import { useParams } from 'react-router-dom'
+import TextArea from '../component/TextArea'
+import SetupCountField from '../component/SetupCountField'
 
+const initialSetup = {
+  title: '',
+  hookah: '',
+  hookahHead: '',
+  tobacco: '',
+  carbon: '',
+  carbonTop: '',
+  accessories: '',
+  smokingDuration: '',
+  numOfSmokedHeads: '',
+  comment: '',
+  setupCount: '',
+  avatar: '',
+}
 
-export default function SetupAnalysis(){
+export default function SetupAnalysis() {
+  const { title } = useParams()
+  const { token } = useAuth()
+  const [newSetup, setNewSetup] = useState(initialSetup)
+  const [currentSetup, setCurrentSetup] = useState(initialSetup)
 
-  const{ token } = useAuth()
-const [numOfHeads,setNumOfHeads] = useState()
-  const[duration,setDuration] = useState()
-  const[comment, setComment] =useState()
+  useEffect(() => {
+    getSetupByTitle(token, title)
+      .then(response => {
+        setCurrentSetup(response)
+        setNewSetup(response)
+      })
+      .catch(error => console.error(error))
+  }, [token, title])
 
-  function handleSubmit(event){
+  const handleSubmit = event => {
     event.preventDefault()
-    //3 post-methoden ??
-    //und im Backend 3 post-endpunkte bzw 3 get-Endpunkte?
+    updateSetup(title, newSetup, token).catch(error => console.error(error))
   }
 
-  //jedes Textfield mit Main wrappen und eigene
-  //submit-fkt? handleSubmitComment, handleSubmitHead...
-  return(
+  const handleSetupChange = event =>
+    setNewSetup({ ...newSetup, [event.target.name]: event.target.value })
+
+  return (
     <Page>
       <Header title="Bewerte Dein Setup!" />
       <Main as="form" onSubmit={handleSubmit}>
-        <TextField
+        {/* <TextField
           title="Anzahl der Köpfe:"
           name="numberOfHookahHeads"
-          value={}
-          onChange={}
-        />
-        <TextField
-          title="Rauchdauer:"
+          value={newSetup.numOfSmokedHeads}
+          onChange={handleSetupChange}
+        />*/}
+        <SetupCountField
+          title="Rauchdauer(in min):"
           name="smokingDuration"
-          value={}
-          onChange={}
+          value={newSetup.smokingDuration}
+          onChange={handleSetupChange}
         />
-        <TextField
-          title="Kommentar:"
-          name="comment"
-          value={}
-          onChange={}
-        />
-        <TextField
+
+        <SetupCountField
           title="Setup count:"
           name="setupCount"
-          value={}
-          onChange={}
+          value={newSetup.setupCount}
+          onChange={handleSetupChange}
         />
-        </Main>
-      </Page>
+        <TextArea
+          title="Kommentar:"
+          name="comment"
+          value={newSetup.comment}
+          onChange={handleSetupChange}
+        />
+        <Button>speichern</Button>
+      </Main>
+    </Page>
   )
-}*/
+}

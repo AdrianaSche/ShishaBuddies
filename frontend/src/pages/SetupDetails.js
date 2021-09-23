@@ -44,7 +44,7 @@ export default function SetupDetails() {
         <p>Rauchdauer:{setup.smokingDuration}</p>
         <p>Anzahl der gerauchten Köpfe:{setup.numOfSmokedHeads}</p>
         <p>Dein Kommentar:{setup.comment}</p>
-        <Link to={'/setup/details/edit-setup'}>Details bearbeiten</Link>
+        <Link to={`/setup/details/edit/${title}`}>Details bearbeiten</Link>
         <Avatar
           src="https://shishashop.at/wp-content/uploads/2021/03/lava-united-shisha-silber.jpg"
           alt="setup"
