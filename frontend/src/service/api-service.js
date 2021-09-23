@@ -49,3 +49,12 @@ export const getAllSetup = token =>
   axios
     .get('api/shishaBuddies/user/all-setups', headers(token))
     .then(response => response.data)
+
+export const updateSetup = (title, newSetup, token) =>
+  axios
+    .put(
+      `api/shishaBuddies/user/update-setup/${title}`,
+      newSetup,
+      headers(token)
+    )
+    .then(response => response.data)
