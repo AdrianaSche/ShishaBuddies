@@ -145,14 +145,14 @@ public class UserService {
         throw new EntityNotFoundException(String.format("not setup with title=%s !",title ));
     }
 
-    public Optional<SetupEntity> getSetupById(String id,UserEntity authUser) {
+    public SetupEntity getSetupById(Long id,UserEntity authUser) {
         UserEntity userEntity = userRepository.findByUserName(authUser.getUserName()).get();
         List<SetupEntity> setupEntities = userEntity.getSetups();
         for (SetupEntity setupEntity:setupEntities) {
             if(setupEntity.getId().equals(id)){
-                return Optional.of(setupEntity);
+                return setupEntity;
             }
         }
-        throw new EntityNotFoundException(String.format("not setup with id=%s !",id ));
+        throw new EntityNotFoundException(String.format("no setup with id=%s !",id ));
     }
 }
