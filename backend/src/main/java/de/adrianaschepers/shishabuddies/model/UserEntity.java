@@ -3,9 +3,8 @@ package de.adrianaschepers.shishabuddies.model;
 import lombok.*;
 
 import javax.persistence.*;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
+import java.util.Optional;
 
 
 @Entity
@@ -52,6 +51,15 @@ public class UserEntity  {
 
     public void addSetup(SetupEntity setupEntity){
         setups.add(setupEntity);
+    }
+
+    public SetupEntity findSetupByTitle(String title){
+        for (SetupEntity setupEntity: setups) {
+            if(setupEntity.getTitle().equals(title)){
+                return setupEntity;
+            }
+        }
+        throw new EntityNotFoundException(String.format("no setup with title = %s available!",title));
     }
 
     @Override

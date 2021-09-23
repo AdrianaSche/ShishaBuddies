@@ -18,10 +18,10 @@ const initialSetup = {
   carbon: '',
   carbonTop: '',
   accessories: '',
-  smokingDuration: '',
-  numOfSmokedHeads: '',
+  smokingDuration: 0,
+  numOfSmokedHeads: 0,
   comment: '',
-  setupCount: '',
+  setupCount: 0,
   avatar: '',
 }
 

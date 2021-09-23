@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.Entity;
 import javax.persistence.EntityExistsException;
 import javax.persistence.EntityNotFoundException;
 import java.util.List;
@@ -85,13 +86,14 @@ public class UserService {
         if(authUserOptional.isPresent()){
            UserEntity user= authUserOptional.get();
             setupEntity.setUserEntity(user);
-            checkIfTitleExists(setupEntity,user.getSetups());
+            //checkIfTitleExists(setupEntity,user.getSetups());
             user.getSetups().add(setupEntity);
             userRepository.saveAndFlush(user);
             return setupEntity;
         }
         throw new EntityNotFoundException("user not in db");
     }
+
 
 
 
@@ -142,7 +144,7 @@ public class UserService {
                 return setupEntity;
             }
         }
-        throw new EntityNotFoundException(String.format("not setup with title=%s !",title ));
+        throw new EntityNotFoundException(String.format("no setup with title=%s !",title ));
     }
 
     public SetupEntity getSetupById(Long id,UserEntity authUser) {
