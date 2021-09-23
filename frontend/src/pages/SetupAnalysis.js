@@ -1,5 +1,4 @@
 import Header from '../component/Header'
-import TextField from '../component/TextField'
 import Page from '../component/Page'
 import Main from '../component/Main'
 import { useEffect, useState } from 'react'
@@ -48,16 +47,12 @@ export default function SetupAnalysis() {
   const handleSetupChange = event =>
     setNewSetup({ ...newSetup, [event.target.name]: event.target.value })
 
+  const handleCancel = () => setNewSetup(currentSetup)
+
   return (
     <Page>
-      <Header title="Bewerte Dein Setup!" />
+      <Header title="Bewerte Deine Shisha-Session!" />
       <Main as="form" onSubmit={handleSubmit}>
-        {/* <TextField
-          title="Anzahl der Köpfe:"
-          name="numberOfHookahHeads"
-          value={newSetup.numOfSmokedHeads}
-          onChange={handleSetupChange}
-        />*/}
         <SetupCountField
           title="Rauchdauer(in min):"
           name="smokingDuration"
@@ -66,7 +61,7 @@ export default function SetupAnalysis() {
         />
 
         <SetupCountField
-          title="Setup count:"
+          title="Wie oft verwendet:"
           name="setupCount"
           value={newSetup.setupCount}
           onChange={handleSetupChange}
@@ -78,6 +73,7 @@ export default function SetupAnalysis() {
           onChange={handleSetupChange}
         />
         <Button>speichern</Button>
+        <Button onClick={handleCancel}>cancel</Button>
       </Main>
     </Page>
   )
