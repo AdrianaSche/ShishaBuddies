@@ -85,9 +85,9 @@ public class UserController{
         return ok(mapSetup(setups));
     }
 
-    @GetMapping("{title}/setup")
+    @GetMapping("setup/details/{title}")
     public ResponseEntity<Setup> getSetupByTitle(@PathVariable String title,@AuthenticationPrincipal UserEntity authUser){
-        SetupEntity setupEntity = userService.getSetup(authUser,title);
+        SetupEntity setupEntity = userService.getSetupByTitle(authUser,title);
         Setup searchedSetup = map(setupEntity);
         return ok(searchedSetup);
 

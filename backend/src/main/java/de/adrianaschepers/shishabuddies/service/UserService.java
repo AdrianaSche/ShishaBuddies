@@ -134,7 +134,7 @@ public class UserService {
 
     }
 
-    public SetupEntity getSetup(UserEntity authUser, String title) {
+    public SetupEntity getSetupByTitle(UserEntity authUser, String title) {
         UserEntity userEntity = userRepository.findByUserName(authUser.getUserName()).get();
         List<SetupEntity> setupEntities=userEntity.getSetups();
         for (SetupEntity setupEntity:setupEntities) {
@@ -142,7 +142,7 @@ public class UserService {
                 return setupEntity;
             }
         }
-        throw new EntityNotFoundException(String.format("not setup with title=%s !",title ));
+        throw new EntityNotFoundException(String.format("no setup with title=%s !",title ));
     }
 
     public Optional<SetupEntity> getSetupById(String id,UserEntity authUser) {
@@ -153,6 +153,6 @@ public class UserService {
                 return Optional.of(setupEntity);
             }
         }
-        throw new EntityNotFoundException(String.format("not setup with id=%s !",id ));
+        throw new EntityNotFoundException(String.format("no setup with id=%s !",id ));
     }
 }
