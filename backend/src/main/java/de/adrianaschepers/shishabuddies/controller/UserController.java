@@ -151,7 +151,7 @@ public class UserController{
         SetupEntity newSetup = map(setup);
         newSetup.setTitle(title);
 
-        SetupEntity currentSetup = userService.getSetup(authUser, title);
+        SetupEntity currentSetup = userService.getSetupByTitle(authUser, title);
         if(!currentSetup.getSetupCount().equals(newSetup.getSetupCount())){
             currentSetup.setSetupCount(newSetup.getSetupCount());
         }
@@ -165,7 +165,8 @@ public class UserController{
                 currentSetup.setNumOfSmokedHeads(newSetup.getNumOfSmokedHeads());
             }*/
 
-        SetupEntity updatedSetupEntity = userService.saveSetup(currentSetup,authUser);
+        //SetupEntity updatedSetupEntity = userService.saveSetup(currentSetup,authUser);
+        SetupEntity updatedSetupEntity= userService.updateSetup(currentSetup);
         Setup updatedSetup = map(updatedSetupEntity);
         return ok(updatedSetup);
 

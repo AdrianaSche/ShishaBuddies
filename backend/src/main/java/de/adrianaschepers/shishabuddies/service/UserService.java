@@ -1,10 +1,10 @@
 package de.adrianaschepers.shishabuddies.service;
 
-import de.adrianaschepers.shishabuddies.api.Setup;
 import de.adrianaschepers.shishabuddies.model.SettingsEntity;
 import de.adrianaschepers.shishabuddies.model.SetupEntity;
 import de.adrianaschepers.shishabuddies.model.UserEntity;
 //import de.adrianaschepers.shishabuddies.repo.SettingsRepository;
+import de.adrianaschepers.shishabuddies.repo.SetupEntityRepository;
 import de.adrianaschepers.shishabuddies.repo.UserRepository;
 import lombok.Getter;
 import lombok.Setter;
@@ -12,7 +12,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import javax.persistence.Entity;
 import javax.persistence.EntityExistsException;
 import javax.persistence.EntityNotFoundException;
 import java.util.List;
@@ -27,12 +26,14 @@ public class UserService {
 
     private final PasswordEncoder passwordEncoder;
     private final  UserRepository userRepository;
+    private final SetupEntityRepository setupEntityRepository;
 
 
     @Autowired
-    public UserService(PasswordEncoder passwordEncoder, UserRepository userRepository) {
+    public UserService(PasswordEncoder passwordEncoder, UserRepository userRepository, SetupEntityRepository setupEntityRepository) {
         this.passwordEncoder = passwordEncoder;
         this.userRepository = userRepository;
+        this.setupEntityRepository = setupEntityRepository;
     }
 
     public Optional<UserEntity> find(String name){
@@ -92,6 +93,10 @@ public class UserService {
             return setupEntity;
         }
         throw new EntityNotFoundException("user not in db");
+    }
+
+    public SetupEntity updateSetup(SetupEntity setupEntity){
+        return setupEntityRepository.save(setupEntity);
     }
 
 
