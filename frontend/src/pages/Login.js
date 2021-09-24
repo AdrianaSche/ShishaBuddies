@@ -26,10 +26,14 @@ export default function Login(props) {
     event.preventDefault()
     login(credentials).catch(error => console.error(error))
   }
+  /*const handleRegister = event => {
+    return <Redirect to="/register"/>
+}*/
 
   if (user) {
     return <Redirect to="/" />
   }
+
   return (
     <Page>
       <Header title="Login" />
@@ -48,7 +52,8 @@ export default function Login(props) {
         />
 
         <Button> log' mich ein!</Button>
-        <Button> registrieren</Button>
+        {/*<Button> registrieren</Button>*/}
+        {/*<Button type="button" id="myButton" onClick={handleRegister}> registrieren</Button>*/}
         <Button type="button" onClick={handleCancel}>
           cancel
         </Button>

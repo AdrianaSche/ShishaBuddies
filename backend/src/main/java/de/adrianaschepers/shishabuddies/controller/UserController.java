@@ -146,7 +146,7 @@ public class UserController{
 
 
     @PutMapping("update-setup/{title}")
-    public ResponseEntity<Setup> updateSetup(@RequestBody Setup setup,@PathVariable("title") String title, @AuthenticationPrincipal UserEntity authUser){
+    public ResponseEntity<Setup> updateSetup(@RequestBody Setup setup,@PathVariable String title, @AuthenticationPrincipal UserEntity authUser){
 
         SetupEntity newSetup = map(setup);
         newSetup.setTitle(title);
@@ -161,11 +161,9 @@ public class UserController{
         if(!currentSetup.getSmokingDuration().equals(newSetup.getSmokingDuration())){
             currentSetup.setSmokingDuration(newSetup.getSmokingDuration());
         }
-          /*  if(!currentSetup.getNumOfSmokedHeads().equals(newSetup.getNumOfSmokedHeads())){
-                currentSetup.setNumOfSmokedHeads(newSetup.getNumOfSmokedHeads());
-            }*/
-
-        //SetupEntity updatedSetupEntity = userService.saveSetup(currentSetup,authUser);
+       /* if(!currentSetup.getNumOfSmokedHeads().equals(newSetup.getNumOfSmokedHeads())){
+            currentSetup.setNumOfSmokedHeads(newSetup.getNumOfSmokedHeads());
+        }*/
         SetupEntity updatedSetupEntity= userService.updateSetup(currentSetup);
         Setup updatedSetup = map(updatedSetupEntity);
         return ok(updatedSetup);

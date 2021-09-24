@@ -75,5 +75,7 @@ public class SetupEntity {
     public int hashCode() {
         return Objects.hash(id, title);
     }
+
+
 }
 

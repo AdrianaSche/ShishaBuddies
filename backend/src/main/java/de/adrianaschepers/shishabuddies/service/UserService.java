@@ -14,6 +14,8 @@ import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityExistsException;
 import javax.persistence.EntityNotFoundException;
+import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
 
@@ -36,9 +38,15 @@ public class UserService {
         this.setupEntityRepository = setupEntityRepository;
     }
 
+    //USER
     public Optional<UserEntity> find(String name){
         return userRepository.findByUserName(name);
     }
+
+    public List<UserEntity> getAll() {
+        return userRepository.findAll();
+    }
+
 
     public UserEntity createUser(UserEntity userEntity) {
         String userName = userEntity.getUserName();
@@ -56,7 +64,7 @@ public class UserService {
     }
 
 
-
+//SETTINGS
     public SettingsEntity getUserSettings(UserEntity authUser){
         Optional<UserEntity> authUserOpt= userRepository.findByUserName(authUser.getUserName());
         if(authUserOpt.isPresent()){
@@ -65,10 +73,8 @@ public class UserService {
                 return settingsEntity;
             }
         }
-       // throw new EntityNotFoundException("no settings available!");
         return SettingsEntity.builder().build();
     }
-
 
 
     public SettingsEntity saveSettings(SettingsEntity settingsEntity, UserEntity authUser) {
@@ -82,6 +88,8 @@ public class UserService {
         throw new EntityNotFoundException("user not in db");
     }
 
+
+    //SETUP
     public SetupEntity saveSetup(SetupEntity setupEntity, UserEntity authUser) {
         Optional<UserEntity> authUserOptional = userRepository.findByUserName(authUser.getUserName());
         if(authUserOptional.isPresent()){
@@ -99,12 +107,27 @@ public class UserService {
         return setupEntityRepository.save(setupEntity);
     }
 
+   /* //extract totalSmokingDuration:
 
-
-
-    public List<UserEntity> getAll() {
-        return userRepository.findAll();
+    public List<Long> getAllSmokingDurations(UserEntity authUser){
+        List<SetupEntity> allSetups = setupEntityRepository.findAll();
+        List<Long> smokingDuration = new ArrayList<>();
+        for (SetupEntity setupEntity: allSetups) {
+            smokingDuration.add(setupEntity.getSmokingDuration());
+        }
+        return smokingDuration;
     }
+
+    public Long getAllSmokingDuration(UserEntity authUser){
+        int smokingDuration= Math.toIntExact(Long.valueOf(0));
+        Optional<SetupEntity> allSetups = setupEntityRepository.findAllBySmokingDuration();
+        if(allSetups.isPresent()){
+            getAllSetups(authUser).get().getSmokingDuration()
+        }
+
+        return smokingDuration;
+    }
+*/
 
 
     private void checkEmailExists(String email) {
@@ -117,15 +140,6 @@ public class UserService {
         }
 
     }
-
-    private void checkUsernameExists(String userName) {
-        Optional<UserEntity> existingUser = find(userName);
-        if(existingUser.isPresent()){
-            throw new EntityExistsException(String.format(
-                    "user with username=%s already exists!",userName));
-        }
-    }
-
 
     public List<SetupEntity> getAllSetups(UserEntity authUser) {
        UserEntity user= userRepository.findByUserName(authUser.getUserName()).get();
@@ -161,5 +175,13 @@ public class UserService {
             }
         }
         throw new EntityNotFoundException(String.format("no setup with id=%s !",id ));
+    }
+
+    private void checkUsernameExists(String userName) {
+        Optional<UserEntity> existingUser = find(userName);
+        if(existingUser.isPresent()){
+            throw new EntityExistsException(String.format(
+                    "user with username=%s already exists!",userName));
+        }
     }
 }

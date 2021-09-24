@@ -53,7 +53,7 @@ export const getAllSetup = token =>
 export const updateSetup = (title, newSetup, token) =>
   axios
     .put(
-      `api/shishaBuddies/user/update-setup/${title}`,
+      `/api/shishaBuddies/user/update-setup/${title}`,
       newSetup,
       headers(token)
     )
