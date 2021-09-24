@@ -14,6 +14,8 @@ import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityExistsException;
 import javax.persistence.EntityNotFoundException;
+import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
 
@@ -36,9 +38,15 @@ public class UserService {
         this.setupEntityRepository = setupEntityRepository;
     }
 
+
     public Optional<UserEntity> find(String name){
         return userRepository.findByUserName(name);
     }
+
+    public List<UserEntity> getAll() {
+        return userRepository.findAll();
+    }
+
 
     public UserEntity createUser(UserEntity userEntity) {
         String userName = userEntity.getUserName();
@@ -65,10 +73,8 @@ public class UserService {
                 return settingsEntity;
             }
         }
-       // throw new EntityNotFoundException("no settings available!");
         return SettingsEntity.builder().build();
     }
-
 
 
     public SettingsEntity saveSettings(SettingsEntity settingsEntity, UserEntity authUser) {
@@ -82,12 +88,13 @@ public class UserService {
         throw new EntityNotFoundException("user not in db");
     }
 
+
+
     public SetupEntity saveSetup(SetupEntity setupEntity, UserEntity authUser) {
         Optional<UserEntity> authUserOptional = userRepository.findByUserName(authUser.getUserName());
         if(authUserOptional.isPresent()){
            UserEntity user= authUserOptional.get();
             setupEntity.setUserEntity(user);
-            //checkIfTitleExists(setupEntity,user.getSetups());
             user.getSetups().add(setupEntity);
             userRepository.saveAndFlush(user);
             return setupEntity;
@@ -99,14 +106,6 @@ public class UserService {
         return setupEntityRepository.save(setupEntity);
     }
 
-
-
-
-    public List<UserEntity> getAll() {
-        return userRepository.findAll();
-    }
-
-
     private void checkEmailExists(String email) {
         List<UserEntity> allEntities = userRepository.findAll();
         for (UserEntity userEntity:allEntities) {
@@ -117,15 +116,6 @@ public class UserService {
         }
 
     }
-
-    private void checkUsernameExists(String userName) {
-        Optional<UserEntity> existingUser = find(userName);
-        if(existingUser.isPresent()){
-            throw new EntityExistsException(String.format(
-                    "user with username=%s already exists!",userName));
-        }
-    }
-
 
     public List<SetupEntity> getAllSetups(UserEntity authUser) {
        UserEntity user= userRepository.findByUserName(authUser.getUserName()).get();
@@ -161,5 +151,13 @@ public class UserService {
             }
         }
         throw new EntityNotFoundException(String.format("no setup with id=%s !",id ));
+    }
+
+    private void checkUsernameExists(String userName) {
+        Optional<UserEntity> existingUser = find(userName);
+        if(existingUser.isPresent()){
+            throw new EntityExistsException(String.format(
+                    "user with username=%s already exists!",userName));
+        }
     }
 }

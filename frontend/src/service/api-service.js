@@ -18,6 +18,9 @@ const headers = token => ({
   },
 })
 
+export const getTotalSmokingDuration = token =>
+  axios.get('api/shishaBuddies/user', headers(token)).then(dto => dto.data)
+
 export const getSetupByTitle = (token, title) =>
   axios
     .get(`/api/shishaBuddies/user/setup/details/${title}`, headers(token))
@@ -53,7 +56,7 @@ export const getAllSetup = token =>
 export const updateSetup = (title, newSetup, token) =>
   axios
     .put(
-      `api/shishaBuddies/user/update-setup/${title}`,
+      `/api/shishaBuddies/user/update-setup/${title}`,
       newSetup,
       headers(token)
     )

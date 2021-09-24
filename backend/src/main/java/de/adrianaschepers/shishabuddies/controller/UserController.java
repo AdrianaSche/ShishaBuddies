@@ -123,9 +123,6 @@ public class UserController{
        if(!updateSettingsEntity.getNumberOfHookahs().equals(newSettingsEntity.getNumberOfHookahs())){
            updateSettingsEntity.setNumberOfHookahs(newSettingsEntity.getNumberOfHookahs());
        }
-       if(!updateSettingsEntity.getNumberOfHookahHeads().equals(newSettingsEntity.getNumberOfHookahHeads())){
-           updateSettingsEntity.setNumberOfHookahHeads(newSettingsEntity.getNumberOfHookahHeads());
-       }
        if(!updateSettingsEntity.getNumberOfTobaccos().equals(newSettingsEntity.getNumberOfTobaccos())){
            updateSettingsEntity.setNumberOfTobaccos(newSettingsEntity.getNumberOfTobaccos());
        }
@@ -146,7 +143,7 @@ public class UserController{
 
 
     @PutMapping("update-setup/{title}")
-    public ResponseEntity<Setup> updateSetup(@RequestBody Setup setup,@PathVariable("title") String title, @AuthenticationPrincipal UserEntity authUser){
+    public ResponseEntity<Setup> updateSetup(@RequestBody Setup setup,@PathVariable String title, @AuthenticationPrincipal UserEntity authUser){
 
         SetupEntity newSetup = map(setup);
         newSetup.setTitle(title);
@@ -161,11 +158,9 @@ public class UserController{
         if(!currentSetup.getSmokingDuration().equals(newSetup.getSmokingDuration())){
             currentSetup.setSmokingDuration(newSetup.getSmokingDuration());
         }
-          /*  if(!currentSetup.getNumOfSmokedHeads().equals(newSetup.getNumOfSmokedHeads())){
-                currentSetup.setNumOfSmokedHeads(newSetup.getNumOfSmokedHeads());
-            }*/
-
-        //SetupEntity updatedSetupEntity = userService.saveSetup(currentSetup,authUser);
+        /*if(!currentSetup.getNumOfSmokedHeads().equals(newSetup.getNumOfSmokedHeads())){
+            currentSetup.setNumOfSmokedHeads(newSetup.getNumOfSmokedHeads());
+        }*/
         SetupEntity updatedSetupEntity= userService.updateSetup(currentSetup);
         Setup updatedSetup = map(updatedSetupEntity);
         return ok(updatedSetup);
@@ -173,6 +168,16 @@ public class UserController{
     }
 
 
+    @GetMapping
+    public ResponseEntity<Long> getTotalSmokingDurationOfUser(@AuthenticationPrincipal UserEntity authUser){
+        Long currentSmokingDuration =0L;
+        List<SetupEntity> setupEntities = userService.getAllSetups(authUser);
+        for (SetupEntity setupEntity:setupEntities) {
+            currentSmokingDuration +=setupEntity.getSmokingDuration();
+        }
+        return ok(currentSmokingDuration);
+
+    }
 
 
     @GetMapping("all")
@@ -206,6 +211,7 @@ public class UserController{
                 .build();
     }
 
+
     private UserEntity map(User user) {
         return UserEntity.builder()
                 .userName(user.getUserName())
@@ -226,6 +232,8 @@ public class UserController{
                 .build();
     }
 
+
+
     private Settings map(SettingsEntity createdSettingsEntity) {
         return Settings.builder()
                 .numberOfHookahs(createdSettingsEntity.getNumberOfHookahs())
@@ -236,6 +244,8 @@ public class UserController{
                 .favTobacco(createdSettingsEntity.getFavTobacco())
                 .build();
     }
+
+
 
     private List<Setup> mapSetup(List<SetupEntity> setupEntities){
         List<Setup> setups = new LinkedList<>();
@@ -255,7 +265,7 @@ public class UserController{
                 .comment(createdSetupEntity.getComment())
                 .hookahHead(createdSetupEntity.getHookahHead())
                 .hookah(createdSetupEntity.getHookah())
-                .numOfHeads(createdSetupEntity.getNumOfSmokedHeads())
+                //.numOfHeads(createdSetupEntity.getNumOfSmokedHeads())
                 .smokingDuration(createdSetupEntity.getSmokingDuration())
                 .title(createdSetupEntity.getTitle())
                 .tobacco(createdSetupEntity.getTobacco())
@@ -266,7 +276,7 @@ public class UserController{
         return SetupEntity.builder()
                 .accessories(setup.getAccessories())
                 .carbon(setup.getCarbon())
-                .numOfSmokedHeads(setup.getNumOfHeads())
+             //   .numOfSmokedHeads(setup.getNumOfHeads())
                 .carbonTop(setup.getCarbonTop())
                 .setupCount(setup.getSetupCount())
                 .smokingDuration(setup.getSmokingDuration())

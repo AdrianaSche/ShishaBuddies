@@ -26,10 +26,14 @@ export default function Login(props) {
     event.preventDefault()
     login(credentials).catch(error => console.error(error))
   }
+  /*const handleRegister = event => {
+    return <Redirect to="/register"/>
+}*/
 
   if (user) {
     return <Redirect to="/" />
   }
+
   return (
     <Page>
       <Header title="Login" />

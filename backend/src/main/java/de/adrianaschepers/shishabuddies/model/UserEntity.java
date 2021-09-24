@@ -28,7 +28,6 @@ public class UserEntity  {
 
 
     @OneToMany(cascade = CascadeType.ALL,orphanRemoval = true,mappedBy = "userEntity",fetch = FetchType.EAGER)
-    //private Set<SetupEntity> setups = new HashSet<>();
     private List<SetupEntity> setups;
 
     @Column(name = "lastname")
