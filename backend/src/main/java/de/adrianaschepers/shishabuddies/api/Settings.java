@@ -17,5 +17,6 @@ public class Settings {
    private String  favHookah;
    private String favHookahHead;
    private String favTobacco;
+   private Long smokingDurationInMinutes=0L;
 
 }

@@ -48,10 +48,10 @@ public class SetupEntity {
 
     @Column(name="smoking_duration")
     private Long smokingDuration;
-    //private Duration smokingDuration;
 
-    @Column(name="number_of_heads")
-    private Long numOfSmokedHeads;
+
+   /* @Column(name="number_of_heads")
+    private Long numOfSmokedHeads;*/
 
     @Column(name="comment",columnDefinition="TEXT")
     private String comment;

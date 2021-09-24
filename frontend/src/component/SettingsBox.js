@@ -1,5 +1,5 @@
 import styled from 'styled-components/macro'
-export default function SettingsBox({ settings }) {
+export default function SettingsBox({ settings, smokingDuration }) {
   return (
     <Wrapper>
       <p>Anzahl Shishas:</p>
@@ -14,7 +14,8 @@ export default function SettingsBox({ settings }) {
       <p>{settings.favHookahHead}</p>
       <p>Lieblingstabak: </p>
       <p>{settings.favTobacco}</p>
-      <p>Rauchdauer gesamt:</p>
+      <p>Rauchdauer gesamt(in Minuten):</p>
+      <p>{smokingDuration}</p>
     </Wrapper>
   )
 }

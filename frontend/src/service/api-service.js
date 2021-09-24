@@ -18,6 +18,9 @@ const headers = token => ({
   },
 })
 
+export const getTotalSmokingDuration = token =>
+  axios.get('api/shishaBuddies/user', headers(token)).then(dto => dto.data)
+
 export const getSetupByTitle = (token, title) =>
   axios
     .get(`/api/shishaBuddies/user/setup/details/${title}`, headers(token))

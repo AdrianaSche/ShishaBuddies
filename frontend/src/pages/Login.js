@@ -52,8 +52,7 @@ export default function Login(props) {
         />
 
         <Button> log' mich ein!</Button>
-        {/*<Button> registrieren</Button>*/}
-        {/*<Button type="button" id="myButton" onClick={handleRegister}> registrieren</Button>*/}
+        <Button> registrieren</Button>
         <Button type="button" onClick={handleCancel}>
           cancel
         </Button>

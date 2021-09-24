@@ -38,7 +38,7 @@ public class UserService {
         this.setupEntityRepository = setupEntityRepository;
     }
 
-    //USER
+
     public Optional<UserEntity> find(String name){
         return userRepository.findByUserName(name);
     }
@@ -64,7 +64,7 @@ public class UserService {
     }
 
 
-//SETTINGS
+
     public SettingsEntity getUserSettings(UserEntity authUser){
         Optional<UserEntity> authUserOpt= userRepository.findByUserName(authUser.getUserName());
         if(authUserOpt.isPresent()){
@@ -89,13 +89,12 @@ public class UserService {
     }
 
 
-    //SETUP
+
     public SetupEntity saveSetup(SetupEntity setupEntity, UserEntity authUser) {
         Optional<UserEntity> authUserOptional = userRepository.findByUserName(authUser.getUserName());
         if(authUserOptional.isPresent()){
            UserEntity user= authUserOptional.get();
             setupEntity.setUserEntity(user);
-            //checkIfTitleExists(setupEntity,user.getSetups());
             user.getSetups().add(setupEntity);
             userRepository.saveAndFlush(user);
             return setupEntity;
@@ -106,29 +105,6 @@ public class UserService {
     public SetupEntity updateSetup(SetupEntity setupEntity){
         return setupEntityRepository.save(setupEntity);
     }
-
-   /* //extract totalSmokingDuration:
-
-    public List<Long> getAllSmokingDurations(UserEntity authUser){
-        List<SetupEntity> allSetups = setupEntityRepository.findAll();
-        List<Long> smokingDuration = new ArrayList<>();
-        for (SetupEntity setupEntity: allSetups) {
-            smokingDuration.add(setupEntity.getSmokingDuration());
-        }
-        return smokingDuration;
-    }
-
-    public Long getAllSmokingDuration(UserEntity authUser){
-        int smokingDuration= Math.toIntExact(Long.valueOf(0));
-        Optional<SetupEntity> allSetups = setupEntityRepository.findAllBySmokingDuration();
-        if(allSetups.isPresent()){
-            getAllSetups(authUser).get().getSmokingDuration()
-        }
-
-        return smokingDuration;
-    }
-*/
-
 
     private void checkEmailExists(String email) {
         List<UserEntity> allEntities = userRepository.findAll();

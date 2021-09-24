@@ -16,6 +16,7 @@ const initialSettings = {
   favHookah: '',
   favHookahHead: '',
   favTobacco: '',
+  smokingDurationInMinutes: '',
 }
 export default function Settings() {
   const [settings, setSettings] = useState(initialSettings)

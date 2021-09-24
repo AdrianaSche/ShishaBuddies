@@ -19,7 +19,6 @@ public class Setup {
     private String carbon;
     private String carbonTop;
     private String accessories;
-    //private Duration smokingDuration;
     private Long smokingDuration;
     private Long numOfHeads;
     private String comment;
