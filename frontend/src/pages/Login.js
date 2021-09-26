@@ -3,9 +3,15 @@ import Page from '../component/Page'
 import Header from '../component/Header'
 import Main from '../component/Main'
 import TextField from '../component/TextField'
-import { Redirect } from 'react-router-dom'
+import { Redirect, useHistory } from 'react-router-dom'
 import { useAuth } from '../auth/AuthProvider'
 import Button from '../component/Button'
+import CancelButton from '../component/CancelButton'
+import styled from 'styled-components/macro'
+import ButtonGroup from '../component/ButtonGroup'
+import Error from '../component/Error'
+import Loading from '../component/Loading'
+import Navbar from '../component/Navbar'
 
 const initialState = {
   userName: '',
@@ -15,6 +21,9 @@ const initialState = {
 export default function Login(props) {
   const { login, user } = useAuth()
   const [credentials, setCredentials] = useState(initialState)
+  const [loading, setLoading] = useState(false)
+  const [error, setError] = useState()
+  const history = useHistory()
   console.log(credentials)
 
   const handleCredentialsChange = event =>
@@ -24,39 +33,55 @@ export default function Login(props) {
 
   const handleSubmit = event => {
     event.preventDefault()
-    login(credentials).catch(error => console.error(error))
+    setLoading(true)
+    setError()
+    login(credentials).catch(error => {
+      setError(error)
+      setLoading(false)
+    })
   }
-  /*const handleRegister = event => {
-    return <Redirect to="/register"/>
-}*/
 
   if (user) {
     return <Redirect to="/" />
   }
 
+  const handleRegister = () => {
+    const path = '/register'
+    history.push(path)
+  }
+
   return (
     <Page>
-      <Header title="Login" />
-      <Main as="form" onSubmit={handleSubmit}>
-        <TextField
-          title="Username"
-          name="userName"
-          value={credentials.userName}
-          onChange={handleCredentialsChange}
-        />
-        <TextField
-          title="Password"
-          name="password"
-          value={credentials.password}
-          onChange={handleCredentialsChange}
-        />
+      <Header title="Willkommen zu Shisha Buddies!" />
+      {loading && <Loading />}
+      {!loading && (
+        <Main as="form" onSubmit={handleSubmit}>
+          <TextField
+            title="Username"
+            name="userName"
+            value={credentials.userName}
+            onChange={handleCredentialsChange}
+          />
+          <TextField
+            title="Password"
+            name="password"
+            value={credentials.password}
+            onChange={handleCredentialsChange}
+          />
 
-        <Button> log' mich ein!</Button>
-        <Button> registrieren</Button>
-        <Button type="button" onClick={handleCancel}>
-          cancel
-        </Button>
-      </Main>
+          <ButtonGroup>
+            <Button> einloggen</Button>
+            <Button type="button" onClick={handleRegister}>
+              registrieren
+            </Button>
+            <CancelButton type="button" onClick={handleCancel}>
+              cancel
+            </CancelButton>
+          </ButtonGroup>
+        </Main>
+      )}
+      {error && <Error>{error.message}</Error>}
+      <Navbar user={user} />
     </Page>
   )
 }

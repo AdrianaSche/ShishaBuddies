@@ -9,6 +9,8 @@ import CreateSetup from './pages/CreateSetup'
 import SetupGallery from './pages/SetupGallery'
 import SetupDetails from './pages/SetupDetails'
 import SetupAnalysis from './pages/SetupAnalysis'
+import Welcome from './pages/Welcome'
+import Logout from './pages/Logout'
 export default function App() {
   return (
     <AuthProvider>
@@ -18,6 +20,7 @@ export default function App() {
           <Route path="/login" component={Login} />
           <Route path="/register" component={RegisterBasic} />
           <Route path="/settings" component={Settings} />
+          <Route path="/logout" component={Logout} />
 
           <Route path="/setup/details/edit/:title" component={SetupAnalysis} />
           <Route path="/setup/details/:title" component={SetupDetails} />

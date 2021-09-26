@@ -8,6 +8,7 @@ import Button from '../component/Button'
 import { useParams } from 'react-router-dom'
 import TextArea from '../component/TextArea'
 import SetupCountField from '../component/SetupCountField'
+import TextField from '../component/TextField'
 
 const initialSetup = {
   title: '',
@@ -72,6 +73,14 @@ export default function SetupAnalysis() {
           value={newSetup.comment}
           onChange={handleSetupChange}
         />
+
+        <TextField
+          title="Anzahl der gerauchten Köpfe:"
+          name="numOfSmokedHeads"
+          value={newSetup.numOfSmokedHeads}
+          onChange={handleSetupChange}
+        />
+
         <Button>speichern</Button>
         <Button onClick={handleCancel}>cancel</Button>
       </Main>

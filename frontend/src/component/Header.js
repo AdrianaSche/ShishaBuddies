@@ -3,12 +3,17 @@ import './Header.css'
 export default function Header({ title }) {
   return (
     <Wrapper>
-      <img //Bild hinzugefügt
+      <img
         className="header_img"
         src="https://shisha-steamulation.de/wp-content/uploads/2021/05/waterfall-Blow-OffSleeveBow-Off-Adapter-UpPlate-lp.jpg"
         alt="hookah"
       />
       <h1>{title}</h1>
+      <img
+        className="header_img"
+        src="https://shisha-steamulation.de/wp-content/uploads/2021/05/waterfall-Blow-OffSleeveBow-Off-Adapter-UpPlate-lp.jpg"
+        alt="hookah"
+      />
     </Wrapper>
   )
 }
