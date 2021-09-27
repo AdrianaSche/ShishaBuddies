@@ -7,6 +7,8 @@ import Button from '../component/Button'
 import Page from '../component/Page'
 import Main from '../component/Main'
 import { Redirect } from 'react-router-dom'
+import ButtonGroup from '../component/ButtonGroup'
+import CancelButton from '../component/CancelButton'
 
 const userSettings = {
   numberOfHookahs: '',
@@ -36,13 +38,16 @@ export default function UpdateSettings() {
     event.preventDefault()
     updateSettings(newSettings, token)
       .catch(error => console.error(error))
-      .then(setRedirectToHome(true))
+      .finally(() => setRedirectToHome(true))
   }
 
   const handleSettingsChange = event =>
     setNewSettings({ ...newSettings, [event.target.name]: event.target.value })
 
-  const handleCancel = () => setNewSettings(currentSettings)
+  const handleCancel = () => {
+    setNewSettings(currentSettings)
+    setRedirectToHome(true)
+  }
 
   if (redirectToHome) {
     return <Redirect to="/" />
@@ -87,8 +92,10 @@ export default function UpdateSettings() {
           value={newSettings.favHookahHead}
           onChange={handleSettingsChange}
         />
-        <Button>speichern</Button>
-        <Button onClick={handleCancel}>cancel</Button>
+        <ButtonGroup>
+          <Button>speichern</Button>
+          <CancelButton onClick={handleCancel}>cancel</CancelButton>
+        </ButtonGroup>
       </Main>
     </Page>
   )

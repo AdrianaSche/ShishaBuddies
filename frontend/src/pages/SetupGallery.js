@@ -7,6 +7,11 @@ import Header from '../component/Header'
 import { Redirect } from 'react-router-dom'
 import SetupCard from '../component/SetupCard'
 import styled from 'styled-components/macro'
+import ButtonGroup from '../component/ButtonGroup'
+import CancelButton from '../component/CancelButton'
+import Button from '../component/Button'
+import Main from '../component/Main'
+import MainGallery from '../component/MainGallery'
 
 export default function SetupGallery() {
   const { user, token } = useAuth()
@@ -24,22 +29,27 @@ export default function SetupGallery() {
   return (
     <Page>
       <Header title="Deine Shisha Galerie" />
-      <Wrapper>
-        {setups.length > 0 &&
-          setups.map(setup => <SetupCard key={setup.title} setup={setup} />)}
-      </Wrapper>
+      <MainGallery>
+        <Wrapper>
+          {setups.length > 0 &&
+            setups.map(setup => <SetupCard key={setup.title} setup={setup} />)}
+        </Wrapper>
+        <ButtonGroup>
+          <Button>zurück</Button>
+          <CancelButton>cancel</CancelButton>
+        </ButtonGroup>
+      </MainGallery>
     </Page>
   )
 }
 
 const Wrapper = styled.div`
-  margin: 12px;
-  color: lightgreen;
-  display: flex;
-  float: left;
-  flex-wrap: wrap;
-  padding: var(--size-xl);
-  text-align: center;
+  display: grid;
+  grid-template-columns: 47% 47%;
+  grid-auto-rows: min-content;
+  grid-auto-columns: initial;
+  grid-gap: var(--size-m);
+  padding: var(--size-m);
   height: 100%;
   width: 100%;
 `

@@ -9,6 +9,7 @@ import { getSettings, getTotalSmokingDuration } from '../service/api-service'
 import SettingsBox from '../component/SettingsBox'
 import Button from '../component/Button'
 import Avatar from '../component/Avatar'
+import MainGallery from '../component/MainGallery'
 
 export default function Profile() {
   const { user, logout, token } = useAuth()
@@ -41,7 +42,7 @@ export default function Profile() {
         <SettingsBox settings={settings} smokingDuration={smokingDuration} />
         <Button onClick={logout}>Log out</Button>
       </Main>
-      <Navbar user={user} />
+      <Navbar user={user} settings={settings} />
     </Page>
   )
 }

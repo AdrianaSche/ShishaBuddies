@@ -19,8 +19,9 @@ export default function Header({ title }) {
 }
 
 const Wrapper = styled.header`
-  display: flex; //bild neben heading
-  align-items: center; //Anordnung bild
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
   width: 100%;
   text-align: center;
   background: var(--background-dark);

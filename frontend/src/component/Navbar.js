@@ -1,12 +1,15 @@
 import { NavLink } from 'react-router-dom'
 import styled from 'styled-components/macro'
 
-export default function Navbar({ user, ...props }) {
+export default function Navbar({ user, settings, ...props }) {
   return (
     <Wrapper {...props}>
       <NavLink exact to="/">
         Profile
       </NavLink>
+      {/* {settings.numberOfHookahs === 0 && user && (
+        <NavLink to="/settings">Profil vervollständigen</NavLink>
+      )}*/}
       {user && <NavLink to="/settings">Profil vervollständigen</NavLink>}
       {user && <NavLink to="/update-settings">Profil verwalten</NavLink>}
       {user && <NavLink to="/setup">Was rauchst Du gerade?</NavLink>}
@@ -21,7 +24,7 @@ const Wrapper = styled.nav`
   width: 100%;
   padding: var(--size-m);
   display: flex;
-  overflow-y: scroll;
+  overflow-x: scroll;
 
   a {
     flex-grow: 1;
