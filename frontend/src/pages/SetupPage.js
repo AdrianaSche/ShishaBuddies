@@ -11,8 +11,10 @@ import ButtonGroup from '../component/ButtonGroup'
 import CancelButton from '../component/CancelButton'
 import Button from '../component/Button'
 import MainGallery from '../component/MainGallery'
+import ProfileGallery from '../component/ProfileGallery'
+import SetupGallery from '../component/SetupGallery'
 
-export default function SetupGallery() {
+export default function SetupPage() {
   const { user, token } = useAuth()
   const [setups, setSetups] = useState([])
 
@@ -28,21 +30,19 @@ export default function SetupGallery() {
   return (
     <Page>
       <Header title="Deine Shisha Galerie" />
-      <MainGallery>
-        <Wrapper>
-          {setups.length > 0 &&
-            setups.map(setup => <SetupCard key={setup.title} setup={setup} />)}
-        </Wrapper>
-        <ButtonGroup>
-          <Button>zurück</Button>
-          <CancelButton>cancel</CancelButton>
-        </ButtonGroup>
-      </MainGallery>
+      <SetupGallery>
+        {setups.length > 0 &&
+          setups.map(setup => <SetupCard key={setup.title} setup={setup} />)}
+      </SetupGallery>
+      <ButtonGroup>
+        <Button>zurück</Button>
+        <CancelButton>cancel</CancelButton>
+      </ButtonGroup>
     </Page>
   )
 }
 
-const Wrapper = styled.div`
+/*const Wrapper = styled.div`
   display: grid;
   grid-template-columns: 47% 47%;
   grid-auto-rows: min-content;
@@ -51,4 +51,4 @@ const Wrapper = styled.div`
   padding: var(--size-m);
   height: 100%;
   width: 100%;
-`
+`*/

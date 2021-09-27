@@ -7,7 +7,6 @@ import { Redirect, useHistory } from 'react-router-dom'
 import { useAuth } from '../auth/AuthProvider'
 import Button from '../component/Button'
 import CancelButton from '../component/CancelButton'
-import styled from 'styled-components/macro'
 import ButtonGroup from '../component/ButtonGroup'
 import Error from '../component/Error'
 import Loading from '../component/Loading'
@@ -18,7 +17,7 @@ const initialState = {
   password: '',
 }
 
-export default function Login(props) {
+export default function Login() {
   const { login, user } = useAuth()
   const [credentials, setCredentials] = useState(initialState)
   const [loading, setLoading] = useState(false)

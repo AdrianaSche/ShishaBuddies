@@ -13,6 +13,10 @@ import styled from 'styled-components/macro'
 import CancelButton from '../component/CancelButton'
 import TextFieldTitle from '../component/TextFieldTitle'
 import ButtonGroup from '../component/ButtonGroup'
+import MainGallery from '../component/MainGallery'
+import ProfileGallery from '../component/ProfileGallery'
+import MainCreateSetup from '../component/MainCreateSetup'
+import ButtonGroupCreateSetup from '../component/ButtonGroupCreateSetup'
 
 const initialSetup = {
   title: '',
@@ -48,7 +52,7 @@ export default function CreateSetup() {
   return (
     <Page>
       <Header title="Was rauchst Du gerade?" />
-      <SetupMain as="form" onSubmit={handleSubmit}>
+      <MainCreateSetup as="form" onSubmit={handleSubmit}>
         <TextFieldTitle
           title="Titel:"
           name="title"
@@ -105,11 +109,11 @@ export default function CreateSetup() {
             onChange={handleSetupChange}
           />
         </Wrapper>
-        <ButtonGroup>
+        <ButtonGroupCreateSetup>
           <Button>speichern</Button>
           <CancelButton onClick={handleCancel}>cancel</CancelButton>
-        </ButtonGroup>
-      </SetupMain>
+        </ButtonGroupCreateSetup>
+      </MainCreateSetup>
 
       <Navbar user={user} />
     </Page>
@@ -117,22 +121,9 @@ export default function CreateSetup() {
 }
 
 const Wrapper = styled.div`
-  padding: 50px;
   width: 200px;
   text-align: center;
   border: 1px solid #333;
   border-radius: 12px;
   box-shadow: 1px 2px 8px #666;
-`
-
-const SetupMain = styled.div`
-  margin: 9px;
-  color: lightgreen;
-  display: flex;
-  float: left;
-  flex-wrap: wrap;
-  padding: var(--size-xl);
-  text-align: center;
-  height: 100%;
-  width: 100%;
 `
