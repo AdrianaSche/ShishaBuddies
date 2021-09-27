@@ -10,7 +10,6 @@ import styled from 'styled-components/macro'
 import ButtonGroup from '../component/ButtonGroup'
 import CancelButton from '../component/CancelButton'
 import Button from '../component/Button'
-import Main from '../component/Main'
 import MainGallery from '../component/MainGallery'
 
 export default function SetupGallery() {

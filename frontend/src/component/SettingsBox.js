@@ -1,6 +1,4 @@
 import styled from 'styled-components/macro'
-import Main from './Main'
-import MainGallery from './MainGallery'
 import ProfileGallery from './ProfileGallery'
 export default function SettingsBox({ settings, smokingDuration }) {
   return (
