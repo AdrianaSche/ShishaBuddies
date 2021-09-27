@@ -12,6 +12,7 @@ import CancelButton from '../component/CancelButton'
 import styled from 'styled-components/macro'
 import MainUpdate from '../component/MainUpdate'
 import ButtonGroupCreateSetup from '../component/ButtonGroupCreateSetup'
+import Navbar from '../component/Navbar'
 
 const userSettings = {
   numberOfHookahs: '',
@@ -23,7 +24,7 @@ const userSettings = {
 }
 
 export default function UpdateSettings() {
-  const { token } = useAuth()
+  const { token, user } = useAuth()
   const [newSettings, setNewSettings] = useState(userSettings)
   const [currentSettings, setCurrentSettings] = useState()
   const [redirectToHome, setRedirectToHome] = useState(false)
@@ -112,6 +113,7 @@ export default function UpdateSettings() {
           <CancelButton onClick={handleCancel}>cancel</CancelButton>
         </ButtonGroupCreateSetup>
       </MainUpdate>
+      <Navbar user={user} />
     </Page>
   )
 }
