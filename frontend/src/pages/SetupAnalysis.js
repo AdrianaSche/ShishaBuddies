@@ -5,7 +5,7 @@ import { useEffect, useState } from 'react'
 import { useAuth } from '../auth/AuthProvider'
 import { getSetupByTitle, updateSetup } from '../service/api-service'
 import Button from '../component/Button'
-import { useHistory, useParams } from 'react-router-dom'
+import { useParams } from 'react-router-dom'
 import TextArea from '../component/TextArea'
 import SetupCountField from '../component/SetupCountField'
 import Navbar from '../component/Navbar'
@@ -54,10 +54,6 @@ export default function SetupAnalysis() {
 
   const handleCancel = () => setNewSetup(currentSetup)
 
-  /*if(newSetup){
-    return <Redirect to="/"/>
-  }
-*/
   return (
     <Page>
       <Header title="Bewerte Deine Shisha-Session!" />
