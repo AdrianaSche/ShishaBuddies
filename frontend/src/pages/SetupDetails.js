@@ -1,6 +1,6 @@
 import styled from 'styled-components/macro'
 import Avatar from '../component/Avatar'
-import { Link, Redirect, useHistory, useParams } from 'react-router-dom'
+import { Link, useParams } from 'react-router-dom'
 import { useEffect, useState } from 'react'
 import { getSetupByTitle } from '../service/api-service'
 import { useAuth } from '../auth/AuthProvider'

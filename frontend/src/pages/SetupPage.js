@@ -6,8 +6,6 @@ import Header from '../component/Header'
 
 import { Redirect } from 'react-router-dom'
 import SetupCard from '../component/SetupCard'
-import ButtonGroup from '../component/ButtonGroup'
-import Button from '../component/Button'
 import SetupGallery from '../component/SetupGallery'
 import Navbar from '../component/Navbar'
 

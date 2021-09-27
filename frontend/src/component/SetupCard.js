@@ -2,8 +2,6 @@ import Avatar from './Avatar'
 import './SetupCard.css'
 import { Link } from 'react-router-dom'
 import styled from 'styled-components/macro'
-import Button from './Button'
-import LinkButton from './LinkButton'
 import ButtonGroup from './ButtonGroup'
 import CancelButton from './CancelButton'
 
@@ -29,7 +27,6 @@ export default function SetupCard({ setup }) {
 const Wrapper = styled.div`
   padding: 5px;
   width: 200px;
-  //height: 80%;
   text-align: center;
   align-items: center;
   border: 1px solid #333;

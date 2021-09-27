@@ -1,6 +1,5 @@
 import styled from 'styled-components/macro'
 import Label from './Label'
-import LabelTitle from './LabelTitle'
 
 export default function TextFieldTitle(props) {
   return (
