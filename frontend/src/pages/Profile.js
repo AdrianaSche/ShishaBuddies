@@ -17,7 +17,9 @@ export default function Profile() {
   const [smokingDuration, setSmokingDuration] = useState()
 
   useEffect(() => {
-    getSettings(token).then(setSettings)
+    getSettings(token)
+      .then(setSettings)
+      .catch(error => console.error(error))
     getTotalSmokingDuration(token)
       .then(setSmokingDuration)
       .catch(error => console.error(error))
@@ -35,7 +37,7 @@ export default function Profile() {
         <SettingsBox settings={settings} smokingDuration={smokingDuration} />
         <Button onClick={logout}>Log out</Button>
       </Main>
-      <Navbar user={user} settings={settings} />
+      <Navbar user={user} />
     </Page>
   )
 }

@@ -6,24 +6,26 @@ import Header from '../component/Header'
 
 import { Redirect } from 'react-router-dom'
 import SetupCard from '../component/SetupCard'
-import styled from 'styled-components/macro'
 import ButtonGroup from '../component/ButtonGroup'
-import CancelButton from '../component/CancelButton'
 import Button from '../component/Button'
-import MainGallery from '../component/MainGallery'
-import ProfileGallery from '../component/ProfileGallery'
 import SetupGallery from '../component/SetupGallery'
+import Navbar from '../component/Navbar'
 
 export default function SetupPage() {
   const { user, token } = useAuth()
   const [setups, setSetups] = useState([])
+  const [setupAvailable, setSetupAvailable] = useState(false)
 
   useEffect(() => {
     getAllSetup(token)
       .then(setSetups)
       .catch(error => console.error(error))
+    setSetupAvailable(true)
   }, [token])
 
+  if (!setupAvailable) {
+    return <p>noch keine Sessions!</p>
+  }
   if (!user) {
     return <Redirect to="/login" />
   }
@@ -34,21 +36,7 @@ export default function SetupPage() {
         {setups.length > 0 &&
           setups.map(setup => <SetupCard key={setup.title} setup={setup} />)}
       </SetupGallery>
-      <ButtonGroup>
-        <Button>zurück</Button>
-        <CancelButton>cancel</CancelButton>
-      </ButtonGroup>
+      <Navbar user={user} />
     </Page>
   )
 }
-
-/*const Wrapper = styled.div`
-  display: grid;
-  grid-template-columns: 47% 47%;
-  grid-auto-rows: min-content;
-  grid-auto-columns: initial;
-  grid-gap: var(--size-m);
-  padding: var(--size-m);
-  height: 100%;
-  width: 100%;
-`*/

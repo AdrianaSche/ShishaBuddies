@@ -8,6 +8,7 @@ import { createSettings } from '../service/api-service'
 import Button from '../component/Button'
 import Navbar from '../component/Navbar'
 import { useHistory } from 'react-router-dom'
+import ButtonGroup from '../component/ButtonGroup'
 
 const initialSettings = {
   numberOfHookahs: '',
@@ -75,8 +76,10 @@ export default function Settings() {
           value={settings.favHookahHead}
           onChange={handleSettingsChange}
         />
-        <Button>speichern</Button>
-        <Button onClick={handleCancel}>cancel</Button>
+        <ButtonGroup>
+          <Button>speichern</Button>
+          <Button onClick={handleCancel}>cancel</Button>
+        </ButtonGroup>
       </Main>
       <Navbar user={user} />
     </Page>
