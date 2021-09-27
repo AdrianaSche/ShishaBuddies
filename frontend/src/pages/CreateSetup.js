@@ -1,7 +1,6 @@
 import Header from '../component/Header'
 import Page from '../component/Page'
 import { useAuth } from '../auth/AuthProvider'
-import Main from '../component/Main'
 import TextField from '../component/TextField'
 import Button from '../component/Button'
 import Navbar from '../component/Navbar'

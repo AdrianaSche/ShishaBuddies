@@ -33,7 +33,6 @@ export default function SetupAnalysis() {
   const { token, user } = useAuth()
   const [newSetup, setNewSetup] = useState(initialSetup)
   const [currentSetup, setCurrentSetup] = useState(initialSetup)
-  const history = useHistory()
 
   useEffect(() => {
     getSetupByTitle(token, title)
