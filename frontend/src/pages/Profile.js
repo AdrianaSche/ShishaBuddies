@@ -16,14 +16,10 @@ export default function Profile() {
   const [settings, setSettings] = useState([])
   const [smokingDuration, setSmokingDuration] = useState()
 
-  /* useEffect(() => {
+  useEffect(() => {
     getSettings(token)
       .then(setSettings)
       .catch(error => console.error(error))
-  }, [token])*/
-
-  useEffect(() => {
-    getSettings(token).then(setSettings)
     getTotalSmokingDuration(token)
       .then(setSmokingDuration)
       .catch(error => console.error(error))

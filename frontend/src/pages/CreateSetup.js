@@ -1,14 +1,17 @@
 import Header from '../component/Header'
 import Page from '../component/Page'
 import { useAuth } from '../auth/AuthProvider'
-import Main from '../component/Main'
 import TextField from '../component/TextField'
 import Button from '../component/Button'
 import Navbar from '../component/Navbar'
 import { useState } from 'react'
-import Avatar from '../component/Avatar'
 import { useHistory } from 'react-router-dom'
 import { createSetup } from '../service/api-service'
+import styled from 'styled-components/macro'
+import CancelButton from '../component/CancelButton'
+import TextFieldTitle from '../component/TextFieldTitle'
+import MainCreateSetup from '../component/MainCreateSetup'
+import ButtonGroupCreateSetup from '../component/ButtonGroupCreateSetup'
 
 const initialSetup = {
   title: '',
@@ -44,78 +47,78 @@ export default function CreateSetup() {
   return (
     <Page>
       <Header title="Was rauchst Du gerade?" />
-      <Main as="form" onSubmit={handleSubmit}>
-        <TextField
+      <MainCreateSetup as="form" onSubmit={handleSubmit}>
+        <TextFieldTitle
           title="Titel:"
           name="title"
           value={setup.title}
           onChange={handleSetupChange}
         />
-        <TextField
-          title="Shisha:"
-          name="hookah"
-          value={setup.hookah}
-          onChange={handleSetupChange}
-        />
-        <TextField
-          title="Kopf:"
-          name="hookahHead"
-          value={setup.hookahHead}
-          onChange={handleSetupChange}
-        />
-        <TextField
-          title="Tabaksorte:"
-          name="tobacco"
-          value={setup.tobacco}
-          onChange={handleSetupChange}
-        />
-        <TextField
-          title="Kohle:"
-          name="carbon"
-          value={setup.carbon}
-          onChange={handleSetupChange}
-        />
-        <TextField
-          title="Aufsatz:"
-          name="carbonTop"
-          value={setup.carbonTop}
-          onChange={handleSetupChange}
-        />
-        <TextField
-          title="Zubehör:"
-          name="accessories"
-          value={setup.accessories}
-          onChange={handleSetupChange}
-        />
-        <TextField
-          title="Rauchdauer:"
-          name="smokingDuration"
-          value={setup.smokingDuration}
-          onChange={handleSetupChange}
-        />
-        <TextField
-          title="Anzahl der gerauchten Köpfe:"
-          name="numOfSmokedHeads"
-          value={setup.numOfSmokedHeads}
-          onChange={handleSetupChange}
-        />
-        <TextField
-          title="Kommentar:"
-          name="comment"
-          value={setup.comment}
-          onChange={handleSetupChange}
-        />
-        <TextField
-          title="Wie oft verwendet:"
-          name="setupCount"
-          value={setup.setupCount}
-          onChange={handleSetupChange}
-        />
-        <Avatar src="https://thispersondoesnotexist.com/image" alt="bild" />
-        <Button>speichern</Button>
-        <Button onClick={handleCancel}>cancel</Button>
-      </Main>
+
+        <Wrapper>
+          <TextField
+            title="Shisha:"
+            name="hookah"
+            value={setup.hookah}
+            onChange={handleSetupChange}
+          />
+        </Wrapper>
+
+        <Wrapper>
+          <TextField
+            title="Kopf:"
+            name="hookahHead"
+            value={setup.hookahHead}
+            onChange={handleSetupChange}
+          />
+        </Wrapper>
+        <Wrapper>
+          <TextField
+            title="Tabaksorte:"
+            name="tobacco"
+            value={setup.tobacco}
+            onChange={handleSetupChange}
+          />
+        </Wrapper>
+        <Wrapper>
+          <TextField
+            title="Kohle:"
+            name="carbon"
+            value={setup.carbon}
+            onChange={handleSetupChange}
+          />
+        </Wrapper>
+        <Wrapper>
+          <TextField
+            title="Aufsatz:"
+            name="carbonTop"
+            value={setup.carbonTop}
+            onChange={handleSetupChange}
+          />
+        </Wrapper>
+        <Wrapper>
+          <TextField
+            title="Zubehör:"
+            name="accessories"
+            value={setup.accessories}
+            onChange={handleSetupChange}
+          />
+        </Wrapper>
+        <ButtonGroupCreateSetup>
+          <Button>speichern</Button>
+          <CancelButton onClick={handleCancel}>cancel</CancelButton>
+        </ButtonGroupCreateSetup>
+      </MainCreateSetup>
+
       <Navbar user={user} />
     </Page>
   )
 }
+
+const Wrapper = styled.div`
+  width: 200px;
+  text-align: center;
+  border: 1px solid #333;
+  border-radius: 12px;
+  box-shadow: 1px 2px 8px #666;
+`

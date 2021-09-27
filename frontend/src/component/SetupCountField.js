@@ -16,7 +16,7 @@ export default function SetupCountField(props) {
 }
 
 const Input = styled.input`
-  width: 10%;
+  width: 20%;
   font-size: 1em;
   padding: var(--size-xs);
   margin-top: var(--size-xs);

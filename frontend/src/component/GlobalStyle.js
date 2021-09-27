@@ -5,7 +5,7 @@ export default createGlobalStyle`
   :root {
     --background-dark: #111;
     --background-light: #222;
-    --accent: green;
+    --accent: #8FBC8F;
     --neutral-dark: #666;
     --neutral-light: #efefef;
     --error: var(--accent);

@@ -6,6 +6,7 @@ import { getSetupByTitle } from '../service/api-service'
 import { useAuth } from '../auth/AuthProvider'
 import Header from '../component/Header'
 import Page from '../component/Page'
+import Navbar from '../component/Navbar'
 
 const initalSetup = {
   title: '',
@@ -21,7 +22,7 @@ const initalSetup = {
 }
 export default function SetupDetails() {
   const { title } = useParams()
-  const { token } = useAuth()
+  const { token, user } = useAuth()
   const [setup, setSetup] = useState(initalSetup)
 
   useEffect(() => {
@@ -31,38 +32,47 @@ export default function SetupDetails() {
   }, [token, title])
 
   return (
-    <Wrapper>
-      <Page>
-        <Header title="Deine Session" />
-        <p>{setup.title}</p>
-        <p>Shisha:{setup.hookah}</p>
-        <p>Kopf:{setup.hookahHead}</p>
-        <p>Tabak:{setup.tobacco}</p>
-        <p>Kohle:{setup.carbon}</p>
-        <p>Aufsatz:{setup.carbonTop}</p>
-        <p>Zubehör:{setup.accessories}</p>
-        <p>Rauchdauer:{setup.smokingDuration}</p>
-        <p>Anzahl der gerauchten Köpfe:{setup.numOfSmokedHeads}</p>
-        <p>Dein Kommentar:{setup.comment}</p>
-        <Link to={`/setup/details/edit/${title}`}>Details bearbeiten</Link>
-        <Avatar
-          src="https://shishashop.at/wp-content/uploads/2021/03/lava-united-shisha-silber.jpg"
-          alt="setup"
-        />
-      </Page>
-    </Wrapper>
+    <Page>
+      <Header title={setup.title} />
+      <Avatar
+        src="https://shishashop.at/wp-content/uploads/2021/03/lava-united-shisha-silber.jpg"
+        alt="setup"
+      />
+
+      <MainDetails>
+        <Wrapper>
+          <p>Shisha:{setup.hookah}</p>
+          <p>Kopf:{setup.hookahHead}</p>
+          <p>Tabak:{setup.tobacco}</p>
+          <p>Kohle:{setup.carbon}</p>
+          <p>Aufsatz:{setup.carbonTop}</p>
+          <p>Zubehör:{setup.accessories}</p>
+          <p>Rauchdauer:{setup.smokingDuration}</p>
+          <p>Anzahl der gerauchten Köpfe:{setup.numOfSmokedHeads}</p>
+        </Wrapper>
+
+        <Wrapper>
+          <p>Dein Kommentar:</p>
+          <p>{setup.comment}</p>
+        </Wrapper>
+      </MainDetails>
+      {/*//Linkbutton problem mit nicht mehr eingeloggt sein*/}
+      <Link to={`/setup/details/edit/${title}`}>Details bearbeiten</Link>
+      <Navbar user={user} />
+    </Page>
   )
 }
 
+const MainDetails = styled.main`
+  display: flex;
+`
 const Wrapper = styled.div`
-  color: lightgreen;
-  display: grid;
-  grid-template-columns: 15% 10%;
-  grid-auto-rows: 10%;
-  grid-auto-columns: initial;
-  grid-gap: var(--size-l);
-  padding: var(--size-xl);
-  text-align: center;
-  height: 100%;
-  width: 100%;
+  // scrollbar???
+  padding: 5px;
+  width: 180px;
+  height: 80%;
+  text-align: left;
+  border: 1px solid #333;
+  border-radius: 12px;
+  box-shadow: 1px 2px 8px #666;
 `

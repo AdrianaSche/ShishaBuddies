@@ -5,8 +5,12 @@ import TextField from '../component/TextField'
 import { useAuth } from '../auth/AuthProvider'
 import Button from '../component/Button'
 import Page from '../component/Page'
-import Main from '../component/Main'
 import { Redirect } from 'react-router-dom'
+import CancelButton from '../component/CancelButton'
+import styled from 'styled-components/macro'
+import MainUpdate from '../component/MainUpdate'
+import ButtonGroupCreateSetup from '../component/ButtonGroupCreateSetup'
+import Navbar from '../component/Navbar'
 
 const userSettings = {
   numberOfHookahs: '',
@@ -18,7 +22,7 @@ const userSettings = {
 }
 
 export default function UpdateSettings() {
-  const { token } = useAuth()
+  const { token, user } = useAuth()
   const [newSettings, setNewSettings] = useState(userSettings)
   const [currentSettings, setCurrentSettings] = useState()
   const [redirectToHome, setRedirectToHome] = useState(false)
@@ -36,13 +40,16 @@ export default function UpdateSettings() {
     event.preventDefault()
     updateSettings(newSettings, token)
       .catch(error => console.error(error))
-      .then(setRedirectToHome(true))
+      .finally(() => setRedirectToHome(true))
   }
 
   const handleSettingsChange = event =>
     setNewSettings({ ...newSettings, [event.target.name]: event.target.value })
 
-  const handleCancel = () => setNewSettings(currentSettings)
+  const handleCancel = () => {
+    setNewSettings(currentSettings)
+    setRedirectToHome(true)
+  }
 
   if (redirectToHome) {
     return <Redirect to="/" />
@@ -50,46 +57,69 @@ export default function UpdateSettings() {
   return (
     <Page>
       <Header title="update Dein Profil" />
-      <Main as="form" onSubmit={handleSubmit}>
-        <TextField
-          title="Anzahl der Shishas:"
-          name="numberOfHookahs"
-          value={newSettings.numberOfHookahs}
-          onChange={handleSettingsChange}
-        />
-        <TextField
-          title="Anzahl der Tabaksorten:"
-          name="numberOfTobaccos"
-          value={newSettings.numberOfTobaccos}
-          onChange={handleSettingsChange}
-        />
-        <TextField
-          title="Anzahl der Köpfe:"
-          name="numberOfHookahHeads"
-          value={newSettings.numberOfHookahHeads}
-          onChange={handleSettingsChange}
-        />
-        <TextField
-          title="Lieblingsshisha:"
-          name="favHookah"
-          value={newSettings.favHookah}
-          onChange={handleSettingsChange}
-        />
-        <TextField
-          title="Lieblingstabak:"
-          name="favTobacco"
-          value={newSettings.favTobacco}
-          onChange={handleSettingsChange}
-        />
-        <TextField
-          title="Lieblingskopf:"
-          name="favHookahHead"
-          value={newSettings.favHookahHead}
-          onChange={handleSettingsChange}
-        />
-        <Button>speichern</Button>
-        <Button onClick={handleCancel}>cancel</Button>
-      </Main>
+      <MainUpdate as="form" onSubmit={handleSubmit}>
+        <Wrapper>
+          <TextField
+            title="Anzahl der Shishas:"
+            name="numberOfHookahs"
+            value={newSettings.numberOfHookahs}
+            onChange={handleSettingsChange}
+          />
+        </Wrapper>
+        <Wrapper>
+          <TextField
+            title="Anzahl der Tabaksorten:"
+            name="numberOfTobaccos"
+            value={newSettings.numberOfTobaccos}
+            onChange={handleSettingsChange}
+          />
+        </Wrapper>
+        <Wrapper>
+          <TextField
+            title="Anzahl der Köpfe:"
+            name="numberOfHookahHeads"
+            value={newSettings.numberOfHookahHeads}
+            onChange={handleSettingsChange}
+          />
+        </Wrapper>
+        <Wrapper>
+          <TextField
+            title="Lieblingsshisha:"
+            name="favHookah"
+            value={newSettings.favHookah}
+            onChange={handleSettingsChange}
+          />
+        </Wrapper>
+        <Wrapper>
+          <TextField
+            title="Lieblingstabak:"
+            name="favTobacco"
+            value={newSettings.favTobacco}
+            onChange={handleSettingsChange}
+          />
+        </Wrapper>
+        <Wrapper>
+          <TextField
+            title="Lieblingskopf:"
+            name="favHookahHead"
+            value={newSettings.favHookahHead}
+            onChange={handleSettingsChange}
+          />
+        </Wrapper>
+        <ButtonGroupCreateSetup>
+          <Button>speichern</Button>
+          <CancelButton onClick={handleCancel}>cancel</CancelButton>
+        </ButtonGroupCreateSetup>
+      </MainUpdate>
+      <Navbar user={user} />
     </Page>
   )
 }
+
+const Wrapper = styled.div`
+  width: 200px;
+  text-align: center;
+  border: 1px solid #333;
+  border-radius: 12px;
+  box-shadow: 1px 2px 8px #666;
+`

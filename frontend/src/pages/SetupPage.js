@@ -6,40 +6,35 @@ import Header from '../component/Header'
 
 import { Redirect } from 'react-router-dom'
 import SetupCard from '../component/SetupCard'
-import styled from 'styled-components/macro'
+import SetupGallery from '../component/SetupGallery'
+import Navbar from '../component/Navbar'
 
-export default function SetupGallery() {
+export default function SetupPage() {
   const { user, token } = useAuth()
   const [setups, setSetups] = useState([])
+  const [setupAvailable, setSetupAvailable] = useState(false)
 
   useEffect(() => {
     getAllSetup(token)
       .then(setSetups)
       .catch(error => console.error(error))
+    setSetupAvailable(true)
   }, [token])
 
+  if (!setupAvailable) {
+    return <p>noch keine Sessions!</p>
+  }
   if (!user) {
     return <Redirect to="/login" />
   }
   return (
     <Page>
       <Header title="Deine Shisha Galerie" />
-      <Wrapper>
+      <SetupGallery>
         {setups.length > 0 &&
           setups.map(setup => <SetupCard key={setup.title} setup={setup} />)}
-      </Wrapper>
+      </SetupGallery>
+      <Navbar user={user} />
     </Page>
   )
 }
-
-const Wrapper = styled.div`
-  margin: 12px;
-  color: lightgreen;
-  display: flex;
-  float: left;
-  flex-wrap: wrap;
-  padding: var(--size-xl);
-  text-align: center;
-  height: 100%;
-  width: 100%;
-`

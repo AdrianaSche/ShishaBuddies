@@ -6,6 +6,8 @@ import { useState } from 'react'
 import { createUser } from '../service/api-service'
 import { Redirect } from 'react-router-dom'
 import { useAuth } from '../auth/AuthProvider'
+import Button from '../component/Button'
+import CancelButton from '../component/CancelButton'
 
 const initialState = {
   lastName: '',
@@ -66,9 +68,8 @@ export default function RegisterBasic() {
           value={userdata.password}
           onChange={handleUserdataChange}
         />
-        <button>registrieren</button>
-        <button onClick={handleCancel}>cancel</button>
-        <button> erweiterte Profileinstellungen</button>
+        <Button>registrieren</Button>
+        <CancelButton onClick={handleCancel}>cancel</CancelButton>
       </Main>
     </Page>
   )
