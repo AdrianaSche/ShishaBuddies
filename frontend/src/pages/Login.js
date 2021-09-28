@@ -23,7 +23,6 @@ export default function Login() {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState()
   const history = useHistory()
-  console.log(credentials)
 
   const handleCredentialsChange = event =>
     setCredentials({ ...credentials, [event.target.name]: event.target.value })
@@ -63,6 +62,7 @@ export default function Login() {
           />
           <TextField
             title="Password"
+            type="password"
             name="password"
             value={credentials.password}
             onChange={handleCredentialsChange}

@@ -12,19 +12,14 @@ export default function SetupCard({ setup, reload }) {
   //const { title } = useParams()
   const { token } = useAuth()
   const history = useHistory()
-  const [redirect, setRedirect] = useState(false)
+  // const [redirect, setRedirect] = useState(false)
 
   const handleDeleteSetup = () => {
     deleteSetup(setup.title, token)
       .catch(error => console.error(error))
       .finally(() => reload())
-      .then(setRedirect(true))
-    // .finally(() => history.push(`/setup/details/${setup.title}`))
   }
 
-  if (redirect) {
-    history.goBack()
-  }
   return (
     <Wrapper>
       <h2>{setup.title}</h2>

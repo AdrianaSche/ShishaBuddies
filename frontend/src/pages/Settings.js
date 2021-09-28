@@ -11,6 +11,7 @@ import MainCreateSetup from '../component/MainCreateSetup'
 import styled from 'styled-components/macro'
 import CancelButton from '../component/CancelButton'
 import ButtonGroupCreateSetup from '../component/ButtonGroupCreateSetup'
+import MainUpdate from '../component/MainUpdate'
 
 const initialSettings = {
   numberOfHookahs: '',
@@ -41,7 +42,7 @@ export default function Settings() {
   return (
     <Page>
       <Header title="erweitertes Profil" />
-      <MainCreateSetup as="form" onSubmit={handleSubmit}>
+      <MainUpdate as="form" onSubmit={handleSubmit}>
         <Wrapper>
           <TextField
             title="Anzahl der Shishas:"
@@ -94,7 +95,7 @@ export default function Settings() {
           <Button>speichern</Button>
           <CancelButton onClick={handleCancel}>cancel</CancelButton>
         </ButtonGroupCreateSetup>
-      </MainCreateSetup>
+      </MainUpdate>
       <Navbar user={user} />
     </Page>
   )
