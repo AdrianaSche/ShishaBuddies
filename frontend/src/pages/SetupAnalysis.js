@@ -42,7 +42,7 @@ export default function SetupAnalysis() {
         setNewSetup(response)
       })
       .catch(error => console.error(error))
-    //.finally(() => history.goBack())
+    //
 
     // .finally(() => history.push(`setup/details/${title}`))
   }, [token, title])
@@ -50,6 +50,7 @@ export default function SetupAnalysis() {
   const handleSubmit = event => {
     event.preventDefault()
     updateSetup(title, newSetup, token).catch(error => console.error(error))
+    history.goBack()
   }
 
   const handleSetupChange = event =>
