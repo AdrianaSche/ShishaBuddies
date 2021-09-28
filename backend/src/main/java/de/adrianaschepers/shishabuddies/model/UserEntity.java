@@ -52,6 +52,10 @@ public class UserEntity  {
         setups.add(setupEntity);
     }
 
+    public void removeSetupEntity(SetupEntity setupEntity) {
+        setups.remove(setupEntity);
+    }
+
     public SetupEntity findSetupByTitle(String title){
         for (SetupEntity setupEntity: setups) {
             if(setupEntity.getTitle().equals(title)){
