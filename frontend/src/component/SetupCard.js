@@ -1,6 +1,6 @@
 import Avatar from './Avatar'
 import './SetupCard.css'
-import { Link, Redirect, useHistory, useParams } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import styled from 'styled-components/macro'
 import ButtonGroup from './ButtonGroup'
 import CancelButton from './CancelButton'
@@ -10,7 +10,6 @@ import Button from './Button'
 
 export default function SetupCard({ setup, reload }) {
   const { token } = useAuth()
-  const history = useHistory()
 
   const handleDeleteSetup = () => {
     deleteSetup(setup.title, token)
