@@ -9,7 +9,6 @@ import {
   getSettings,
   getTotalAmountOfHeads,
   getTotalSmokingDuration,
-  updateSetup,
 } from '../service/api-service'
 import SettingsBox from '../component/SettingsBox'
 import Button from '../component/Button'
