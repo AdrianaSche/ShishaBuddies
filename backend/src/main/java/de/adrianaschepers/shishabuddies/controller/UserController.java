@@ -157,9 +157,8 @@ public class UserController{
         if(!currentSetup.getSmokingDuration().equals(newSetup.getSmokingDuration())){
             currentSetup.setSmokingDuration(newSetup.getSmokingDuration());
         }
-        /*if(!currentSetup.getNumOfSmokedHeads().equals(newSetup.getNumOfSmokedHeads())){
-            currentSetup.setNumOfSmokedHeads(newSetup.getNumOfSmokedHeads());
-        }*/
+
+        currentSetup.setSmokingDuration(currentSetup.getSmokingDuration() + newSetup.getSmokingDuration());
         SetupEntity updatedSetupEntity= userService.updateSetup(currentSetup);
         Setup updatedSetup = map(updatedSetupEntity);
         return ok(updatedSetup);
@@ -177,6 +176,19 @@ public class UserController{
         return ok(currentSmokingDuration);
 
     }
+
+   /* @GetMapping
+    public ResponseEntity<Long> getTotalCountOfHead (@AuthenticationPrincipal UserEntity authUser){
+
+    }
+
+    @GetMapping
+    public ResponseEntity<Long> getTotalCountOfSetup (@PathVariable String title @AuthenticationPrincipal UserEntity authUser){
+
+
+    }*/
+
+
 
 
     @GetMapping("all")
