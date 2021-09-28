@@ -28,7 +28,7 @@ export default function SetupCard({ setup, reload }) {
       />
       <br />
       <ButtonGroup>
-        <Button as={Link} to={`/setup/details/edit/${setup.title}`}>
+        <Button as={Link} to={`/setup/details/${setup.title}`}>
           Details
         </Button>
         <CancelButton onClick={handleDeleteSetup}>delete</CancelButton>

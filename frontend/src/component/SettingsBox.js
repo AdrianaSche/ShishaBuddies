@@ -1,6 +1,6 @@
 import styled from 'styled-components/macro'
 import ProfileGallery from './ProfileGallery'
-export default function SettingsBox({ settings, smokingDuration }) {
+export default function SettingsBox({ settings, smokingDuration, headCount }) {
   return (
     <ProfileGallery>
       <Wrapper>
@@ -38,7 +38,7 @@ export default function SettingsBox({ settings, smokingDuration }) {
         <p>gerauchte Minuten</p>
       </Wrapper1>
       <Wrapper1>
-        <Analyze>{smokingDuration}</Analyze>
+        <Analyze>{headCount}</Analyze>
         <p>gerauchte Köpfe</p>
       </Wrapper1>
     </ProfileGallery>

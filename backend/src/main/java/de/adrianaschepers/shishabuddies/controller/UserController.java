@@ -148,17 +148,18 @@ public class UserController{
         newSetup.setTitle(title);
 
         SetupEntity currentSetup = userService.getSetupByTitle(authUser, title);
-       if(!currentSetup.getSetupCount().equals(newSetup.getSetupCount())){
+       /*if(!currentSetup.getSetupCount().equals(newSetup.getSetupCount())){
             currentSetup.setSetupCount(newSetup.getSetupCount());
-        }
+        }*/
         if(!currentSetup.getComment().equals(newSetup.getComment())){
             currentSetup.setComment(newSetup.getComment());
         }
-        if(!currentSetup.getSmokingDuration().equals(newSetup.getSmokingDuration())){
+       /* if(!currentSetup.getNumOfSmokedHeads().equals(newSetup.getNumOfSmokedHeads())){
             currentSetup.setSmokingDuration(newSetup.getSmokingDuration());
-        }
-
+        }*/
+        currentSetup.setNumOfSmokedHeads(currentSetup.getNumOfSmokedHeads()+ newSetup.getNumOfSmokedHeads());
         currentSetup.setSmokingDuration(currentSetup.getSmokingDuration() + newSetup.getSmokingDuration());
+        currentSetup.setSetupCount(currentSetup.getSetupCount()+ newSetup.getSetupCount());
         SetupEntity updatedSetupEntity= userService.updateSetup(currentSetup);
         Setup updatedSetup = map(updatedSetupEntity);
         return ok(updatedSetup);
@@ -177,14 +178,23 @@ public class UserController{
 
     }
 
-   /* @GetMapping
+    @GetMapping("/heads")
     public ResponseEntity<Long> getTotalCountOfHead (@AuthenticationPrincipal UserEntity authUser){
+        Long currentNumOfHeads =0L;
+        List<SetupEntity> setupEntities = userService.getAllSetups(authUser);
+        for (SetupEntity setupEntity:setupEntities) {
+            currentNumOfHeads +=setupEntity.getNumOfSmokedHeads();
+        }
+        return ok(currentNumOfHeads);
 
     }
 
-    @GetMapping
-    public ResponseEntity<Long> getTotalCountOfSetup (@PathVariable String title @AuthenticationPrincipal UserEntity authUser){
 
+
+   /* @GetMapping
+    public ResponseEntity<Long> getTotalCountOfSetup (Setup setup, @AuthenticationPrincipal UserEntity authUser){
+        Long currentSetupCount =0L;
+        List <SetupEntity> setupEntities =userService.
 
     }*/
 
@@ -290,7 +300,7 @@ public class UserController{
                 .comment(createdSetupEntity.getComment())
                 .hookahHead(createdSetupEntity.getHookahHead())
                 .hookah(createdSetupEntity.getHookah())
-                //.numOfHeads(createdSetupEntity.getNumOfSmokedHeads())
+                .numOfSmokedHeads(createdSetupEntity.getNumOfSmokedHeads())
                 .smokingDuration(createdSetupEntity.getSmokingDuration())
                 .title(createdSetupEntity.getTitle())
                 .tobacco(createdSetupEntity.getTobacco())
@@ -301,7 +311,7 @@ public class UserController{
         return SetupEntity.builder()
                 .accessories(setup.getAccessories())
                 .carbon(setup.getCarbon())
-             //   .numOfSmokedHeads(setup.getNumOfHeads())
+                .numOfSmokedHeads(setup.getNumOfSmokedHeads())
                 .carbonTop(setup.getCarbonTop())
                 .setupCount(setup.getSetupCount())
                 .smokingDuration(setup.getSmokingDuration())

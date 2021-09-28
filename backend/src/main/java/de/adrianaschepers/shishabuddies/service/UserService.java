@@ -134,12 +134,15 @@ public class UserService {
     public SetupEntity getSetupByTitle(UserEntity authUser, String title) {
         UserEntity userEntity = userRepository.findByUserName(authUser.getUserName()).get();
         List<SetupEntity> setupEntities=userEntity.getSetups();
+        if(setupEntities == null){
+            throw new IllegalArgumentException("no setups available");
+        }
         for (SetupEntity setupEntity:setupEntities) {
             if(setupEntity.getTitle().equals(title)){
                 return setupEntity;
             }
         }
-        //throw new EntityNotFoundException(String.format("no setup with title=%s !",title ));
+
         return SetupEntity.builder().build();
     }
 
