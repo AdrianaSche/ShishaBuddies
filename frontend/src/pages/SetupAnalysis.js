@@ -27,7 +27,7 @@ const initialSetup = {
   setupCount: '',
   avatar: '',
 }
-// von hier wieder zurück zu dem setup/details/title_of_setup, was geupdatet werden soll
+
 export default function SetupAnalysis() {
   const { title } = useParams()
   const { token, user } = useAuth()
@@ -42,9 +42,6 @@ export default function SetupAnalysis() {
         setNewSetup(response)
       })
       .catch(error => console.error(error))
-    //
-
-    // .finally(() => history.push(`setup/details/${title}`))
   }, [token, title])
 
   const handleSubmit = event => {

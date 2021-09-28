@@ -44,9 +44,6 @@ export default function SetupDetails() {
       <Button as={Link} to={`/setup/details/edit/${title}`}>
         Details bearbeiten
       </Button>
-      {/*<LinkButton href={`/setup/details/edit/${title}`} secondary>
-        Details bearbeiten
-      </LinkButton>*/}
       <MainDetails>
         <Wrapper>
           <p>Shisha:{setup.hookah}</p>
@@ -74,7 +71,6 @@ const MainDetails = styled.main`
   display: flex;
 `
 const Wrapper = styled.div`
-  // scrollbar???
   padding: 5px;
   width: 180px;
   height: 80%;

@@ -7,6 +7,7 @@ import CancelButton from './CancelButton'
 import { deleteSetup } from '../service/api-service'
 import { useAuth } from '../auth/AuthProvider'
 import { useState } from 'react'
+import Button from './Button'
 
 export default function SetupCard({ setup, reload }) {
   //const { title } = useParams()
@@ -31,7 +32,9 @@ export default function SetupCard({ setup, reload }) {
       />
       <br />
       <ButtonGroup>
-        <Link to={`/setup/details/${setup.title}`}>Details</Link>
+        <Button as={Link} to={`/setup/details/edit/${setup.title}`}>
+          Details
+        </Button>
         <CancelButton onClick={handleDeleteSetup}>delete</CancelButton>
       </ButtonGroup>
     </Wrapper>
