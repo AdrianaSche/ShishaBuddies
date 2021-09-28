@@ -6,14 +6,11 @@ import ButtonGroup from './ButtonGroup'
 import CancelButton from './CancelButton'
 import { deleteSetup } from '../service/api-service'
 import { useAuth } from '../auth/AuthProvider'
-import { useState } from 'react'
 import Button from './Button'
 
 export default function SetupCard({ setup, reload }) {
-  //const { title } = useParams()
   const { token } = useAuth()
   const history = useHistory()
-  // const [redirect, setRedirect] = useState(false)
 
   const handleDeleteSetup = () => {
     deleteSetup(setup.title, token)
