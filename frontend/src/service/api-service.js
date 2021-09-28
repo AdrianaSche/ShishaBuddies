@@ -61,3 +61,8 @@ export const updateSetup = (title, newSetup, token) =>
       headers(token)
     )
     .then(response => response.data)
+
+export const deleteSetup = (title, token) =>
+  axios
+    .delete(`/api/shishaBuddies/user/delete-setup/${title}`, headers(token))
+    .then(response => response.data)

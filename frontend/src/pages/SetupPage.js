@@ -21,6 +21,12 @@ export default function SetupPage() {
     setSetupAvailable(true)
   }, [token])
 
+  const reloadSetups = () => {
+    getAllSetup(token)
+      .then(setSetups)
+      .catch(error => console.error(error))
+  }
+
   if (!setupAvailable) {
     return <p>noch keine Sessions!</p>
   }
@@ -32,7 +38,9 @@ export default function SetupPage() {
       <Header title="Deine Shisha Galerie" />
       <SetupGallery>
         {setups.length > 0 &&
-          setups.map(setup => <SetupCard key={setup.title} setup={setup} />)}
+          setups.map(setup => (
+            <SetupCard key={setup.title} setup={setup} reload={reloadSetups} />
+          ))}
       </SetupGallery>
       <Navbar user={user} />
     </Page>
