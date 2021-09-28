@@ -1,11 +1,25 @@
 import Avatar from './Avatar'
 import './SetupCard.css'
-import { Link } from 'react-router-dom'
+import { Link, Redirect, useHistory, useParams } from 'react-router-dom'
 import styled from 'styled-components/macro'
 import ButtonGroup from './ButtonGroup'
 import CancelButton from './CancelButton'
+import { deleteSetup } from '../service/api-service'
+import { useAuth } from '../auth/AuthProvider'
+import { useState } from 'react'
 
-export default function SetupCard({ setup }) {
+export default function SetupCard({ setup, reload }) {
+  //const { title } = useParams()
+  const { token } = useAuth()
+  const history = useHistory()
+  // const [redirect, setRedirect] = useState(false)
+
+  const handleDeleteSetup = () => {
+    deleteSetup(setup.title, token)
+      .catch(error => console.error(error))
+      .finally(() => reload())
+  }
+
   return (
     <Wrapper>
       <h2>{setup.title}</h2>
@@ -18,7 +32,7 @@ export default function SetupCard({ setup }) {
       <br />
       <ButtonGroup>
         <Link to={`/setup/details/${setup.title}`}>Details</Link>
-        <CancelButton>delete</CancelButton>
+        <CancelButton onClick={handleDeleteSetup}>delete</CancelButton>
       </ButtonGroup>
     </Wrapper>
   )

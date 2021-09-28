@@ -139,7 +139,8 @@ public class UserService {
                 return setupEntity;
             }
         }
-        throw new EntityNotFoundException(String.format("no setup with title=%s !",title ));
+        //throw new EntityNotFoundException(String.format("no setup with title=%s !",title ));
+        return SetupEntity.builder().build();
     }
 
     public SetupEntity getSetupById(Long id,UserEntity authUser) {
@@ -159,5 +160,21 @@ public class UserService {
             throw new EntityExistsException(String.format(
                     "user with username=%s already exists!",userName));
         }
+    }
+
+    public Optional<SetupEntity> deleteSetupByTitle(UserEntity authUser, String title) {
+        Optional<SetupEntity> setupEntityOptional = setupEntityRepository.findByTitle(title);
+        SetupEntity setupEntity =new SetupEntity();
+        if(setupEntityOptional.isPresent()){
+             setupEntity = setupEntityOptional.get();
+        }
+        Optional<UserEntity> userEntityOptional = userRepository.findByUserName(authUser.getUserName());
+        if(userEntityOptional.isPresent()){
+            UserEntity userEntity = userEntityOptional.get();
+            userEntity.removeSetupEntity(setupEntity);
+            userRepository.save(userEntity);
+        }
+
+        return setupEntityOptional;
     }
 }

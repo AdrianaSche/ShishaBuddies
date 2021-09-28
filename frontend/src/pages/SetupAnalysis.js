@@ -5,7 +5,7 @@ import { useEffect, useState } from 'react'
 import { useAuth } from '../auth/AuthProvider'
 import { getSetupByTitle, updateSetup } from '../service/api-service'
 import Button from '../component/Button'
-import { useParams } from 'react-router-dom'
+import { useHistory, useParams } from 'react-router-dom'
 import TextArea from '../component/TextArea'
 import SetupCountField from '../component/SetupCountField'
 import Navbar from '../component/Navbar'
@@ -33,6 +33,7 @@ export default function SetupAnalysis() {
   const { token, user } = useAuth()
   const [newSetup, setNewSetup] = useState(initialSetup)
   const [currentSetup, setCurrentSetup] = useState(initialSetup)
+  const history = useHistory()
 
   useEffect(() => {
     getSetupByTitle(token, title)
@@ -41,6 +42,8 @@ export default function SetupAnalysis() {
         setNewSetup(response)
       })
       .catch(error => console.error(error))
+    //.finally(() => history.goBack())
+
     // .finally(() => history.push(`setup/details/${title}`))
   }, [token, title])
 

@@ -24,8 +24,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
-import static javax.servlet.http.HttpServletResponse.SC_BAD_REQUEST;
-import static javax.servlet.http.HttpServletResponse.SC_CONFLICT;
+import static javax.servlet.http.HttpServletResponse.*;
 import static org.springframework.http.ResponseEntity.notFound;
 import static org.springframework.http.ResponseEntity.ok;
 
@@ -149,7 +148,7 @@ public class UserController{
         newSetup.setTitle(title);
 
         SetupEntity currentSetup = userService.getSetupByTitle(authUser, title);
-        if(!currentSetup.getSetupCount().equals(newSetup.getSetupCount())){
+       if(!currentSetup.getSetupCount().equals(newSetup.getSetupCount())){
             currentSetup.setSetupCount(newSetup.getSetupCount());
         }
         if(!currentSetup.getComment().equals(newSetup.getComment())){
@@ -189,6 +188,20 @@ public class UserController{
         List<User> allUsers =map(allEntities);
         return ok(allUsers);
 
+    }
+
+    @DeleteMapping("delete-setup/{title}")
+    @ApiResponses(value = {
+            @ApiResponse(code = SC_NOT_FOUND, message = "Setup not found")
+    })
+    public ResponseEntity<Setup> deleteSetup(@PathVariable String title,@AuthenticationPrincipal UserEntity authUser){
+        Optional<SetupEntity> setupEntityOptional = userService.deleteSetupByTitle(authUser, title);
+        if(setupEntityOptional.isPresent()){
+            SetupEntity setupEntity = setupEntityOptional.get();
+            Setup setup = map(setupEntity);
+            return ok(setup);
+        }
+        return notFound().build();
     }
 
 
