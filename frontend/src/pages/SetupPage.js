@@ -3,7 +3,6 @@ import { useEffect, useState } from 'react'
 import { getAllSetup } from '../service/api-service'
 import Page from '../component/Page'
 import Header from '../component/Header'
-
 import { Redirect } from 'react-router-dom'
 import SetupCard from '../component/SetupCard'
 import SetupGallery from '../component/SetupGallery'

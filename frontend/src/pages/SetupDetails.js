@@ -7,7 +7,7 @@ import { useAuth } from '../auth/AuthProvider'
 import Header from '../component/Header'
 import Page from '../component/Page'
 import Navbar from '../component/Navbar'
-import LinkButton from '../component/LinkButton'
+import Button from '../component/Button'
 
 const initalSetup = {
   title: '',
@@ -40,10 +40,9 @@ export default function SetupDetails() {
         src="https://shishashop.at/wp-content/uploads/2021/03/lava-united-shisha-silber.jpg"
         alt="setup"
       />
-      <Link to={`/setup/details/edit/${title}`}>Details bearbeiten</Link>
-      {/*<LinkButton href={`/setup/details/edit/${title}`} secondary>
+      <Button as={Link} to={`/setup/details/edit/${title}`}>
         Details bearbeiten
-      </LinkButton>*/}
+      </Button>
       <MainDetails>
         <Wrapper>
           <p>Shisha:{setup.hookah}</p>
@@ -71,7 +70,6 @@ const MainDetails = styled.main`
   display: flex;
 `
 const Wrapper = styled.div`
-  // scrollbar???
   padding: 5px;
   width: 180px;
   height: 80%;
