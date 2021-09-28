@@ -20,7 +20,7 @@ public class Setup {
     private String carbonTop;
     private String accessories;
     private Long smokingDuration;
-    private Long numOfHeads;
+    private Long numOfSmokedHeads;
     private String comment;
     private Long setupCount;
 
