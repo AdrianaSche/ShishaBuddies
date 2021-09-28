@@ -7,6 +7,7 @@ import { useAuth } from '../auth/AuthProvider'
 import Header from '../component/Header'
 import Page from '../component/Page'
 import Navbar from '../component/Navbar'
+import LinkButton from '../component/LinkButton'
 
 const initalSetup = {
   title: '',
@@ -19,6 +20,7 @@ const initalSetup = {
   smokingDuration: '',
   numOfSmokedHeads: '',
   comment: '',
+  setupCount: '',
 }
 export default function SetupDetails() {
   const { title } = useParams()
@@ -38,7 +40,10 @@ export default function SetupDetails() {
         src="https://shishashop.at/wp-content/uploads/2021/03/lava-united-shisha-silber.jpg"
         alt="setup"
       />
-
+      <Link to={`/setup/details/edit/${title}`}>Details bearbeiten</Link>
+      {/*<LinkButton href={`/setup/details/edit/${title}`} secondary>
+        Details bearbeiten
+      </LinkButton>*/}
       <MainDetails>
         <Wrapper>
           <p>Shisha:{setup.hookah}</p>
@@ -49,6 +54,7 @@ export default function SetupDetails() {
           <p>Zubehör:{setup.accessories}</p>
           <p>Rauchdauer:{setup.smokingDuration}</p>
           <p>Anzahl der gerauchten Köpfe:{setup.numOfSmokedHeads}</p>
+          <p>Wie oft verwendet:{setup.setupCount}</p>
         </Wrapper>
 
         <Wrapper>
@@ -56,8 +62,6 @@ export default function SetupDetails() {
           <p>{setup.comment}</p>
         </Wrapper>
       </MainDetails>
-      {/*//Linkbutton problem mit nicht mehr eingeloggt sein*/}
-      <Link to={`/setup/details/edit/${title}`}>Details bearbeiten</Link>
       <Navbar user={user} />
     </Page>
   )
