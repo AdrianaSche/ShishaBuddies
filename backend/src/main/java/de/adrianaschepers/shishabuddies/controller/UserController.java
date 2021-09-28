@@ -178,6 +178,19 @@ public class UserController{
 
     }
 
+    @GetMapping
+    public ResponseEntity<Long> getTotalCountOfHead (@AuthenticationPrincipal UserEntity authUser){
+
+    }
+
+    @GetMapping
+    public ResponseEntity<Long> getTotalCountOfSetup (@PathVariable String title @AuthenticationPrincipal UserEntity authUser){
+
+
+    }
+
+
+
 
     @GetMapping("all")
     public ResponseEntity<List<User>> getAllUsers(){
