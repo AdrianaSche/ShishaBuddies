@@ -187,17 +187,6 @@ public class UserController{
     }
 
 
-
-   /* @GetMapping
-    public ResponseEntity<Long> getTotalCountOfSetup (Setup setup, @AuthenticationPrincipal UserEntity authUser){
-        Long currentSetupCount =0L;
-        List <SetupEntity> setupEntities =userService.
-
-    }*/
-
-
-
-
     @GetMapping("all")
     public ResponseEntity<List<User>> getAllUsers(){
         List<UserEntity> allEntities = userService.getAll();

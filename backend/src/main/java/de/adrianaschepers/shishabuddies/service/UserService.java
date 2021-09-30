@@ -64,19 +64,6 @@ public class UserService {
     }
 
 
-
-    /*public SettingsEntity getUserSettings(UserEntity authUser){
-        Optional<UserEntity> authUserOpt= userRepository.findByUserName(authUser.getUserName());
-        if(authUserOpt.isPresent()){
-            SettingsEntity settingsEntity = authUserOpt.get().getSettings();
-            if(settingsEntity== null){
-                throw new EntityNotFoundException("no settings available");
-            }
-            return settingsEntity;
-        }
-        throw new IllegalArgumentException("no user found");
-    }
-*/
     public SettingsEntity getUserSettings(UserEntity authUser){
         Optional<UserEntity> authUserOpt= userRepository.findByUserName(authUser.getUserName());
 
@@ -93,8 +80,6 @@ public class UserService {
     public SettingsEntity saveSettings(SettingsEntity settingsEntity, UserEntity authUser) {
         Optional<UserEntity> userEntityOptional=userRepository.findByUserName(authUser.getUserName());
         if(userEntityOptional.isPresent()){
-            //settingsEntity.setUser(userEntityOptional.get());
-            //nötig?
             userEntityOptional.get().setSettings(settingsEntity);
              userRepository.saveAndFlush(userEntityOptional.get());
              return settingsEntity;

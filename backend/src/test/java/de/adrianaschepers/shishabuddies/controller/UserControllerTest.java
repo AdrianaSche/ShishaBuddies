@@ -126,14 +126,9 @@ public class UserControllerTest {
                 .settings(settings1)
                 .setups(setupEntities1)
                 .build();
-       // user1 = userRepository.saveAndFlush(user1);
-        //user1.setSettings(settings1);
+
         user1.setSetups(setupEntities1);
         userRepository.saveAndFlush(user1);
-
-      //setupEntityRepository.saveAndFlush(setup1);
-      //setupEntityRepository.saveAndFlush(setup2);
-
 
 
         UserEntity user2 = UserEntity.builder()
@@ -212,7 +207,7 @@ public class UserControllerTest {
         assertThat(response.getBody().getFavTobacco(), is("Traube-Minze"));
         assertThat(response.getBody().getFavHookah(), is("Maklaud"));
     }
-    //testNoSettings available
+
 
     @Test
     @DisplayName("GET should return no settings of logged in User")
