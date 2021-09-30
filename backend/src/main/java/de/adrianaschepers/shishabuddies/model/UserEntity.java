@@ -54,6 +54,7 @@ public class UserEntity  {
 
     public void removeSetupEntity(SetupEntity setupEntity) {
         setups.remove(setupEntity);
+       // setupEntity.setUserEntity(null);
     }
 
     public SetupEntity findSetupByTitle(String title){

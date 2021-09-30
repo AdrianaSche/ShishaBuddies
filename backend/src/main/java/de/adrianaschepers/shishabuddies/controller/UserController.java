@@ -78,7 +78,7 @@ public class UserController{
     @GetMapping("all-setups")
     public ResponseEntity<List<Setup>> getAllSetups(@AuthenticationPrincipal UserEntity authUser){
         List<SetupEntity> setups = userService.getAllSetups(authUser);
-        if(setups==null){
+        if(setups.isEmpty()){
             return notFound().build();
         }
         return ok(mapSetup(setups));
@@ -135,11 +135,12 @@ public class UserController{
     public ResponseEntity<Settings> getUserSettings(@AuthenticationPrincipal UserEntity authUser){
 
             SettingsEntity settingsEntity = userService.getUserSettings(authUser);
+            if(settingsEntity==null){
+                return ok(Settings.builder().build());
+            }
             Settings settings = map(settingsEntity);
             return ok(settings);
     }
-
-
 
     @PutMapping("update-setup/{title}")
     public ResponseEntity<Setup> updateSetup(@RequestBody Setup setup,@PathVariable String title, @AuthenticationPrincipal UserEntity authUser){
@@ -148,22 +149,18 @@ public class UserController{
         newSetup.setTitle(title);
 
         SetupEntity currentSetup = userService.getSetupByTitle(authUser, title);
-       /*if(!currentSetup.getSetupCount().equals(newSetup.getSetupCount())){
-            currentSetup.setSetupCount(newSetup.getSetupCount());
-        }*/
+
         if(!currentSetup.getComment().equals(newSetup.getComment())){
             currentSetup.setComment(newSetup.getComment());
         }
-       /* if(!currentSetup.getNumOfSmokedHeads().equals(newSetup.getNumOfSmokedHeads())){
-            currentSetup.setSmokingDuration(newSetup.getSmokingDuration());
-        }*/
+
         currentSetup.setNumOfSmokedHeads(currentSetup.getNumOfSmokedHeads()+ newSetup.getNumOfSmokedHeads());
         currentSetup.setSmokingDuration(currentSetup.getSmokingDuration() + newSetup.getSmokingDuration());
         currentSetup.setSetupCount(currentSetup.getSetupCount()+ newSetup.getSetupCount());
         SetupEntity updatedSetupEntity= userService.updateSetup(currentSetup);
         Setup updatedSetup = map(updatedSetupEntity);
-        return ok(updatedSetup);
 
+        return ok(updatedSetup);
     }
 
 

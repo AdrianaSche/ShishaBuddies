@@ -8,6 +8,7 @@ import Header from '../component/Header'
 import Page from '../component/Page'
 import Navbar from '../component/Navbar'
 import Button from '../component/Button'
+import ButtonDetails from '../component/ButtonDetails'
 
 const initalSetup = {
   title: '',
@@ -40,9 +41,10 @@ export default function SetupDetails() {
         src="https://shishashop.at/wp-content/uploads/2021/03/lava-united-shisha-silber.jpg"
         alt="setup"
       />
-      <Button as={Link} to={`/setup/details/edit/${title}`}>
+
+      <ButtonDetails as={Link} to={`/setup/details/edit/${title}`}>
         Details bearbeiten
-      </Button>
+      </ButtonDetails>
       <MainDetails>
         <Wrapper>
           <p>Shisha:{setup.hookah}</p>
@@ -56,10 +58,10 @@ export default function SetupDetails() {
           <p>Wie oft verwendet:{setup.setupCount}</p>
         </Wrapper>
 
-        <Wrapper>
+        <WrapperComment>
           <p>Dein Kommentar:</p>
           <p>{setup.comment}</p>
-        </Wrapper>
+        </WrapperComment>
       </MainDetails>
       <Navbar user={user} />
     </Page>
@@ -69,7 +71,19 @@ export default function SetupDetails() {
 const MainDetails = styled.main`
   display: flex;
 `
+
+const WrapperComment = styled.div`
+  grid-template-columns: repeat(2, 1fr);
+  padding: 5px;
+  width: 180px;
+  height: 80%;
+  text-align: left;
+  border: 1px solid #333;
+  border-radius: 12px;
+  box-shadow: 1px 2px 8px #666;
+`
 const Wrapper = styled.div`
+  grid-template-columns: repeat(2, 1fr);
   padding: 5px;
   width: 180px;
   height: 80%;

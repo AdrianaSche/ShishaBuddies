@@ -7,6 +7,7 @@ export default function TextFieldTitle(props) {
       <Label {...props}>
         {props.title}
         <Input
+          placeholder="Titel"
           type={props.type}
           value={props.value}
           onChange={props.onChange}
@@ -30,4 +31,5 @@ const Input = styled.input`
 const Wrapper = styled.div`
   display: flex;
   justify-content: left;
+  text-align: center;
 `
