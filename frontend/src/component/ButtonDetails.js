@@ -8,6 +8,7 @@ export default styled.button`
   color: var(--neutral-light);
   font-size: 1em;
   border-radius: var(--size-s);
+  margin-bottom: 18px;
   text-decoration: none;
 
   :disabled {

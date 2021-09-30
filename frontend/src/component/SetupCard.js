@@ -7,6 +7,7 @@ import CancelButton from './CancelButton'
 import { deleteSetup } from '../service/api-service'
 import { useAuth } from '../auth/AuthProvider'
 import Button from './Button'
+import ButtonDetails from './ButtonDetails'
 
 export default function SetupCard({ setup, reload }) {
   const { token } = useAuth()

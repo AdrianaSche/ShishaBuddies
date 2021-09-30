@@ -8,6 +8,7 @@ import Header from '../component/Header'
 import Page from '../component/Page'
 import Navbar from '../component/Navbar'
 import Button from '../component/Button'
+import ButtonDetails from '../component/ButtonDetails'
 
 const initalSetup = {
   title: '',
@@ -40,9 +41,9 @@ export default function SetupDetails() {
         src="https://shishashop.at/wp-content/uploads/2021/03/lava-united-shisha-silber.jpg"
         alt="setup"
       />
-      <Button as={Link} to={`/setup/details/edit/${title}`}>
+      <ButtonDetails as={Link} to={`/setup/details/edit/${title}`}>
         Details bearbeiten
-      </Button>
+      </ButtonDetails>
       <MainDetails>
         <Wrapper>
           <p>Shisha:{setup.hookah}</p>
