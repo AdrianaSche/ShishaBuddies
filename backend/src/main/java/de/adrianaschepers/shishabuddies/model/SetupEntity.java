@@ -21,9 +21,6 @@ public class SetupEntity {
     private Long id;
 
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name="userEntity")
-    private UserEntity userEntity;
 
     @Column(name = "title")
     private String title;
@@ -40,7 +37,7 @@ public class SetupEntity {
     @Column(name= "carbon")
     private String carbon;
 
-    @Column(name = "carbonTop")
+    @Column(name = "carbon_top")
     private String carbonTop;
 
     @Column(name= "accessoires")

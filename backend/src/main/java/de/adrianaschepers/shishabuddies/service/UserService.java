@@ -93,7 +93,6 @@ public class UserService {
         Optional<UserEntity> authUserOptional = userRepository.findByUserName(authUser.getUserName());
         if(authUserOptional.isPresent()){
            UserEntity user= authUserOptional.get();
-            setupEntity.setUserEntity(user);
             user.getSetups().add(setupEntity);
             userRepository.saveAndFlush(user);
             return setupEntity;

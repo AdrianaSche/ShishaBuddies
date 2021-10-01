@@ -22,9 +22,6 @@ public class SettingsEntity {
     private Long id;
 
 
-     @OneToOne(mappedBy = "settings")
-     private UserEntity user;
-
     @Column(name = "number_of_hookahs")
     private Long numberOfHookahs;
 
@@ -48,12 +45,12 @@ public class SettingsEntity {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         SettingsEntity that = (SettingsEntity) o;
-        return Objects.equals(id, that.id) && Objects.equals(user, that.user);
+        return Objects.equals(id, that.id);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, user);
+        return Objects.hash(id);
     }
 }
 

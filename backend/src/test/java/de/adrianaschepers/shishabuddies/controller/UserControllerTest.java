@@ -191,7 +191,7 @@ public class UserControllerTest {
         ResponseEntity<User[]> response = restTemplate.exchange(url, HttpMethod.GET,httpEntity,  User[].class);
         assertThat(response.getStatusCode(),is(HttpStatus.OK));
         assertThat(response.getBody(),is(notNullValue()));
-        assertThat(response.getBody().length, is(2));
+        assertThat(response.getBody().length, is(3));
 
     }
 
