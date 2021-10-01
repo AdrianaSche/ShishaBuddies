@@ -79,7 +79,7 @@ export default function Login() {
           </ButtonGroup>
         </Main>
       )}
-      {error && <Error>{error.message}</Error>}
+      {error && <Error>{error.response.data.message}</Error>}
       <Navbar user={user} />
     </Page>
   )

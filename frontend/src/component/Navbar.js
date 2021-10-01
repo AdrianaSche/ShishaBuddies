@@ -7,9 +7,7 @@ export default function Navbar({ user, settings, ...props }) {
       <NavLink exact to="/">
         Profile
       </NavLink>
-      {/* {settings.numberOfHookahs === 0 && user && (
-        <NavLink to="/settings">Profil vervollständigen</NavLink>
-      )}*/}
+
       {user && <NavLink to="/settings">Profil vervollständigen</NavLink>}
       {user && <NavLink to="/update-settings">Profil verwalten</NavLink>}
       {user && <NavLink to="/setup">Was rauchst Du gerade?</NavLink>}

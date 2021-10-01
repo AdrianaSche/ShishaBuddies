@@ -8,6 +8,7 @@ import { Redirect } from 'react-router-dom'
 import { useAuth } from '../auth/AuthProvider'
 import Button from '../component/Button'
 import CancelButton from '../component/CancelButton'
+import Error from '../component/Error'
 
 const initialState = {
   lastName: '',
@@ -19,11 +20,13 @@ const initialState = {
 export default function RegisterBasic() {
   const [userdata, setUserdata] = useState(initialState)
   const { token, login } = useAuth()
+  const [error, setError] = useState()
   function handleSubmit(event) {
     event.preventDefault()
     createUser(userdata)
-      .catch(error => console.error(error))
-      .finally(() => login(userdata).catch(error => console.error(error)))
+      .then(() => login(userdata).catch(setError))
+      .catch(setError)
+    // .finally(() => login(userdata).catch(setError))
   }
 
   if (token) {
@@ -71,8 +74,7 @@ export default function RegisterBasic() {
         <Button>registrieren</Button>
         <CancelButton onClick={handleCancel}>cancel</CancelButton>
       </Main>
+      {error && <Error>{error.response.data.message}</Error>}
     </Page>
   )
 }
-//"erweiterte Profileinstellungen" müssen ausgegraut/nicht nutzbar,
-//solange die Basics nicht ausgefüllt sind!
