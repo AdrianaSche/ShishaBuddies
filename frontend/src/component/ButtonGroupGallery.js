@@ -1,11 +1,9 @@
 import styled from 'styled-components/macro'
 
-export default styled.main`
+export default styled.div`
   display: grid;
+  margin-top: 10px;
   grid-template-columns: 1fr 1fr;
-  height: 100%;
-  justify-content: center;
-  padding: 5px;
+  //rid-template-columns: 50% 50%;
   grid-gap: var(--size-m);
-  overflow-y: scroll;
 `
