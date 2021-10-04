@@ -1,13 +1,11 @@
 import Avatar from './Avatar'
-import './SetupCard.css'
 import { Link } from 'react-router-dom'
 import styled from 'styled-components/macro'
-import ButtonGroup from './ButtonGroup'
 import CancelButton from './CancelButton'
 import { deleteSetup } from '../service/api-service'
 import { useAuth } from '../auth/AuthProvider'
 import Button from './Button'
-import ButtonDetails from './ButtonDetails'
+import ButtonGroupGallery from './ButtonGroupGallery'
 
 export default function SetupCard({ setup, reload }) {
   const { token } = useAuth()
@@ -28,19 +26,18 @@ export default function SetupCard({ setup, reload }) {
         alt="bild"
       />
       <br />
-      <ButtonGroup>
+      <ButtonGroupGallery>
         <Button as={Link} to={`/setup/details/${setup.title}`}>
           Details
         </Button>
         <CancelButton onClick={handleDeleteSetup}>delete</CancelButton>
-      </ButtonGroup>
+      </ButtonGroupGallery>
     </Wrapper>
   )
 }
 
 const Wrapper = styled.div`
   padding: 5px;
-  width: 200px;
   text-align: center;
   align-items: center;
   border: 1px solid #333;

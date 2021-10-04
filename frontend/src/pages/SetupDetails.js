@@ -7,7 +7,6 @@ import { useAuth } from '../auth/AuthProvider'
 import Header from '../component/Header'
 import Page from '../component/Page'
 import Navbar from '../component/Navbar'
-import Button from '../component/Button'
 import ButtonDetails from '../component/ButtonDetails'
 
 const initalSetup = {
