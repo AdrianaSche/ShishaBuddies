@@ -1,7 +1,6 @@
 import Avatar from './Avatar'
 import { Link } from 'react-router-dom'
 import styled from 'styled-components/macro'
-import ButtonGroup from './ButtonGroup'
 import CancelButton from './CancelButton'
 import { deleteSetup } from '../service/api-service'
 import { useAuth } from '../auth/AuthProvider'

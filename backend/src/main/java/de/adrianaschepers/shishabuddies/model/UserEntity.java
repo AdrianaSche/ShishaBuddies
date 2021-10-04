@@ -21,7 +21,6 @@ public class UserEntity  {
     @Column(name = "id",nullable = false)
     private Long id;
 
-    //user-setting: 1:1, funktioniert nicht mehr.
     @OneToOne(cascade = CascadeType.ALL,orphanRemoval = true)
     @JoinColumn (name = "settings_id")
     private SettingsEntity settings;
