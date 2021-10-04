@@ -64,23 +64,22 @@ public class UserService {
     }
 
 
-
     public SettingsEntity getUserSettings(UserEntity authUser){
         Optional<UserEntity> authUserOpt= userRepository.findByUserName(authUser.getUserName());
-        if(authUserOpt.isPresent()){
-            SettingsEntity settingsEntity = authUserOpt.get().getSettings();
-            if(settingsEntity!= null){
-                return settingsEntity;
-            }
+
+        if(authUserOpt.isEmpty()){
+            throw new EntityNotFoundException("no user available");
         }
-        return SettingsEntity.builder().build();
+
+        SettingsEntity settingsEntity = authUserOpt.get().getSettings();
+        return settingsEntity;
     }
+
 
 
     public SettingsEntity saveSettings(SettingsEntity settingsEntity, UserEntity authUser) {
         Optional<UserEntity> userEntityOptional=userRepository.findByUserName(authUser.getUserName());
         if(userEntityOptional.isPresent()){
-            settingsEntity.setUser(userEntityOptional.get());
             userEntityOptional.get().setSettings(settingsEntity);
              userRepository.saveAndFlush(userEntityOptional.get());
              return settingsEntity;
@@ -94,7 +93,6 @@ public class UserService {
         Optional<UserEntity> authUserOptional = userRepository.findByUserName(authUser.getUserName());
         if(authUserOptional.isPresent()){
            UserEntity user= authUserOptional.get();
-            setupEntity.setUserEntity(user);
             user.getSetups().add(setupEntity);
             userRepository.saveAndFlush(user);
             return setupEntity;

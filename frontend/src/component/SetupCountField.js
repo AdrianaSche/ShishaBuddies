@@ -3,22 +3,29 @@ import Label from './Label'
 
 export default function SetupCountField(props) {
   return (
-    <Label {...props}>
-      {props.title}
-      <Input
-        type={props.type}
-        value={props.value}
-        onChange={props.onChange}
-        name={props.name}
-      />
-    </Label>
+    <Wrapper>
+      <Label {...props}>
+        {props.title}
+        <Input
+          type={props.type}
+          value={props.value}
+          onChange={props.onChange}
+          name={props.name}
+        />
+      </Label>
+    </Wrapper>
   )
 }
 
 const Input = styled.input`
-  width: 20%;
+  width: 10%;
   font-size: 1em;
   padding: var(--size-xs);
   margin-top: var(--size-xs);
   border-radius: var(--size-xs);
+`
+const Wrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: left;
 `

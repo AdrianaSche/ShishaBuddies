@@ -25,8 +25,8 @@ public class UserEntity  {
     @JoinColumn (name = "settings_id")
     private SettingsEntity settings;
 
-
-    @OneToMany(cascade = CascadeType.ALL,orphanRemoval = true,mappedBy = "userEntity",fetch = FetchType.EAGER)
+    @OneToMany(cascade = CascadeType.ALL,orphanRemoval = true,fetch = FetchType.EAGER)
+    @JoinColumn(name = "user_id")
     private List<SetupEntity> setups;
 
     @Column(name = "lastname")
@@ -53,6 +53,7 @@ public class UserEntity  {
 
     public void removeSetupEntity(SetupEntity setupEntity) {
         setups.remove(setupEntity);
+       // setupEntity.setUserEntity(null);
     }
 
     public SetupEntity findSetupByTitle(String title){
