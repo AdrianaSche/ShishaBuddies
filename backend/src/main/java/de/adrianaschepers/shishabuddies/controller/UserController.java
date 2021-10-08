@@ -36,6 +36,9 @@ import static org.springframework.http.ResponseEntity.ok;
 public class UserController{
 
     private final UserService userService;
+    Long smokingDuration=0L;
+    Long numOfHeads=0L;
+
 
     @Autowired
     public UserController(UserService userService) {
@@ -148,15 +151,10 @@ public class UserController{
         newSetup.setTitle(title);
 
         SetupEntity currentSetup = userService.getSetupByTitle(authUser, title);
-       /*if(!currentSetup.getSetupCount().equals(newSetup.getSetupCount())){
-            currentSetup.setSetupCount(newSetup.getSetupCount());
-        }*/
+
         if(!currentSetup.getComment().equals(newSetup.getComment())){
             currentSetup.setComment(newSetup.getComment());
         }
-       /* if(!currentSetup.getNumOfSmokedHeads().equals(newSetup.getNumOfSmokedHeads())){
-            currentSetup.setSmokingDuration(newSetup.getSmokingDuration());
-        }*/
         currentSetup.setNumOfSmokedHeads(currentSetup.getNumOfSmokedHeads()+ newSetup.getNumOfSmokedHeads());
         currentSetup.setSmokingDuration(currentSetup.getSmokingDuration() + newSetup.getSmokingDuration());
         currentSetup.setSetupCount(currentSetup.getSetupCount()+ newSetup.getSetupCount());
@@ -166,7 +164,6 @@ public class UserController{
 
     }
 
-
     @GetMapping
     public ResponseEntity<Long> getTotalSmokingDurationOfUser(@AuthenticationPrincipal UserEntity authUser){
         Long currentSmokingDuration =0L;
@@ -174,11 +171,26 @@ public class UserController{
         for (SetupEntity setupEntity:setupEntities) {
             currentSmokingDuration +=setupEntity.getSmokingDuration();
         }
-        return ok(currentSmokingDuration);
+        smokingDuration += currentSmokingDuration;
+        return ok(smokingDuration);
+      //  return ok(currentSmokingDuration);
 
     }
 
-    @GetMapping("/heads")
+    @GetMapping("/heads")//?
+    public ResponseEntity<Long> getTotalNumOfHeads(@AuthenticationPrincipal UserEntity authUser){
+        Long currentNumOfHeads =0L;
+        List<SetupEntity> setupEntities = userService.getAllSetups(authUser);
+        for (SetupEntity setupEntity:setupEntities) {
+            currentNumOfHeads +=setupEntity.getNumOfSmokedHeads();
+        }
+        numOfHeads += currentNumOfHeads;
+        return ok(numOfHeads);
+
+
+    }
+
+   /* @GetMapping("/heads")
     public ResponseEntity<Long> getTotalCountOfHead (@AuthenticationPrincipal UserEntity authUser){
         Long currentNumOfHeads =0L;
         List<SetupEntity> setupEntities = userService.getAllSetups(authUser);
@@ -187,16 +199,10 @@ public class UserController{
         }
         return ok(currentNumOfHeads);
 
-    }
-
-
-
-   /* @GetMapping
-    public ResponseEntity<Long> getTotalCountOfSetup (Setup setup, @AuthenticationPrincipal UserEntity authUser){
-        Long currentSetupCount =0L;
-        List <SetupEntity> setupEntities =userService.
-
     }*/
+
+
+
 
 
 
