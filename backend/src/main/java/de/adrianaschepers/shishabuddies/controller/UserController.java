@@ -187,25 +187,7 @@ public class UserController{
         numOfHeads += currentNumOfHeads;
         return ok(numOfHeads);
 
-
     }
-
-   /* @GetMapping("/heads")
-    public ResponseEntity<Long> getTotalCountOfHead (@AuthenticationPrincipal UserEntity authUser){
-        Long currentNumOfHeads =0L;
-        List<SetupEntity> setupEntities = userService.getAllSetups(authUser);
-        for (SetupEntity setupEntity:setupEntities) {
-            currentNumOfHeads +=setupEntity.getNumOfSmokedHeads();
-        }
-        return ok(currentNumOfHeads);
-
-    }*/
-
-
-
-
-
-
 
     @GetMapping("all")
     public ResponseEntity<List<User>> getAllUsers(){
