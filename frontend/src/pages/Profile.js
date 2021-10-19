@@ -13,6 +13,7 @@ import {
 import SettingsBox from '../component/SettingsBox'
 import Button from '../component/Button'
 import Avatar from '../component/Avatar'
+import ButtonGroup from '../component/ButtonGroup'
 
 export default function Profile() {
   const { user, logout, token } = useAuth()
@@ -20,6 +21,11 @@ export default function Profile() {
   const [settings, setSettings] = useState([])
   const [smokingDuration, setSmokingDuration] = useState()
   const [amountHeads, setAmountHeads] = useState()
+
+  const resetTracking = () => {
+    setSmokingDuration(0)
+    setAmountHeads(0)
+  }
 
   useEffect(() => {
     getSettings(token)
@@ -47,7 +53,10 @@ export default function Profile() {
           smokingDuration={smokingDuration}
           headCount={amountHeads}
         />
-        <Button onClick={logout}>Log out</Button>
+        <ButtonGroup>
+          <Button onClick={logout}>Log out</Button>
+          <Button onClick={resetTracking}>reset</Button>
+        </ButtonGroup>
       </Main>
       <Navbar user={user} />
     </Page>
