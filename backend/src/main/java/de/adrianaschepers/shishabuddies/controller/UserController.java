@@ -173,11 +173,11 @@ public class UserController{
         }
         smokingDuration += currentSmokingDuration;
         return ok(smokingDuration);
-      //  return ok(currentSmokingDuration);
+
 
     }
 
-    @GetMapping("/heads")//?
+    @GetMapping("/heads")
     public ResponseEntity<Long> getTotalNumOfHeads(@AuthenticationPrincipal UserEntity authUser){
         Long currentNumOfHeads =0L;
         List<SetupEntity> setupEntities = userService.getAllSetups(authUser);
