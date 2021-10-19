@@ -122,14 +122,7 @@ public class UserService {
        return user.getSetups();
     }
 
-    private void checkIfTitleExists(SetupEntity setupEntity,List<SetupEntity> setupEntities){
-        for (SetupEntity setupEnt:setupEntities) {
-            if(setupEntity.getTitle().equals(setupEnt.getTitle())){
-                throw new EntityExistsException(String.format("title=%s already taken!",setupEntity.getTitle()));
-            }
-        }
 
-    }
 
     public SetupEntity getSetupByTitle(UserEntity authUser, String title) {
         UserEntity userEntity = userRepository.findByUserName(authUser.getUserName()).get();
