@@ -12,6 +12,7 @@ import CancelButton from '../component/CancelButton'
 import TextFieldTitle from '../component/TextFieldTitle'
 import MainCreateSetup from '../component/MainCreateSetup'
 import ButtonGroupCreateSetup from '../component/ButtonGroupCreateSetup'
+import UploadButton from '../component/UploadButton'
 
 const initialSetup = {
   title: '',
@@ -104,11 +105,17 @@ export default function CreateSetup() {
             onChange={handleSetupChange}
           />
         </Wrapper>
-        <ButtonGroupCreateSetup>
-          <Button>speichern</Button>
-          <CancelButton onClick={handleCancel}>cancel</CancelButton>
-        </ButtonGroupCreateSetup>
+
+        <WrapperInputFile>
+          <input type="file" />
+          <UploadButton>Upload</UploadButton>
+        </WrapperInputFile>
       </MainCreateSetup>
+
+      <ButtonGroupCreateSetup>
+        <Button>speichern</Button>
+        <CancelButton onClick={handleCancel}>cancel</CancelButton>
+      </ButtonGroupCreateSetup>
 
       <Navbar user={user} />
     </Page>
@@ -121,4 +128,16 @@ const Wrapper = styled.div`
   border: 1px solid #333;
   border-radius: 12px;
   box-shadow: 1px 2px 8px #666;
+`
+const WrapperInputFile = styled.form`
+  width: 280px;
+  margin-top: 8px;
+  bottom: 15px;
+  left: 15px;
+  right: 15px;
+  border: 1px solid #efefef;
+  background: white;
+  border-radius: 6px;
+  padding: 8px;
+  box-shadow: 0px 1px 1px #444;
 `

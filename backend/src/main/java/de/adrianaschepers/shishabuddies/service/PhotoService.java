@@ -1,3 +1,4 @@
+/*
 package de.adrianaschepers.shishabuddies.service;
 
 import de.adrianaschepers.shishabuddies.model.Photo;
@@ -21,3 +22,4 @@ public class PhotoService {
         return repository.findAll();
     }
 }
+*/
