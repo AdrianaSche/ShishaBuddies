@@ -106,16 +106,11 @@ export default function CreateSetup() {
           />
         </Wrapper>
 
-        <WrapperInputFile>
-          <input type="file" />
-          <UploadButton>Upload</UploadButton>
-        </WrapperInputFile>
+        <ButtonGroupCreateSetup>
+          <Button>speichern</Button>
+          <CancelButton onClick={handleCancel}>cancel</CancelButton>
+        </ButtonGroupCreateSetup>
       </MainCreateSetup>
-
-      <ButtonGroupCreateSetup>
-        <Button>speichern</Button>
-        <CancelButton onClick={handleCancel}>cancel</CancelButton>
-      </ButtonGroupCreateSetup>
 
       <Navbar user={user} />
     </Page>

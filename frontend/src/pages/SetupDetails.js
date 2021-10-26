@@ -8,6 +8,7 @@ import Header from '../component/Header'
 import Page from '../component/Page'
 import Navbar from '../component/Navbar'
 import ButtonDetails from '../component/ButtonDetails'
+import UploadButton from '../component/UploadButton'
 
 const initalSetup = {
   title: '',
@@ -40,6 +41,11 @@ export default function SetupDetails() {
         src="https://shishashop.at/wp-content/uploads/2021/03/lava-united-shisha-silber.jpg"
         alt="setup"
       />
+      <WrapperInputFile>
+        <input type="file" />
+        <UploadButton>Upload</UploadButton>
+      </WrapperInputFile>
+
       <ButtonDetails as={Link} to={`/setup/details/edit/${title}`}>
         Details bearbeiten
       </ButtonDetails>
@@ -72,9 +78,19 @@ const MainDetails = styled.main`
 const Wrapper = styled.div`
   padding: 5px;
   width: 180px;
-  height: 80%;
   text-align: left;
   border: 1px solid #333;
   border-radius: 12px;
   box-shadow: 1px 2px 8px #666;
+`
+
+const WrapperInputFile = styled.form`
+  margin-top: 8px;
+  bottom: 15px;
+  left: 15px;
+  right: 15px;
+  border: 1px solid #efefef;
+  border-radius: 6px;
+  padding: 8px;
+  box-shadow: 0px 1px 1px #444;
 `
